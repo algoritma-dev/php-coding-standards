@@ -1,0 +1,46 @@
+{
+    "name": "algoritma/php-coding-standard",
+    "description": "Algoritma coding standard",
+    "type": "composer-plugin",
+    "extra": {
+        "class": "Algoritma\\CodingStandards\\Installer\\Plugin"
+    },
+    "license": "MIT",
+    "keywords": [
+        "algoritma",
+        "algoritma.it",
+        "coding standard"
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
+        "cs-fix": "php-cs-fixer fix --diff --allow-risky yes"
+    },
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "ext-json": "*",
+        "composer-plugin-api": "^1.1 || ^2.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "symfony/console": "^4.0 || ^5.0 || ^6.0"
+    },
+    "require-dev": {
+        "composer/composer": "^1.3.2 || ^2.0",
+        "composer/semver": "^3.0",
+        "mikey179/vfsstream": "^1.6.8",
+        "phpspec/prophecy": "^1.10",
+        "phpunit/phpunit": "^8.5.21",
+        "vimeo/psalm": "^4.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Algoritma\\CodingStandards\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Algoritma\\CodingStandardsTest\\": "tests/"
+        }
+    }
+}
