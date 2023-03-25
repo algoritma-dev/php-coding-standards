@@ -3,7 +3,6 @@
 | ✅         | X          | behat | Helps to test business expectations | ✅ | ✅ | ✅ |
 | X         | X          | codeception | Codeception is a BDD-styled PHP testing framework            | ✅ | ✅ | ✅ |
 | ✅         | X          | composer-unused | Show unused packages by scanning your code                   | ✅ | ✅ | ✅ |
-| ✅         | X          | ecs | Sets up and runs coding standard checks                      | ✅ | ✅ | ✅ |
 | ✅         | X          | larastan | PHPStan extension for Laravel                                | ✅ | ✅ | ✅ |
 | ✅         | X          | local-php-security-checker | Checks composer dependencies for known security vulnerabilities | ✅ | ✅ | ✅ |
 | ✅         | X          | php-cs-fixer | PHP Coding Standards Fixer                                   | ✅ | ✅ | ✅ |
