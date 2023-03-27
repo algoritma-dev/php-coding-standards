@@ -12,6 +12,3 @@ test:
 
 install:
 	docker run --workdir=$(PWD) -v $(PWD):$(PWD) composer/composer:latest composer req $(filter-out $@,$(MAKECMDGOALS))
-
-plugin:
-	docker run --workdir=$(PWD) -v $(PWD):$(PWD) composer/composer:latest composer config --no-plugins allow-plugins.phpstan/extension-installer true
