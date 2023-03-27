@@ -14,7 +14,6 @@ final class DefaultRulesProvider implements RulesProviderInterface
      */
     private static $rules = [
         '@PSR12' => true,
-        'declare_strict_types' => true,
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_syntax' => [
