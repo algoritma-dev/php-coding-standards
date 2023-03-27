@@ -9,3 +9,9 @@ vendor-remove:
 
 test:
 	docker run --workdir=$(PWD) -v $(PWD):$(PWD) --rm docker.algoritma.it/algoritma/php:8.1-alpine3.16 vendor/bin/phpunit tests
+
+install:
+	docker run --workdir=$(PWD) -v $(PWD):$(PWD) composer/composer:latest composer req $(filter-out $@,$(MAKECMDGOALS))
+
+plugin:
+	docker run --workdir=$(PWD) -v $(PWD):$(PWD) composer/composer:latest composer config --no-plugins allow-plugins.phpstan/extension-installer true
