@@ -1,7 +1,7 @@
 {
     "name": "algoritma/php-coding-standard",
     "description": "Algoritma coding standard",
-    "type": "composer-plugin",
+    "type": "package",
     "license": "MIT",
     "keywords": [
         "algoritma",
