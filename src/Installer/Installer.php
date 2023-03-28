@@ -85,6 +85,7 @@ class Installer
         $this->io->write('<info>Setting up Algoritma Coding Standards</info>');
         $this->requestCreateCsConfig();
         $this->requestAddComposerScripts();
+        $this->requestCopyConfigurationsOnProjectRoot();
         $this->composerJson->write($this->composerDefinition);
     }
 
@@ -195,8 +196,6 @@ class Installer
         $this->io->write(sprintf("\n  <info>Writing configuration in project root...</info>"));
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
-
-        $this->filesystem->copy(__DIR__.'/../../phpstan.php', $this->projectRoot.'/phpstan.php');
     }
 
     public function requestAddComposerScripts(): void
@@ -262,5 +261,12 @@ class Installer
         $scripts[$composerCommand] = $command;
 
         $this->composerDefinition['scripts'] = $scripts;
+    }
+
+    private function requestCopyConfigurationsOnProjectRoot()
+    {
+        $this->filesystem->copy(__DIR__.'/../../phpstan.php', $this->projectRoot.'/phpstan.php');
+        $this->filesystem->copy(__DIR__.'/../../rector.php', $this->projectRoot.'/rector.php');
+        $this->filesystem->copy(__DIR__.'/../../phpmd.xml', $this->projectRoot.'/phpmd.xml');
     }
 }
