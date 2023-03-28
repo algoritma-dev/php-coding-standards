@@ -12,6 +12,7 @@ use Composer\Package\PackageInterface;
 use Composer\Semver\Semver;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
@@ -39,6 +40,7 @@ class Installer
      * @var PhpCsConfigWriterInterface
      */
     private $phpCsWriter;
+    private Filesystem $filesystem;
 
     /**
      * @param IOInterface $io
@@ -72,6 +74,7 @@ class Installer
         // Parse the composer.json
         $this->parseComposerDefinition($composerFile);
         $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigWriter();
+        $this->filesystem = new Filesystem();
     }
 
     /**
@@ -193,7 +196,7 @@ class Installer
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
 
-        shell_exec('echo $PWD');
+        $this->filesystem->copy(__DIR__.'/../../phpstan.php', $this->projectRoot.'/phpstan.php');
     }
 
     public function requestAddComposerScripts(): void
