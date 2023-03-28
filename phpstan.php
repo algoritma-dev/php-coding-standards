@@ -1,10 +1,8 @@
 <?php
 
 $parameters = [
-    'parameters' => [
-        'level' => 6,
-        'fileExtensions' => ['php']
-    ],
+    'level' => 6,
+    'fileExtensions' => ['php']
 ];
 
 $includes = [];
@@ -18,10 +16,8 @@ if ($symfony) {
 
     $containerXmlPath = getenv('SYMFONY_CONTAINER_XML_PATH');
 
-    $parameters['parameters'] = [
-        'symfony' => [
-            'containerXmlPath' => 'var/cache/dev/AppKernelDevDebugContainer.xml'
-        ]
+    $parameters['symfony'] = [
+        'containerXmlPath' => $containerXmlPath
     ];
 }
 
