@@ -14,10 +14,24 @@ if ($symfony) {
         '/tools/vendor/phpstan/phpstan-symfony/rules.neon'
     ]);
 
-    $containerXmlPath = getenv('SYMFONY_CONTAINER_XML_PATH');
+    $containerXmlPath = getenv('SYMFONY_CONTAINER_XML_PATH', true);
+
+    if (!$containerXmlPath) {
+        throw new \RuntimeException('Set SYMFONY_CONTAINER_XML_PATH environment variable on docker container ');
+    }
 
     $parameters['symfony'] = [
         'containerXmlPath' => $containerXmlPath
+    ];
+
+    $cacheConfig = getenv('SYMFONY_CACHE_CONFIG_PATH', true);
+
+    if (!$cacheConfig) {
+        throw new \RuntimeException('Set SYMFONY_CACHE_CONFIG_PATH environment variable on docker container ');
+    }
+
+    $parameters['scanDirectories'] = [
+        $cacheConfig
     ];
 }
 
