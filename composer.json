@@ -39,8 +39,5 @@
         "psr-4": {
             "Algoritma\\CodingStandards\\": "src/"
         }
-    },
-    "bin": [
-        "bin/phpstan-test"
-    ]
+    }
 }
