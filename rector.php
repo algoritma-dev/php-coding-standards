@@ -28,7 +28,13 @@ return static function (RectorConfig $rectorConfig): void {
     $doctrine = getenv('DOCTRINE');
 
     if ($symfony) {
-        $rectorConfig->symfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml');
+        $containerXmlPath = getenv('SYMFONY_CONTAINER_XML_PATH', true);
+
+        if (!$containerXmlPath) {
+            throw new \RuntimeException('Set SYMFONY_CONTAINER_XML_PATH environment variable on docker container ');
+        }
+
+        $rectorConfig->symfonyContainerXml($containerXmlPath);
 
         $rules = array_merge($rules, [
             SymfonySetList::SYMFONY_62,
