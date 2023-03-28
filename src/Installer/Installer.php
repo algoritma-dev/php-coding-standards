@@ -193,7 +193,7 @@ class Installer
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
 
-        shell_exec("cp ../../phpstan.php {$this->projectRoot}/phpstan.php");
+        shell_exec("pwd");
     }
 
     public function requestAddComposerScripts(): void
