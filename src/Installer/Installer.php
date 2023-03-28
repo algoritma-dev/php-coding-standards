@@ -192,6 +192,8 @@ class Installer
         $this->io->write(sprintf("\n  <info>Writing configuration in project root...</info>"));
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
+
+        shell_exec("cp phpstan.php {$this->projectRoot}/phpstan.php");
     }
 
     public function requestAddComposerScripts(): void
