@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+declare (strict_types=1);
+
+echo "<pre>".print_r($argv)."</pre>";
+
+$command = $argv[0];
+$type = $argv[1];
+$src = $argv[2];
+
+$output = shell_exec("docker run --rm -v $src:/code docker.algoritma.it/algoritma/php-code-quality:8.2-alpine3.16 $command analyze -c /tools/phpstan-symfony.neon /code/src");
+
+echo "<pre>$output</pre>";
