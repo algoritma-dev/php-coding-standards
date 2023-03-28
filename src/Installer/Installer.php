@@ -193,7 +193,7 @@ class Installer
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
 
-        shell_exec("pwd");
+        shell_exec('echo $PWD');
     }
 
     public function requestAddComposerScripts(): void
