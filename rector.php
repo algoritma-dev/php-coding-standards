@@ -10,10 +10,6 @@ use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
-        __DIR__ . '/src',
-    ]);
-
     $rules = [
         SetList::DEAD_CODE,
         SetList::EARLY_RETURN,
