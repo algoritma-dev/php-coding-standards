@@ -2,7 +2,7 @@
 
 $parameters = [
     'parameters' => [
-        'level'        => 6,
+        'level' => 6,
         'fileExtensions' => ['php']
     ],
 ];
@@ -10,7 +10,7 @@ $parameters = [
 $includes = [];
 
 $symfony = getenv('SYMFONY');
-if($symfony) {
+if ($symfony) {
     $includes = array_merge($includes, [
         '/tools/vendor/phpstan/phpstan-symfony/extension.neon',
         '/tools/vendor/phpstan/phpstan-symfony/rules.neon'
@@ -18,16 +18,16 @@ if($symfony) {
 
     $containerXmlPath = getenv('SYMFONY_CONTAINER_XML_PATH');
 
-    $parameters = array_merge($parameters, [
+    $parameters['parameters'] = [
         'symfony' => [
             'containerXmlPath' => 'var/cache/dev/AppKernelDevDebugContainer.xml'
         ]
-    ]);
+    ];
 }
 
 $doctrine = getenv('DOCTRINE');
 
-if($doctrine) {
+if ($doctrine) {
     $includes = array_merge($includes, [
         '/tools/vendor/phpstan/phpstan-doctrine/extension.neon',
         '/tools/vendor/phpstan/phpstan-doctrine/rules.neon'
@@ -36,7 +36,7 @@ if($doctrine) {
 
 $magento = getenv('MAGENTO');
 
-if($magento) {
+if ($magento) {
     $includes = array_merge($includes, [
         '/tools/vendor/bitexpert/phpstan-magento/extension.neon'
     ]);
@@ -44,7 +44,7 @@ if($magento) {
 
 $laravel = getenv('LARAVEL');
 
-if($laravel) {
+if ($laravel) {
     $includes = array_merge($includes, [
         '/tools/vendor/nunomaduro/larastan/extension.neon'
     ]);
