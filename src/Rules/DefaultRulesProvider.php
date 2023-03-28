@@ -17,7 +17,7 @@ final class DefaultRulesProvider implements RulesProviderInterface
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_syntax' => [
-            'syntax' => 'short',
+            'syntax' => 'long',
         ],
         'binary_operator_spaces' => [
             'operators' => [
