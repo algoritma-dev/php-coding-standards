@@ -15,7 +15,6 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::EARLY_RETURN,
         SetList::PSR_4,
         SetList::NAMING,
-        SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
     ];
