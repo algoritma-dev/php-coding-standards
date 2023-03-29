@@ -5,7 +5,9 @@ $parameters = [
     'fileExtensions' => ['php']
 ];
 
-$includes = [];
+$includes = [
+    'vendor/phpstan/phpstan-deprecation-rules/rules.neon'
+];
 
 $symfony = getenv('SYMFONY');
 if ($symfony) {
