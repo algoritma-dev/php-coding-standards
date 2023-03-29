@@ -28,13 +28,11 @@ if ($symfony) {
 
     $cacheConfig = getenv('SYMFONY_CACHE_CONFIG_PATH', true);
 
-    if (!$cacheConfig) {
-        throw new \RuntimeException('Set SYMFONY_CACHE_CONFIG_PATH environment variable on docker container ');
+    if ($cacheConfig) {
+        $parameters['scanDirectories'] = [
+            $cacheConfig
+        ];
     }
-
-    $parameters['scanDirectories'] = [
-        $cacheConfig
-    ];
 }
 
 $doctrine = getenv('DOCTRINE');
