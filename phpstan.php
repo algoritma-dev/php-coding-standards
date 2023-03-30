@@ -2,7 +2,8 @@
 
 $parameters = [
     'level' => 6,
-    'fileExtensions' => ['php']
+    'fileExtensions' => ['php'],
+    'checkGenericClassInNonGenericObjectType' => false
 ];
 
 $includes = [
