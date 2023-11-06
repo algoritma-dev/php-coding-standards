@@ -15,7 +15,17 @@ $config->setRiskyAllowed(true);
 
 $finder = new PhpCsFixer\Finder();
 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
-$finder->in($autoloadPathProvider->getPaths());
+
+$excludes = [];
+foreach ($autoloadPathProvider->getPaths() as $path) {
+    if(file_exists($dirs = $path . '.php-cs-fixer.excl.php')) {
+        foreach ($dirs as $dir) {
+            $excludes[] = require($dir);
+        }
+    }
+}
+
+$finder->in($autoloadPathProvider->getPaths())->exclude($excludes);
 
 $config->setFinder($finder);
 
