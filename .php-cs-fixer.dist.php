@@ -16,17 +16,10 @@ $config->setRiskyAllowed(true);
 $finder = new PhpCsFixer\Finder();
 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
-$excludes = [];
-foreach ($autoloadPathProvider->getPaths() as $path) {
-    if(file_exists($dirs = $path . '.php-cs-fixer.excl.php')) {
-        $dirsToExclude = require($dirs);
-        foreach ($dirsToExclude as $dir) {
-            $excludes[] = $dir;
-        }
-    }
-}
-
-$finder->in($autoloadPathProvider->getPaths())->exclude($excludes);
+$finder
+    ->in($autoloadPathProvider->getPaths())
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
 
 $config->setFinder($finder);
 
