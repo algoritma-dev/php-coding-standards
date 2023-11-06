@@ -19,8 +19,9 @@ $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 $excludes = [];
 foreach ($autoloadPathProvider->getPaths() as $path) {
     if(file_exists($dirs = $path . '.php-cs-fixer.excl.php')) {
-        foreach ($dirs as $dir) {
-            $excludes[] = require($dir);
+        $dirsToExclude = require($dirs);
+        foreach ($dirsToExclude as $dir) {
+            $excludes[] = $dir;
         }
     }
 }
