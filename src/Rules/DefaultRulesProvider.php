@@ -99,7 +99,6 @@ final class DefaultRulesProvider implements RulesProviderInterface
         'phpdoc_var_without_name' => true,
         'return_type_declaration' => true,
         'short_scalar_cast' => true,
-        'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => true,
         'single_quote' => true,
         'space_after_semicolon' => true,
