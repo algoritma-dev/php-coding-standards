@@ -6,6 +6,11 @@ $parameters = [
     'checkGenericClassInNonGenericObjectType' => false
 ];
 
+$excludePaths = getenv('EXCLUDE_PATHS');
+if($excludePaths) {
+    $parameters['excludePaths'] = explode(',', $excludePaths);
+}
+
 $includes = [
     'vendor/phpstan/phpstan-deprecation-rules/rules.neon'
 ];
