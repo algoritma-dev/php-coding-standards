@@ -39,11 +39,20 @@ class ExcludePathProvider
         if (file_exists($this->projectRoot . '/excl_paths.php')) {
             $paths = require $this->projectRoot . '/excl_paths.php';
 
-            return array_map(function (string $path): string {
-                return $this->projectRoot . \DIRECTORY_SEPARATOR . $path;
-            }, $paths);
+            return $this->concatenateProjectRoot($paths);
         }
 
         return [];
+    }
+
+    private function concatenateProjectRoot($paths)
+    {
+        if (!is_array($paths)) {
+            return $this->projectRoot . \DIRECTORY_SEPARATOR . $paths;
+        }
+
+        return array_map(function (string $path): string {
+            return $this->concatenateProjectRoot($path);
+        }, $paths);
     }
 }
