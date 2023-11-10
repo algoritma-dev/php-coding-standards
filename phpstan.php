@@ -8,7 +8,7 @@ $parameters = [
 
 $excludePaths = getenv('EXCLUDE_PATHS');
 if($excludePaths) {
-    $parameters['excludePaths'] = explode(',', $excludePaths);
+    $parameters['excludePaths']['analyseAndScan'] = explode(',', $excludePaths);
 }
 
 $includes = [
