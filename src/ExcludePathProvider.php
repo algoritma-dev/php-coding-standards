@@ -51,7 +51,7 @@ class ExcludePathProvider
             return $this->projectRoot . \DIRECTORY_SEPARATOR . $paths;
         }
 
-        return array_map(function (string $path): string {
+        return array_map(function ($path): string {
             return $this->concatenateProjectRoot($path);
         }, $paths);
     }
