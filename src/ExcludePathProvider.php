@@ -37,7 +37,11 @@ class ExcludePathProvider
         }
 
         if (file_exists($this->projectRoot . '/excl_paths.php')) {
-            return require $this->projectRoot . '/excl_paths.php';
+            $paths = require $this->projectRoot . '/excl_paths.php';
+
+            return array_map(function (string $path): string {
+                return $this->projectRoot . \DIRECTORY_SEPARATOR . $path;
+            }, $paths);
         }
 
         return [];
