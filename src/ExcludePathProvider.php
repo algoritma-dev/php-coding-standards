@@ -14,14 +14,7 @@ class ExcludePathProvider
      */
     private $projectRoot;
 
-    /**
-     * AutoloadPathProvider constructor.
-     *
-     * @param null|string $composerFile
-     * @param null|string $projectRoot
-     * @param bool $dev
-     */
-    public function __construct(?string $composerFile = null, ?string $projectRoot = null, bool $dev = true)
+    public function __construct(?string $composerFile = null, ?string $projectRoot = null)
     {
         $this->composerPath = $composerFile ?: trim(getenv('COMPOSER') ?: '') ?: './composer.json';
 
@@ -32,7 +25,6 @@ class ExcludePathProvider
         }
 
         $this->projectRoot = rtrim($projectRootPath, '/\\');
-        $this->dev = $dev;
     }
 
     /**
