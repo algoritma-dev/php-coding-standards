@@ -1,15 +1,15 @@
 <?php
 
+$autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
+$excludePathsProvider = new Algoritma\CodingStandards\ExcludePathProvider();
+
 $parameters = [
     'level' => 6,
     'fileExtensions' => ['php'],
-    'checkGenericClassInNonGenericObjectType' => false
+    'checkGenericClassInNonGenericObjectType' => false,
+    'paths' => $autoloadPathProvider->getPaths(),
+    'excludePaths' => $excludePathsProvider->getPaths()
 ];
-
-$excludePaths = getenv('EXCLUDE_PATHS');
-if($excludePaths) {
-    $parameters['excludePaths']['analyseAndScan'] = explode(',', $excludePaths);
-}
 
 $includes = [
     'vendor/phpstan/phpstan-deprecation-rules/rules.neon'
