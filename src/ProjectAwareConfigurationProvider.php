@@ -2,8 +2,15 @@
 
 namespace Algoritma\CodingStandards;
 
-class ExcludePathProvider
+class ProjectAwareConfigurationProvider
 {
+    private const PATHS_NEED_PROJECT_ROOT = [
+        'paths',
+        'bootstrapFiles',
+        'tmpDir',
+        'excludePaths'
+    ];
+
     /**
      * @var string
      */
@@ -27,19 +34,22 @@ class ExcludePathProvider
         $this->projectRoot = rtrim($projectRootPath, '/\\');
     }
 
-    /**
-     * @return string[]
-     */
-    public function getPaths(): array
+    public function getConfiguration(): array
     {
-        if (! file_exists($this->composerPath)) {
+        if (!file_exists($this->composerPath)) {
             throw new \RuntimeException('Unable to find composer.json');
         }
 
-        if (file_exists($this->projectRoot . '/excl_paths.php')) {
-            $paths = require $this->projectRoot . '/excl_paths.php';
+        if (file_exists($this->projectRoot . '/phpstan.php')) {
+            $configuration = require $this->projectRoot . '/phpstan.php';
 
-            return $this->concatenateProjectRoot($paths);
+            foreach (self::PATHS_NEED_PROJECT_ROOT as $path) {
+                if (isset($configuration['parameters'][$path])) {
+                    $configuration[$path] = $this->concatenateProjectRoot($configuration['paths']);
+                }
+            }
+
+            return $configuration;
         }
 
         return [];
@@ -47,7 +57,7 @@ class ExcludePathProvider
 
     private function concatenateProjectRoot($paths)
     {
-        if (!is_array($paths)) {
+        if (is_string($paths) && !str_starts_with($paths, $this->projectRoot)) {
             return $this->projectRoot . \DIRECTORY_SEPARATOR . $paths;
         }
 
