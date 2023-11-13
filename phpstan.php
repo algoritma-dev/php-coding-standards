@@ -67,12 +67,12 @@ if ($laravel) {
 $projectAwareConfigurationProvider = new \Algoritma\CodingStandards\ProjectAwareConfigurationProvider();
 $projectConfiguration = $projectAwareConfigurationProvider->getConfiguration();
 
-var_dump(array_merge_recursive([
+var_dump(Algoritma\CodingStandards\Util\ArrayUtil::arrayMergeRecursive([
     'includes' => $includes,
     'parameters' => $parameters
 ], $projectConfiguration));
 
-return array_merge_recursive([
+return Algoritma\CodingStandards\Util\ArrayUtil::arrayMergeRecursive([
     'includes' => $includes,
     'parameters' => $parameters
 ], $projectConfiguration);
