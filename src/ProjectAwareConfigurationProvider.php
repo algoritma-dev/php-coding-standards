@@ -61,8 +61,12 @@ class ProjectAwareConfigurationProvider
             return $this->projectRoot . \DIRECTORY_SEPARATOR . $paths;
         }
 
-        return array_map(function ($path) {
-            return $this->concatenateProjectRoot($path);
-        }, $paths);
+        if(is_array($paths)) {
+            return array_map(function ($path) {
+                return $this->concatenateProjectRoot($path);
+            }, $paths);
+        }
+
+        return $paths;
     }
 }
