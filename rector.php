@@ -13,7 +13,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rules = [
         SetList::DEAD_CODE,
         SetList::EARLY_RETURN,
-        SetList::PSR_4,
         SetList::NAMING,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
