@@ -45,7 +45,7 @@ class ProjectAwareConfigurationProvider
 
             foreach (self::PATHS_NEED_PROJECT_ROOT as $path) {
                 if (isset($configuration['parameters'][$path])) {
-                    $configuration[$path] = $this->concatenateProjectRoot($configuration['paths']);
+                    $configuration['parameters'][$path] = $this->concatenateProjectRoot($configuration['parameters'][$path]);
                 }
             }
 
