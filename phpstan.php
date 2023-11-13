@@ -1,14 +1,12 @@
 <?php
 
 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
-$excludePathsProvider = new Algoritma\CodingStandards\ExcludePathProvider();
 
 $parameters = [
     'level' => 6,
     'fileExtensions' => ['php'],
     'checkGenericClassInNonGenericObjectType' => false,
-    'paths' => $autoloadPathProvider->getPaths(),
-    'excludePaths' => $excludePathsProvider->getPaths()
+    'paths' => $autoloadPathProvider->getPaths()
 ];
 
 $includes = [
@@ -66,7 +64,10 @@ if ($laravel) {
     ]);
 }
 
-return [
+$projectAwareConfigurationProvider = new \Algoritma\CodingStandards\ProjectAwareConfigurationProvider();
+$projectConfiguration = $projectAwareConfigurationProvider->getConfiguration();
+
+return array_merge_recursive([
     'includes' => $includes,
     'parameters' => $parameters
-];
+], $projectConfiguration);
