@@ -4,6 +4,10 @@ namespace Algoritma\CodingStandards;
 
 class ProjectAwareConfigurationProvider
 {
+    public const PHPSTAN_CONFIG = 'phpstan';
+
+    public const RECTOR_CONFIG = 'rector';
+
     private const PATHS_NEED_PROJECT_ROOT = [
         'paths',
         'bootstrapFiles',
@@ -34,22 +38,31 @@ class ProjectAwareConfigurationProvider
         $this->projectRoot = rtrim($projectRootPath, '/\\');
     }
 
-    public function getConfiguration(): array
+    public function getConfiguration(string $configType): array
     {
         if (!file_exists($this->composerPath)) {
             throw new \RuntimeException('Unable to find composer.json');
         }
 
-        if (file_exists($this->projectRoot . '/phpstan.php')) {
-            $configuration = require $this->projectRoot . '/phpstan.php';
+        switch ($configType) {
+            case self::PHPSTAN_CONFIG:
+                if (file_exists($this->projectRoot . '/phpstan.php')) {
+                    $configuration = require $this->projectRoot . '/phpstan.php';
 
-            foreach (self::PATHS_NEED_PROJECT_ROOT as $path) {
-                if (isset($configuration['parameters'][$path])) {
-                    $configuration['parameters'][$path] = $this->concatenateProjectRoot($configuration['parameters'][$path]);
+                    foreach (self::PATHS_NEED_PROJECT_ROOT as $path) {
+                        if (isset($configuration['parameters'][$path])) {
+                            $configuration['parameters'][$path] = $this->concatenateProjectRoot($configuration['parameters'][$path]);
+                        }
+                    }
+
+                    return $configuration;
                 }
-            }
-
-            return $configuration;
+                break;
+            case self::RECTOR_CONFIG:
+                if (file_exists($this->projectRoot . '/rector.php')) {
+                    return require $this->projectRoot . '/rector.php';
+                }
+                break;
         }
 
         return [];

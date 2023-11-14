@@ -1,5 +1,7 @@
 <?php
 
+use Algoritma\CodingStandards\ProjectAwareConfigurationProvider;
+
 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
 $parameters = [
@@ -64,8 +66,8 @@ if ($laravel) {
     ]);
 }
 
-$projectAwareConfigurationProvider = new \Algoritma\CodingStandards\ProjectAwareConfigurationProvider();
-$projectConfiguration = $projectAwareConfigurationProvider->getConfiguration();
+$projectAwareConfigurationProvider = new ProjectAwareConfigurationProvider();
+$projectConfiguration = $projectAwareConfigurationProvider->getConfiguration(ProjectAwareConfigurationProvider::PHPSTAN_CONFIG);
 
 return Algoritma\CodingStandards\Util\ArrayUtil::arrayMergeRecursive([
     'includes' => $includes,
