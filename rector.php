@@ -31,7 +31,9 @@ return static function (RectorConfig $rectorConfig): void {
         $rectorConfig->symfonyContainerXml($containerXmlPath);
 
         $rules = array_merge($rules, [
-            SymfonySetList::SYMFONY_62,
+            SymfonySetList::CONFIGS,
+            SymfonySetList::SYMFONY_63,
+            SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
             SymfonySetList::SYMFONY_CODE_QUALITY,
             SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
         ]);
