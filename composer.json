@@ -16,7 +16,7 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "composer": "*",
         "composer-plugin-api": "*",
         "bitexpert/phpstan-magento": "*",
@@ -24,7 +24,6 @@
         "friendsoftwig/twigcs": "*",
         "icanhazstring/composer-unused": "*",
         "nunomaduro/larastan": "*",
-        "phpmd/phpmd": "*",
         "phpstan/phpstan": "*",
         "phpstan/phpstan-deprecation-rules": "*",
         "phpstan/phpstan-doctrine": "*",
@@ -33,11 +32,15 @@
         "phpstan/phpstan-symfony": "*",
         "rector/rector": "*",
         "symfony/console": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "vimeo/psalm": "^5.15"
     },
     "autoload": {
         "psr-4": {
             "Algoritma\\CodingStandards\\": "src/"
         }
+    },
+    "require-dev": {
+        "psalm/plugin-phpunit": "^0.18.4"
     }
 }
