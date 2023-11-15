@@ -79,7 +79,6 @@ class Installer
         $this->io->write('<info>Setting up Algoritma Coding Standards</info>');
         $this->requestCreateCsConfig();
         $this->requestAddComposerScripts();
-        $this->requestCopyConfigurationsOnProjectRoot();
         $this->composerJson->write($this->composerDefinition);
     }
 
@@ -246,13 +245,5 @@ class Installer
         $scripts[$composerCommand] = $command;
 
         $this->composerDefinition['scripts'] = $scripts;
-    }
-
-    private function requestCopyConfigurationsOnProjectRoot()
-    {
-        $this->filesystem->copy(__DIR__.'/../../phpstan.php', $this->projectRoot.'/phpstan.php');
-        $this->filesystem->copy(__DIR__.'/../../rector.php', $this->projectRoot.'/rector.php');
-        $this->filesystem->copy(__DIR__.'/../../phpmd.xml', $this->projectRoot.'/phpmd.xml');
-        $this->filesystem->copy(__DIR__.'/../../psalm.xml', $this->projectRoot.'/psalm.xml');
     }
 }
