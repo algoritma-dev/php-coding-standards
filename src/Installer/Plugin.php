@@ -29,8 +29,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
      * Constructor.
      *
      * Optionally accept the project root into which to install.
-     *
-     * @param null|Installer $installer
      */
     public function __construct(Installer $installer = null)
     {
@@ -42,8 +40,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     *
-     * @return string
      */
     public static function getPackageName(): string
     {
@@ -83,24 +79,14 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     /**
      * Apply plugin modifications to Composer.
      *
-     * @param Composer    $composer
-     * @param IOInterface $io
-     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function activate(Composer $composer, IOInterface $io): void
-    {
-    }
+    public function activate(Composer $composer, IOInterface $io): void {}
 
     /**
-     * @param Composer    $composer
-     * @param IOInterface $io
-     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     *
-     * @return Installer
      */
     public function getInstaller(Composer $composer, IOInterface $io): Installer
     {
@@ -112,8 +98,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     }
 
     /**
-     * @param PackageEvent $event
-     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \Exception
@@ -150,8 +134,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     }
 
     /**
-     * @param PackageEvent $event
-     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws \Exception
@@ -206,11 +188,7 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
         ];
     }
 
-    public function deactivate(Composer $composer, IOInterface $io): void
-    {
-    }
+    public function deactivate(Composer $composer, IOInterface $io): void {}
 
-    public function uninstall(Composer $composer, IOInterface $io): void
-    {
-    }
+    public function uninstall(Composer $composer, IOInterface $io): void {}
 }

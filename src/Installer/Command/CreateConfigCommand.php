@@ -25,17 +25,11 @@ class CreateConfigCommand extends BaseCommand
         parent::__construct($name);
     }
 
-    /**
-     * @return PhpCsConfigWriterInterface
-     */
     public function getConfigWriter(): PhpCsConfigWriterInterface
     {
         return $this->configWriter;
     }
 
-    /**
-     * @param PhpCsConfigWriterInterface $configWriter
-     */
     public function setConfigWriter(PhpCsConfigWriterInterface $configWriter): void
     {
         $this->configWriter = $configWriter;
@@ -51,9 +45,9 @@ class CreateConfigCommand extends BaseCommand
                 new InputOption('no-risky', null, InputOption::VALUE_NONE, 'Do not include risky rules'),
             ])
             ->setHelp(
-                <<<HELP
-Write config file in <comment>.php-cs-fixer.dist.php</comment>.
-HELP
+                <<<'HELP'
+                    Write config file in <comment>.php-cs-fixer.dist.php</comment>.
+                    HELP
             )
         ;
     }
