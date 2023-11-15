@@ -66,7 +66,7 @@ final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
 
         return <<<TEXT
             \$additionalRules = [];
-            \$rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
+            \$rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
             {$providersLine}
             ]);
             TEXT;
