@@ -4,7 +4,7 @@ $providers = [
     new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
     new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),
     // TODO: drop when PHP 8.0+ is required
-    new Facile\CodingStandards\Rules\ArrayRulesProvider([
+    new Algoritma\CodingStandards\Rules\ArrayRulesProvider([
         'get_class_to_class_keyword' => false,
     ]),
 ];
