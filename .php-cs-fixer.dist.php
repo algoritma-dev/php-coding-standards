@@ -3,6 +3,10 @@
 $providers = [
     new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
     new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),
+    // TODO: drop when PHP 8.0+ is required
+    new Facile\CodingStandards\Rules\ArrayRulesProvider([
+        'get_class_to_class_keyword' => false,
+    ]),
 ];
 
 $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider($providers);
@@ -16,10 +20,12 @@ $config->setRiskyAllowed(true);
 $finder = new PhpCsFixer\Finder();
 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
-$finder
-    ->in($autoloadPathProvider->getPaths())
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
+$finder->in($autoloadPathProvider->getPaths());
+$finder->append([
+    __DIR__ . '/.php-cs-fixer.dist.php',
+    __DIR__ . '/dump_rules.php',
+]);
+$config->setFinder($finder);
 
 $config->setFinder($finder);
 
