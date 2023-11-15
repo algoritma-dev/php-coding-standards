@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Rules;
 
-/**
- * Class CompositeRulesProvider
- */
 final class CompositeRulesProvider implements RulesProviderInterface
 {
     /**
@@ -31,11 +28,6 @@ final class CompositeRulesProvider implements RulesProviderInterface
         $this->providers[] = $provider;
     }
 
-    /**
-     * Get rules.
-     *
-     * @return array<string, mixed>
-     */
     public function getRules(): array
     {
         $rules = [];

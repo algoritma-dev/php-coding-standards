@@ -6,23 +6,12 @@ namespace Algoritma\CodingStandards\Installer\Writer;
 
 final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
 {
-    /**
-     * @param null|string $filename
-     * @param bool $noDev
-     * @param bool $noRisky
-     */
     public function writeConfigFile(?string $filename = null, bool $noDev = false, bool $noRisky = false): void
     {
         $filename = $filename ?: '.php-cs-fixer.dist.php';
         file_put_contents($filename, $this->createConfigSource($noDev, $noRisky));
     }
 
-    /**
-     * @param bool $noDev
-     * @param bool $noRisky
-     *
-     * @return string
-     */
     private function createConfigSource(bool $noDev = false, bool $noRisky = false): string
     {
         $rulesProviderConfig = $this->createRulesProviderConfig($noRisky);
@@ -34,31 +23,31 @@ final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
         }
 
         return <<<FILE
-<?php
+            <?php
 
-/*
- * Additional rules or rules to override.
- * These rules will be added to default rules or will override them if the same key already exists.
- */
- 
-$rulesProviderConfig
+            /*
+             * Additional rules or rules to override.
+             * These rules will be added to default rules or will override them if the same key already exists.
+             */
 
-\$config = new PhpCsFixer\Config();
-\$config->setRules(\$rulesProvider->getRules());
+            {$rulesProviderConfig}
 
-\$finder = new PhpCsFixer\Finder();
+            \$config = new PhpCsFixer\Config();
+            \$config->setRules(\$rulesProvider->getRules());
 
-/*
- * You can set manually these paths:
- */
-$autoloadPathProvider
-\$finder->in(\$autoloadPathProvider->getPaths());
+            \$finder = new PhpCsFixer\Finder();
 
-\$config->setFinder(\$finder);
+            /*
+             * You can set manually these paths:
+             */
+            {$autoloadPathProvider}
+            \$finder->in(\$autoloadPathProvider->getPaths());
 
-return \$config;
+            \$config->setFinder(\$finder);
 
-FILE;
+            return \$config;
+
+            FILE;
     }
 
     private function createRulesProviderConfig(bool $noRisky = false): string
@@ -76,10 +65,10 @@ FILE;
         $providersLine = implode("\n", $providersLine);
 
         return <<<TEXT
-\$additionalRules = [];
-\$rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
-$providersLine
-]);
-TEXT;
+            \$additionalRules = [];
+            \$rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
+            {$providersLine}
+            ]);
+            TEXT;
     }
 }

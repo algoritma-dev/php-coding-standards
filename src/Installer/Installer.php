@@ -43,12 +43,6 @@ class Installer
     private Filesystem $filesystem;
 
     /**
-     * @param IOInterface $io
-     * @param Composer    $composer
-     * @param null|string $projectRoot
-     * @param null|string $composerPath
-     * @param null|PhpCsConfigWriterInterface $phpCsWriter
-     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
@@ -98,7 +92,7 @@ class Installer
     public function checkUpgrade(PackageInterface $currentPackage, PackageInterface $targetPackage): void
     {
         if (! $this->io->isInteractive()) {
-            $this->io->write(sprintf("\n  <info>Skipping configuration upgrade due to --no-interactive flag.</info>"));
+            $this->io->write("\n  <info>Skipping configuration upgrade due to --no-interactive flag.</info>");
 
             return;
         }
@@ -121,7 +115,7 @@ class Installer
             return;
         }
 
-        $this->io->write(sprintf("\n  <info>Writing configuration in project root...</info>"));
+        $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
     }
@@ -133,7 +127,7 @@ class Installer
         }
 
         $constraint = $currentPackage->getVersion();
-        if (0 !== strpos($constraint, 'dev-')) {
+        if (! str_starts_with($constraint, 'dev-')) {
             $constraint = '^' . $constraint;
         }
 
@@ -146,17 +140,12 @@ class Installer
         return true;
     }
 
-    /**
-     * @param PhpCsConfigWriterInterface $phpCsWriter
-     */
     public function setPhpCsWriter(PhpCsConfigWriterInterface $phpCsWriter): void
     {
         $this->phpCsWriter = $phpCsWriter;
     }
 
     /**
-     * @param string   $composerFile
-     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
@@ -173,8 +162,8 @@ class Installer
         $destPath = $this->projectRoot . '/.php-cs-fixer.dist.php';
 
         if (file_exists($destPath)) {
-            $this->io->write(sprintf("\n  <comment>Skipping... CS config file already exists.</comment>"));
-            $this->io->write(sprintf('  <info>Delete .php-cs-fixer.dist.php if you want to install it.</info>'));
+            $this->io->write("\n  <comment>Skipping... CS config file already exists.</comment>");
+            $this->io->write('  <info>Delete .php-cs-fixer.dist.php if you want to install it.</info>');
 
             return;
         }
@@ -193,7 +182,7 @@ class Installer
             return;
         }
 
-        $this->io->write(sprintf("\n  <info>Writing configuration in project root...</info>"));
+        $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
     }
@@ -209,7 +198,7 @@ class Installer
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
 
         if (\is_array($scriptsDefinition) && 0 === \count(array_diff_key($scripts, $scriptsDefinition))) {
-            $this->io->write(sprintf("\n  <comment>Skipping... Scripts already exist in composer.json.</comment>"));
+            $this->io->write("\n  <comment>Skipping... Scripts already exist in composer.json.</comment>");
 
             return;
         }
@@ -249,10 +238,6 @@ class Installer
         }
     }
 
-    /**
-     * @param string $composerCommand
-     * @param string $command
-     */
     protected function addComposerScript(string $composerCommand, string $command): void
     {
         /** @var array<string, mixed> $scripts */
@@ -268,5 +253,6 @@ class Installer
         $this->filesystem->copy(__DIR__.'/../../phpstan.php', $this->projectRoot.'/phpstan.php');
         $this->filesystem->copy(__DIR__.'/../../rector.php', $this->projectRoot.'/rector.php');
         $this->filesystem->copy(__DIR__.'/../../phpmd.xml', $this->projectRoot.'/phpmd.xml');
+        $this->filesystem->copy(__DIR__.'/../../psalm.xml', $this->projectRoot.'/psalm.xml');
     }
 }
