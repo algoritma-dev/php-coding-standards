@@ -30,11 +30,12 @@
         "phpstan/phpstan-phpunit": "*",
         "phpstan/phpstan-strict-rules": "*",
         "phpstan/phpstan-symfony": "*",
+        "psalm/plugin-phpunit": "^0.18.4",
+        "psalm/plugin-symfony": "^5.1",
         "rector/rector": "*",
         "symfony/console": "*",
         "symfony/yaml": "*",
-        "vimeo/psalm": "^5.15",
-        "psalm/plugin-phpunit": "^0.18.4"
+        "vimeo/psalm": "^5.15"
     },
     "autoload": {
         "psr-4": {
