@@ -33,14 +33,12 @@
         "rector/rector": "*",
         "symfony/console": "*",
         "symfony/yaml": "*",
-        "vimeo/psalm": "^5.15"
+        "vimeo/psalm": "^5.15",
+        "psalm/plugin-phpunit": "^0.18.4"
     },
     "autoload": {
         "psr-4": {
             "Algoritma\\CodingStandards\\": "src/"
         }
     },
-    "require-dev": {
-        "psalm/plugin-phpunit": "^0.18.4"
-    }
 }

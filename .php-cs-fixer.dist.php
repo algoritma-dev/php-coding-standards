@@ -24,7 +24,6 @@ $finder->in($autoloadPathProvider->getPaths());
 $finder->append([
     __DIR__ . '/.php-cs-fixer.dist.php'
 ]);
-$config->setFinder($finder);
 
 $config->setFinder($finder);
 
