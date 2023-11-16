@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest;
+namespace Algoritma\CodingStandardsTest;
 
 class Util
 {
@@ -10,7 +10,7 @@ class Util
     {
         return <<<'JSON'
             {
-              "name": "facile-it/facile-coding-standard-test",
+              "name": "algoritma/php-coding-standard-test",
               "description": "Facile coding standard test",
               "type": "project",
               "license": "proprietary",

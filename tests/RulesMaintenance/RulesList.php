@@ -1,6 +1,6 @@
 <?php
 
-namespace Facile\CodingStandardsTest\RulesMaintenance;
+namespace Algoritma\CodingStandardsTest\RulesMaintenance;
 
 /**
  * This is a class that verifies the ruleset against all the existing rules in PHP-CS-Fixer; it is useful to keep tabs on new

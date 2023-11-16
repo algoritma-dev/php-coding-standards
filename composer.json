@@ -41,5 +41,10 @@
     "psr-4": {
       "Algoritma\\CodingStandards\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Algoritma\\CodingStandardsTest\\": "tests/"
+    }
   }
 }

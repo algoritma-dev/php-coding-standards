@@ -1,10 +1,10 @@
 <?php
 
-namespace Facile\CodingStandardsTest\RulesMaintenance;
+namespace Algoritma\CodingStandardsTest\RulesMaintenance;
 
-use Facile\CodingStandards\Rules\CompositeRulesProvider;
-use Facile\CodingStandards\Rules\DefaultRulesProvider;
-use Facile\CodingStandards\Rules\RiskyRulesProvider;
+use Algoritma\CodingStandards\Rules\CompositeRulesProvider;
+use Algoritma\CodingStandards\Rules\DefaultRulesProvider;
+use Algoritma\CodingStandards\Rules\RiskyRulesProvider;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\Command\DescribeCommand;
 use PhpCsFixer\Console\ConfigurationResolver;
@@ -83,7 +83,7 @@ class Dumper
 
         $rulesProvider = new CompositeRulesProvider($providers);
 
-        $config = new Config('facile-it/facile-coding-standard');
+        $config = new Config('algoritma/php-coding-standard');
         $config->setRules($rulesProvider->getRules());
         $config->setRiskyAllowed(true);
 

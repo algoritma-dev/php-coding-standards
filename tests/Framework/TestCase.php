@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Framework;
+namespace Algoritma\CodingStandardsTest\Framework;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

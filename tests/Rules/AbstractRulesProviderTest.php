@@ -1,10 +1,10 @@
 <?php
 
-namespace Facile\CodingStandardsTest\Rules;
+namespace Algoritma\CodingStandardsTest\Rules;
 
-use Facile\CodingStandards\Rules\AbstractRuleProvider;
-use Facile\CodingStandards\Rules\RulesProviderInterface;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Rules\AbstractRuleProvider;
+use Algoritma\CodingStandards\Rules\RulesProviderInterface;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;

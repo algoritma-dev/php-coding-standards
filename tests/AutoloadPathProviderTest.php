@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest;
+namespace Algoritma\CodingStandardsTest;
 
-use Facile\CodingStandards\AutoloadPathProvider;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\AutoloadPathProvider;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 

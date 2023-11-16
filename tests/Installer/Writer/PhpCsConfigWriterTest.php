@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Installer\Writer;
+namespace Algoritma\CodingStandardsTest\Installer\Writer;
 
-use Facile\CodingStandards\Installer\Writer\PhpCsConfigWriter;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriter;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
@@ -41,10 +41,10 @@ class PhpCsConfigWriterTest extends TestCase
              */
 
             $additionalRules = [];
-            $rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
-                new Facile\CodingStandards\Rules\DefaultRulesProvider(),
-                new Facile\CodingStandards\Rules\RiskyRulesProvider(),
-                new Facile\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
+            $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
+                new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
+                new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),
+                new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
             ]);
 
             $config = new PhpCsFixer\Config();
@@ -55,7 +55,7 @@ class PhpCsConfigWriterTest extends TestCase
             /*
              * You can set manually these paths:
              */
-            $autoloadPathProvider = new Facile\CodingStandards\AutoloadPathProvider();
+            $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
             $finder->in($autoloadPathProvider->getPaths());
 
             $config->setFinder($finder);
@@ -85,10 +85,10 @@ class PhpCsConfigWriterTest extends TestCase
              */
 
             $additionalRules = [];
-            $rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
-                new Facile\CodingStandards\Rules\DefaultRulesProvider(),
-                new Facile\CodingStandards\Rules\RiskyRulesProvider(),
-                new Facile\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
+            $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
+                new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
+                new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),
+                new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
             ]);
 
             $config = new PhpCsFixer\Config();
@@ -99,7 +99,7 @@ class PhpCsConfigWriterTest extends TestCase
             /*
              * You can set manually these paths:
              */
-            $autoloadPathProvider = new Facile\CodingStandards\AutoloadPathProvider(null, null, false);
+            $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
             $finder->in($autoloadPathProvider->getPaths());
 
             $config->setFinder($finder);
@@ -129,9 +129,9 @@ class PhpCsConfigWriterTest extends TestCase
              */
 
             $additionalRules = [];
-            $rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
-                new Facile\CodingStandards\Rules\DefaultRulesProvider(),
-                new Facile\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
+            $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
+                new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
+                new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
             ]);
 
             $config = new PhpCsFixer\Config();
@@ -142,7 +142,7 @@ class PhpCsConfigWriterTest extends TestCase
             /*
              * You can set manually these paths:
              */
-            $autoloadPathProvider = new Facile\CodingStandards\AutoloadPathProvider();
+            $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
             $finder->in($autoloadPathProvider->getPaths());
 
             $config->setFinder($finder);
@@ -172,9 +172,9 @@ class PhpCsConfigWriterTest extends TestCase
              */
 
             $additionalRules = [];
-            $rulesProvider = new Facile\CodingStandards\Rules\CompositeRulesProvider([
-                new Facile\CodingStandards\Rules\DefaultRulesProvider(),
-                new Facile\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
+            $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
+                new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
+                new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
             ]);
 
             $config = new PhpCsFixer\Config();
@@ -185,7 +185,7 @@ class PhpCsConfigWriterTest extends TestCase
             /*
              * You can set manually these paths:
              */
-            $autoloadPathProvider = new Facile\CodingStandards\AutoloadPathProvider(null, null, false);
+            $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
             $finder->in($autoloadPathProvider->getPaths());
 
             $config->setFinder($finder);

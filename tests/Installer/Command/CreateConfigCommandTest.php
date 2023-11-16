@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Installer\Command;
+namespace Algoritma\CodingStandardsTest\Installer\Command;
 
-use Facile\CodingStandards\Installer\Command\CreateConfigCommand;
-use Facile\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Installer\Command\CreateConfigCommand;
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 

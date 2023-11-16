@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Installer;
+namespace Algoritma\CodingStandardsTest\Installer;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Package\Package;
 use Composer\Package\PackageInterface;
-use Facile\CodingStandards\Installer\Installer;
-use Facile\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
-use Facile\CodingStandardsTest\Framework\TestCase;
-use Facile\CodingStandardsTest\Util;
+use Algoritma\CodingStandards\Installer\Installer;
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Util;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use Prophecy\Argument;
