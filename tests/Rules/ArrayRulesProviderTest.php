@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Rules;
+namespace Algoritma\CodingStandardsTest\Rules;
 
-use Facile\CodingStandards\Rules\ArrayRulesProvider;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Rules\ArrayRulesProvider;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class ArrayRulesProviderTest extends TestCase
 {

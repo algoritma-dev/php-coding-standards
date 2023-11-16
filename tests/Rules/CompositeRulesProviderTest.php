@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Rules;
+namespace Algoritma\CodingStandardsTest\Rules;
 
-use Facile\CodingStandards\Rules\CompositeRulesProvider;
-use Facile\CodingStandards\Rules\RulesProviderInterface;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Rules\CompositeRulesProvider;
+use Algoritma\CodingStandards\Rules\RulesProviderInterface;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class CompositeRulesProviderTest extends TestCase
 {

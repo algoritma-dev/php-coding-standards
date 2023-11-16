@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Installer;
+namespace Algoritma\CodingStandardsTest\Installer;
 
 use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
-use Facile\CodingStandards\Installer\Command\CreateConfigCommand;
-use Facile\CodingStandards\Installer\CommandProvider;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Installer\Command\CreateConfigCommand;
+use Algoritma\CodingStandards\Installer\CommandProvider;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class CommandProviderTest extends TestCase
 {

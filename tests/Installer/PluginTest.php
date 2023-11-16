@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Installer;
+namespace Algoritma\CodingStandardsTest\Installer;
 
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
@@ -15,15 +15,15 @@ use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
-use Facile\CodingStandards\Installer\CommandProvider;
-use Facile\CodingStandards\Installer\Installer;
-use Facile\CodingStandards\Installer\Plugin;
-use Facile\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandards\Installer\CommandProvider;
+use Algoritma\CodingStandards\Installer\Installer;
+use Algoritma\CodingStandards\Installer\Plugin;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Prophecy\Argument;
 
 class PluginTest extends TestCase
 {
-    private const PACKAGE_NAME = 'facile-it/facile-coding-standard';
+    private const PACKAGE_NAME = 'algoritma/php-coding-standard';
 
     public function testGetPackageName(): void
     {

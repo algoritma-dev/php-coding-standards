@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Facile\CodingStandardsTest\Rules;
+namespace Algoritma\CodingStandardsTest\Rules;
 
-use Facile\CodingStandards\Rules\RiskyRulesProvider;
+use Algoritma\CodingStandards\Rules\RiskyRulesProvider;
 
 class RiskyRulesProviderTest extends AbstractRulesProviderTest
 {

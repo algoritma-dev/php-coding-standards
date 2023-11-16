@@ -1,6 +1,6 @@
 <?php
 
-namespace Facile\CodingStandardsTest\RulesMaintenance;
+namespace Algoritma\CodingStandardsTest\RulesMaintenance;
 
 use PHPUnit\Framework\TestCase;
 
