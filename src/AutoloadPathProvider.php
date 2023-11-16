@@ -83,10 +83,6 @@ class AutoloadPathProvider
             return is_dir($this->projectRoot . \DIRECTORY_SEPARATOR . $path);
         });
 
-        $autoloadPaths = array_map(function (string $path): string {
-            return $this->projectRoot . \DIRECTORY_SEPARATOR . $path;
-        }, $autoloadPaths);
-
         return $autoloadPaths;
     }
 

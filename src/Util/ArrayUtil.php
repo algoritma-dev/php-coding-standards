@@ -8,11 +8,11 @@ class ArrayUtil
     {
         $merged = $array1;
 
-        foreach ($array2 as $key => & $value) {
-            if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
+        foreach ($array2 as $key => &$value) {
+            if (\is_array($value) && isset($merged[$key]) && \is_array($merged[$key])) {
                 $merged[$key] = self::arrayMergeRecursive($merged[$key], $value);
-            } else if (is_numeric($key)) {
-                if (!in_array($value, $merged)) {
+            } elseif (is_numeric($key)) {
+                if (! \in_array($value, $merged)) {
                     $merged[] = $value;
                 }
             } else {

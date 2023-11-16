@@ -40,6 +40,7 @@ class Installer
      * @var PhpCsConfigWriterInterface
      */
     private $phpCsWriter;
+
     private Filesystem $filesystem;
 
     /**
@@ -83,10 +84,7 @@ class Installer
     }
 
     /**
-     * Check if we need to do some upgrades
-     *
-     * @param PackageInterface $currentPackage
-     * @param PackageInterface $targetPackage
+     * Check if we need to do some upgrades.
      */
     public function checkUpgrade(PackageInterface $currentPackage, PackageInterface $targetPackage): void
     {

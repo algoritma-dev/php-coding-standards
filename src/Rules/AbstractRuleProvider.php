@@ -106,7 +106,7 @@ abstract class AbstractRuleProvider implements RulesProviderInterface
         }
 
         foreach (self::INTRODUCTION_MAP as $version => $newRules) {
-            if (!$this->isAtLeastVersion($version)) {
+            if (! $this->isAtLeastVersion($version)) {
                 foreach ($newRules as $name) {
                     unset($rules[$name]);
                 }

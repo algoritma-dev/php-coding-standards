@@ -1,0 +1,20 @@
+version: '3.5'
+
+networks:
+    app-network:
+        driver: bridge
+
+services:
+
+    workspace:
+        image: docker.algoritma.it/algoritma/workspace:shopware6.5-alpine3.16
+        environment:
+            - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
+            - PHP_MEMORY_LIMIT=4G
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        volumes:
+            - .:/var/www
+            - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
+        networks:
+            - app-network

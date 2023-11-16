@@ -22,7 +22,7 @@ $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
 $finder->in($autoloadPathProvider->getPaths());
 $finder->append([
-    __DIR__ . '/.php-cs-fixer.dist.php'
+    __DIR__ . '/.php-cs-fixer.dist.php',
 ]);
 
 $config->setFinder($finder);
