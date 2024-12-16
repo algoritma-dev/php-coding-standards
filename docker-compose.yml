@@ -7,14 +7,14 @@ networks:
 services:
 
     workspace:
-        image: docker.algoritma.it/algoritma/workspace:shopware6.5-alpine3.16
+        image: algoritmasw/development:8.3-node-20.10-composer-2-xdebug
         environment:
             - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
             - PHP_MEMORY_LIMIT=4G
         extra_hosts:
             - host.docker.internal:host-gateway
         volumes:
-            - .:/var/www
+            - .:/app
             - ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK}
         networks:
             - app-network

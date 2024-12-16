@@ -2,11 +2,7 @@
 
 $providers = [
     new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
-    new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),
-    // TODO: drop when PHP 8.0+ is required
-    new Algoritma\CodingStandards\Rules\ArrayRulesProvider([
-        'get_class_to_class_keyword' => false,
-    ]),
+    new Algoritma\CodingStandards\Rules\RiskyRulesProvider()
 ];
 
 $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider($providers);
@@ -20,7 +16,10 @@ $config->setRiskyAllowed(true);
 $finder = new PhpCsFixer\Finder();
 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
-$finder->in($autoloadPathProvider->getPaths());
+$finder
+    ->in($autoloadPathProvider->getPaths())
+    ->exclude(['node_modules', '*/vendor/*'])
+;
 $finder->append([
     __DIR__ . '/.php-cs-fixer.dist.php',
 ]);

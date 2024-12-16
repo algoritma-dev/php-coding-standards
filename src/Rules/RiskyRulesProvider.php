@@ -47,6 +47,10 @@ final class RiskyRulesProvider extends AbstractRuleProvider
             'set_type_to_cast' => true,
             'ternary_to_elvis_operator' => true,
             'void_return' => true,
+            'phpdoc_list_type' => true,
+            'php_unit_assert_new_names' => true,
+            'phpdoc_array_type' => true,
+            'class_keyword' => true
         ]);
     }
 }
