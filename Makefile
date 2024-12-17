@@ -10,7 +10,7 @@ start:
 composer-update: start
 	docker-compose exec --user 1000:1000 php composer update
 
-pre-commit-check: rector cs-fix psalm phpstan tests
+pre-commit-check: rector cs-fix phpstan tests
 
 rector: start
 	docker-compose exec --user 1000:1000 php vendor/bin/rector --ansi

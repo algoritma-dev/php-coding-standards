@@ -10,7 +10,7 @@ use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
 use Composer\Package\PackageInterface;
 use Composer\Semver\Semver;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriter;
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 
 class Installer
@@ -50,7 +50,7 @@ class Installer
 
         // Parse the composer.json
         $this->parseComposerDefinition($composerFile);
-        $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigWriter();
+        $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigFixerWriter();
     }
 
     /**
@@ -166,6 +166,9 @@ class Installer
         $scripts = [
             'cs-check' => 'php-cs-fixer fix --dry-run --diff',
             'cs-fix' => 'php-cs-fixer fix --diff',
+            'rector-check' => 'rector process --dry-run',
+            'rector-fix' => 'rector process',
+            'phpstan' => 'phpstan analyze',
         ];
 
         /** @var mixed $scriptsDefinition */
@@ -182,9 +185,12 @@ class Installer
                 "  <question>%s</question>\n",
                 'Do you want to add scripts to composer.json? (Y/n)',
             ),
-            '  <info>It will add two scripts:</info>',
+            '  <info>It will add these scripts:</info>',
             '  - <info>cs-check</info>',
             '  - <info>cs-fix</info>',
+            '  - <info>rector-check</info>',
+            '  - <info>rector-fix</info>',
+            '  - <info>phpstan</info>',
             'Answer: ',
         ];
 
