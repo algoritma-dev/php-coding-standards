@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandards\Installer;
 
 use Algoritma\CodingStandards\Installer\Command\CreateConfigCommand;
+use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
 use Composer\Command\BaseCommand;
 
 class CommandProvider implements \Composer\Plugin\Capability\CommandProvider
@@ -18,6 +19,7 @@ class CommandProvider implements \Composer\Plugin\Capability\CommandProvider
     {
         return [
             new CreateConfigCommand(),
+            new CreatePhpstanConfigCommand(),
         ];
     }
 }

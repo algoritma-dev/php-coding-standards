@@ -12,7 +12,6 @@ use Composer\Package\PackageInterface;
 use Composer\Semver\Semver;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
@@ -109,9 +108,10 @@ class Installer
         if (! str_starts_with($constraint, 'dev-')) {
             $constraint = '^' . $constraint;
         }
+
         // it needs an upgrade but has potential BC breaks so is not urgent
         // it needs an immediate semver-compliant upgrade
-        return !($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
+        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
     }
 
     public function setPhpCsWriter(PhpCsConfigWriterInterface $phpCsWriter): void
