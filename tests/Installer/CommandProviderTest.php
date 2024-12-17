@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer;
 
+use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
 use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 use Algoritma\CodingStandards\Installer\Command\CreateConfigCommand;
 use Algoritma\CodingStandards\Installer\CommandProvider;
@@ -18,7 +19,8 @@ class CommandProviderTest extends TestCase
         $this->assertInstanceOf(ComposerCommandProvider::class, $provider);
 
         $commands = $provider->getCommands();
-        $this->assertCount(1, $commands);
+        $this->assertCount(2, $commands);
         $this->assertInstanceOf(CreateConfigCommand::class, $commands[0]);
+        $this->assertInstanceOf(CreatePhpstanConfigCommand::class, $commands[1]);
     }
 }
