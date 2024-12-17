@@ -1,0 +1,144 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Out of 74 possible param types, only 73 \- 98\.6 %% actually have it\. Add more param types to get over 99 %%$#'
+			count: 1
+			path: src/AutoloadPathProvider.php
+
+		-
+			message: '#^Constructor of class Algoritma\\CodingStandards\\Installer\\Installer has an unused parameter \$composer\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: src/Installer/Installer.php
+
+		-
+			message: '#^Out of 16 possible property types, only 10 \- 62\.5 %% actually have it\. Add more property types to get over 99 %%$#'
+			count: 1
+			path: src/Installer/Installer.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type mixed\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Installer/Installer.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Algoritma\\CodingStandards\\Installer\\Installer and ''checkUpgrade'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Installer/Plugin.php
+
+		-
+			message: '#^Method Algoritma\\CodingStandards\\Installer\\Plugin\:\:activate\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: src/Installer/Plugin.php
+
+		-
+			message: '#^Method Algoritma\\CodingStandards\\Installer\\Plugin\:\:activate\(\) has RuntimeException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: src/Installer/Plugin.php
+
+		-
+			message: '#^Method Algoritma\\CodingStandards\\Rules\\AbstractRuleProvider\:\:filterRules\(\) should return T of array\<string, mixed\> but returns array\<string, mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Rules/AbstractRuleProvider.php
+
+		-
+			message: '#^Out of 4 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			count: 3
+			path: src/Rules/AbstractRuleProvider.php
+
+		-
+			message: '#^Out of 16 possible property types, only 10 \- 62\.5 %% actually have it\. Add more property types to get over 99 %%$#'
+			count: 2
+			path: tests/AutoloadPathProviderTest.php
+
+		-
+			message: '#^Method Algoritma\\CodingStandardsTest\\Installer\\Command\\CreateConfigCommandTest\:\:testExecute\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Installer/Command/CreateConfigCommandTest.php
+
+		-
+			message: '#^Parameter \#1 \$argv of class Symfony\\Component\\Console\\Input\\ArgvInput constructor expects list\<string\>\|null, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Installer/Command/CreateConfigCommandTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Composer\\\\Plugin\\\\Capability\\\\CommandProvider'' and Algoritma\\CodingStandards\\Installer\\CommandProvider will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Installer/CommandProviderTest.php
+
+		-
+			message: '#^Out of 16 possible property types, only 10 \- 62\.5 %% actually have it\. Add more property types to get over 99 %%$#'
+			count: 2
+			path: tests/Installer/InstallerTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Algoritma\\\\CodingStandards\\\\Installer\\\\Installer'' and Algoritma\\CodingStandards\\Installer\\Installer will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Installer/PluginTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Composer\\\\EventDispatcher\\\\EventSubscriberInterface'' and Algoritma\\CodingStandards\\Installer\\Plugin will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Installer/PluginTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Composer\\\\Plugin\\\\Capable'' and Algoritma\\CodingStandards\\Installer\\Plugin will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Installer/PluginTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''Composer\\\\Plugin\\\\PluginInterface'' and Algoritma\\CodingStandards\\Installer\\Plugin will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Installer/PluginTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/Installer/PluginTest.php
+
+		-
+			message: '#^Out of 4 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			count: 1
+			path: tests/Installer/PluginTest.php
+
+		-
+			message: '#^Out of 16 possible property types, only 10 \- 62\.5 %% actually have it\. Add more property types to get over 99 %%$#'
+			count: 1
+			path: tests/Installer/Writer/PhpCsConfigWriterTest.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/RulesMaintenance/Dumper.php
+
+		-
+			message: '#^Comparison operation "\<" between 1 and 0 is always false\.$#'
+			identifier: smaller.alwaysFalse
+			count: 1
+			path: tests/RulesMaintenance/DumperTest.php
+
+		-
+			message: '#^Method Algoritma\\CodingStandardsTest\\RulesMaintenance\\RuleListTest\:\:testAllListAreAlphabetical\(\) has parameter \$rulesList with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/RulesMaintenance/RuleListTest.php
+
+		-
+			message: '#^Method Algoritma\\CodingStandardsTest\\RulesMaintenance\\RuleListTest\:\:testGetAllMappedRules\(\) has parameter \$rulesList with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/RulesMaintenance/RuleListTest.php
