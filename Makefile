@@ -1,15 +1,25 @@
-.PHONY: pre-commit-check
+# Makefile for Insight Core Project
+setup: build composer-update
 
-cs:
-	docker run --rm -v $(PWD):/code -w /code docker.algoritma.it/algoritma/php:8.2-cli-alpine3.16 vendor/bin/php-cs-fixer fix --verbose
+shell:
+	docker-compose run --user 1000:1000 --rm php bash
 
-cs-dry-run:
-	docker run --rm -v $(PWD):/code -w /code docker.algoritma.it/algoritma/php:8.2-cli-alpine3.16 vendor/bin/php-cs-fixer fix --verbose --dry-run
+start:
+	docker-compose up -d php
 
-psalm:
-	docker run --rm -v $(PWD):/code -w /code docker.algoritma.it/algoritma/php:8.2-cli-alpine3.16 vendor/bin/psalm -m
+composer-update: start
+	docker-compose exec --user 1000:1000 php composer update
 
-test:
-	docker run --rm -v $(PWD):/code -w /code docker.algoritma.it/algoritma/php:8.2-cli-alpine3.16 vendor/bin/phpunit
+pre-commit-check: rector cs-fix psalm phpstan tests
 
-pre-commit-check: cs psalm test
+rector: start
+	docker-compose exec --user 1000:1000 php vendor/bin/rector --ansi
+
+cs-fix: start
+	docker-compose exec --user 1000:1000 php vendor/bin/php-cs-fixer fix --verbose --ansi
+
+phpstan: start
+	docker-compose exec --user 1000:1000 php vendor/bin/phpstan analyse --ansi --memory-limit=-1
+
+tests: start
+	docker-compose exec --user 1000:1000 php vendor/bin/phpunit --colors=always

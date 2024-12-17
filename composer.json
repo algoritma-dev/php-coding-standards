@@ -19,6 +19,7 @@
     },
     "prefer-stable": true,
     "require": {
+        "php": ">=8.2",
         "ext-json": "*",
         "composer-plugin-api": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "^v3.65.0",
