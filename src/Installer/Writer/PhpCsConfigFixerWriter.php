@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer\Writer;
 
-final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
+final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
 {
     public function writeConfigFile(?string $filename = null, bool $noDev = false, bool $noRisky = false): void
     {

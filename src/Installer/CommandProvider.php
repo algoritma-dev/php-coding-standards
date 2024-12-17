@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer;
 
-use Algoritma\CodingStandards\Installer\Command\CreateConfigCommand;
+use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
+use Algoritma\CodingStandards\Installer\Command\CreateRectorConfigCommand;
 use Composer\Command\BaseCommand;
 
 class CommandProvider implements \Composer\Plugin\Capability\CommandProvider
@@ -18,8 +19,9 @@ class CommandProvider implements \Composer\Plugin\Capability\CommandProvider
     public function getCommands(): array
     {
         return [
-            new CreateConfigCommand(),
+            new CreatePhpCsFixerConfigCommand(),
             new CreatePhpstanConfigCommand(),
+            new CreateRectorConfigCommand(),
         ];
     }
 }

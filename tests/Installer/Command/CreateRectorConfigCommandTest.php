@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer\Command;
 
+use Algoritma\CodingStandards\Installer\Command\CreateRectorConfigCommand;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateConfigCommandTest extends TestCase
+class CreateRectorConfigCommandTest extends TestCase
 {
     public function testGetConfigWriter(): void
     {
-        $command = new CreatePhpCsFixerConfigCommand();
+        $command = new CreateRectorConfigCommand();
         $writer = $command->getConfigWriter();
         $this->assertSame($writer, $command->getConfigWriter());
     }
 
     public function testSetConfigWriter(): void
     {
-        $command = new CreatePhpCsFixerConfigCommand();
+        $command = new CreateRectorConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
         $this->assertSame($writer->reveal(), $command->getConfigWriter());
@@ -34,7 +34,7 @@ class CreateConfigCommandTest extends TestCase
     #[DataProvider('executeProvider')]
     public function testExecute(array $args, bool $noDev, bool $noRisky): void
     {
-        $command = new CreatePhpCsFixerConfigCommand();
+        $command = new CreateRectorConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
 
@@ -42,7 +42,7 @@ class CreateConfigCommandTest extends TestCase
         $output = $this->prophesize(OutputInterface::class);
 
         $writer->writeConfigFile(
-            '.php-cs-fixer.dist.php',
+            'rector.php',
             $noDev,
             $noRisky,
         )
@@ -60,22 +60,22 @@ class CreateConfigCommandTest extends TestCase
     {
         return [
             [
-                ['facile-cs-create-config'],
+                ['algoritma-rector-create-config'],
                 false,
                 false,
             ],
             [
-                ['facile-cs-create-config', '--no-dev'],
+                ['algoritma-rector-create-config', '--no-dev'],
                 true,
                 false,
             ],
             [
-                ['facile-cs-create-config', '--no-risky'],
+                ['algoritma-rector-create-config', '--no-risky'],
                 false,
                 true,
             ],
             [
-                ['facile-cs-create-config', '--no-dev', '--no-risky'],
+                ['algoritma-rector-create-config', '--no-dev', '--no-risky'],
                 true,
                 true,
             ],

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer\Writer;
 
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriter;
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -26,7 +26,7 @@ class PhpCsConfigWriterTest extends TestCase
     public function testWriteConfigFile(): void
     {
         $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
-        $writer = new PhpCsConfigWriter();
+        $writer = new PhpCsConfigFixerWriter();
 
         $writer->writeConfigFile($filename);
 
@@ -70,7 +70,7 @@ class PhpCsConfigWriterTest extends TestCase
     public function testWriteConfigFileWithNoDev(): void
     {
         $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
-        $writer = new PhpCsConfigWriter();
+        $writer = new PhpCsConfigFixerWriter();
 
         $writer->writeConfigFile($filename, true);
 
@@ -114,7 +114,7 @@ class PhpCsConfigWriterTest extends TestCase
     public function testWriteConfigFileWithNoRisky(): void
     {
         $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
-        $writer = new PhpCsConfigWriter();
+        $writer = new PhpCsConfigFixerWriter();
 
         $writer->writeConfigFile($filename, false, true);
 
@@ -157,7 +157,7 @@ class PhpCsConfigWriterTest extends TestCase
     public function testWriteConfigFileWithNoDevAndNoRisky(): void
     {
         $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
-        $writer = new PhpCsConfigWriter();
+        $writer = new PhpCsConfigFixerWriter();
 
         $writer->writeConfigFile($filename, true, true);
 
