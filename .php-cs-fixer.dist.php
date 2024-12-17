@@ -1,29 +1,28 @@
 <?php
 
-$providers = [
-    new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
-    new Algoritma\CodingStandards\Rules\RiskyRulesProvider()
+$additionalRules = [
+    'declare_strict_types' => true,
+    'php_unit_construct' => true,
+    'php_unit_dedicate_assert' => true,
+    'phpdoc_to_comment' => false,
+    'random_api_migration' => true,
+    'self_accessor' => true,
 ];
-
-$rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider($providers);
-
-$config = new PhpCsFixer\Config('algoritma/php-coding-standard');
-$config->setRules($rulesProvider->getRules());
-
-$config->setUsingCache(false);
-$config->setRiskyAllowed(true);
-
-$finder = new PhpCsFixer\Finder();
-$autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
-
-$finder
-    ->in($autoloadPathProvider->getPaths())
-    ->exclude(['node_modules', '*/vendor/*'])
-;
-$finder->append([
-    __DIR__ . '/.php-cs-fixer.dist.php',
+$rulesProvider = new \Algoritma\CodingStandards\Rules\CompositeRulesProvider([
+    new \Algoritma\CodingStandards\Rules\DefaultRulesProvider(),
+    new \Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
 ]);
 
+$config = new PhpCsFixer\Config();
+$config->setRules($rulesProvider->getRules());
+
+$config->setUsingCache(true);
+$config->setRiskyAllowed(true);
+
+$autoloadPathProvider = new \Algoritma\CodingStandards\AutoloadPathProvider();
+
+$finder = new PhpCsFixer\Finder();
+$finder->in($autoloadPathProvider->getPaths());
 $config->setFinder($finder);
 
 return $config;
