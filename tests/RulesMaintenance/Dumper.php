@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Algoritma\CodingStandardsTest\RulesMaintenance;
 
 use Algoritma\CodingStandards\Rules\CompositeRulesProvider;
@@ -44,7 +46,7 @@ class Dumper
         }
 
         foreach ($this->getAllFixers() as $fixer) {
-            if (isset($alreadyActiveFixers[\get_class($fixer)])) {
+            if (isset($alreadyActiveFixers[$fixer::class])) {
                 continue;
             }
 
@@ -100,7 +102,7 @@ class Dumper
     private function generateWithClassNameAsKey(array $list): \Generator
     {
         foreach ($list as $fixer) {
-            yield \get_class($fixer) => $fixer;
+            yield $fixer::class => $fixer;
         }
     }
 
@@ -135,13 +137,13 @@ class Dumper
         // replace first line with heading
         $output = preg_replace('/Description of ([\w_]+) rule\./', '## `$1`', $output);
         // replace diffs opening with fenced typed code snippet
-        $output = preg_replace('/ +-+ begin diff -+/', '```diff', $output);
+        $output = preg_replace('/ +-+ begin diff -+/', '```diff', (string) $output);
         // replace diffs closing with fenced code snippet
-        $output = preg_replace('/ *\n +-+ end diff -+/', '```', $output);
+        $output = preg_replace('/ *\n +-+ end diff -+/', '```', (string) $output);
         // remove additional diff labels
-        $output = preg_replace('/ +(--- Original|\+\+\+ New|@@ .+ @@)\n/', '', $output);
+        $output = preg_replace('/ +(--- Original|\+\+\+ New|@@ .+ @@)\n/', '', (string) $output);
         // try to de-indent diff snippets
-        $output = preg_replace('/\n {3}/', "\n", $output);
+        $output = preg_replace('/\n {3}/', "\n", (string) $output);
 
         // avoid linking issues by mistake
         return str_replace('Example #', 'Example ', $output);

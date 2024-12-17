@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer\Command;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Algoritma\CodingStandards\Installer\Command\CreateConfigCommand;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
@@ -28,10 +29,9 @@ class CreateConfigCommandTest extends TestCase
     }
 
     /**
-     * @dataProvider executeProvider
-     *
      * @throws \Exception
      */
+    #[DataProvider('executeProvider')]
     public function testExecute(array $args, bool $noDev, bool $noRisky): void
     {
         $command = new CreateConfigCommand();
@@ -44,7 +44,7 @@ class CreateConfigCommandTest extends TestCase
         $writer->writeConfigFile(
             '.php-cs-fixer.dist.php',
             $noDev,
-            $noRisky
+            $noRisky,
         )
             ->shouldBeCalled();
 

@@ -16,45 +16,28 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
-    /**
-     * @var IOInterface
-     */
-    private $io;
-
-    /**
-     * @var string
-     */
-    private $projectRoot;
+    private readonly string $projectRoot;
 
     /**
      * @var array<string, mixed>
      */
     private $composerDefinition;
 
-    /**
-     * @var JsonFile
-     */
-    private $composerJson;
+    private JsonFile $composerJson;
 
-    /**
-     * @var PhpCsConfigWriterInterface
-     */
-    private $phpCsWriter;
-
-    private Filesystem $filesystem;
+    private PhpCsConfigWriterInterface $phpCsWriter;
 
     /**
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function __construct(
-        IOInterface $io,
+        private readonly IOInterface $io,
         Composer $composer,
         ?string $projectRoot = null,
         ?string $composerPath = null,
-        ?PhpCsConfigWriterInterface $phpCsWriter = null
+        ?PhpCsConfigWriterInterface $phpCsWriter = null,
     ) {
-        $this->io = $io;
         // Get composer.json location
         $composerFile = $composerPath ?? Factory::getComposerFile();
         // Calculate project root from composer.json, if necessary
@@ -69,7 +52,6 @@ class Installer
         // Parse the composer.json
         $this->parseComposerDefinition($composerFile);
         $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigWriter();
-        $this->filesystem = new Filesystem();
     }
 
     /**
@@ -102,7 +84,7 @@ class Installer
             '  <error>You are upgrading "' . $currentPackage->getPrettyName() . '" with possible BC breaks.</error>',
             sprintf(
                 '  <question>%s</question>',
-                'Do you want to write the new configuration? (Y/n)'
+                'Do you want to write the new configuration? (Y/n)',
             ),
         ];
 
@@ -127,14 +109,9 @@ class Installer
         if (! str_starts_with($constraint, 'dev-')) {
             $constraint = '^' . $constraint;
         }
-
-        if ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint)) {
-            // it needs an immediate semver-compliant upgrade
-            return false;
-        }
-
         // it needs an upgrade but has potential BC breaks so is not urgent
-        return true;
+        // it needs an immediate semver-compliant upgrade
+        return !($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
     }
 
     public function setPhpCsWriter(PhpCsConfigWriterInterface $phpCsWriter): void
@@ -168,7 +145,7 @@ class Installer
         $question = [
             sprintf(
                 "  <question>%s</question>\n",
-                'Do you want to create the CS configuration in your project root? (Y/n)'
+                'Do you want to create the CS configuration in your project root? (Y/n)',
             ),
             '  <info>It will create a .php-cs-fixer.dist.php file in your project root directory.</info> ',
         ];
@@ -194,7 +171,7 @@ class Installer
         /** @var mixed $scriptsDefinition */
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
 
-        if (\is_array($scriptsDefinition) && 0 === \count(array_diff_key($scripts, $scriptsDefinition))) {
+        if (\is_array($scriptsDefinition) && [] === array_diff_key($scripts, $scriptsDefinition)) {
             $this->io->write("\n  <comment>Skipping... Scripts already exist in composer.json.</comment>");
 
             return;
@@ -203,7 +180,7 @@ class Installer
         $question = [
             sprintf(
                 "  <question>%s</question>\n",
-                'Do you want to add scripts to composer.json? (Y/n)'
+                'Do you want to add scripts to composer.json? (Y/n)',
             ),
             '  <info>It will add two scripts:</info>',
             '  - <info>cs-check</info>',

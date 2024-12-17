@@ -13,10 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateConfigCommand extends BaseCommand
 {
-    /**
-     * @var PhpCsConfigWriterInterface
-     */
-    private $configWriter;
+    private PhpCsConfigWriterInterface $configWriter;
 
     public function __construct(string $name = null)
     {
@@ -45,9 +42,9 @@ class CreateConfigCommand extends BaseCommand
                 new InputOption('no-risky', null, InputOption::VALUE_NONE, 'Do not include risky rules'),
             ])
             ->setHelp(
-                <<<'HELP'
+                <<<'EOD'
                     Write config file in <comment>.php-cs-fixer.dist.php</comment>.
-                    HELP
+                    EOD,
             )
         ;
     }
@@ -59,7 +56,7 @@ class CreateConfigCommand extends BaseCommand
         $configWriter->writeConfigFile(
             '.php-cs-fixer.dist.php',
             (bool) $input->getOption('no-dev'),
-            (bool) $input->getOption('no-risky')
+            (bool) $input->getOption('no-risky'),
         );
 
         return 0;

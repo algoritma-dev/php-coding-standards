@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Rules;
 
-final class ArrayRulesProvider implements RulesProviderInterface
+final readonly class ArrayRulesProvider implements RulesProviderInterface
 {
-    /**
-     * @var array<string, array<string, mixed>|bool>
-     */
-    private array $rules;
-
     /**
      * @param array<string, array<string, mixed>|bool> $rules
      */
-    public function __construct(array $rules)
+    public function __construct(private array $rules)
     {
-        $this->rules = $rules;
     }
 
     public function getRules(): array
