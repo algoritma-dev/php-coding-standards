@@ -90,7 +90,7 @@ class AutoloadPathProvider
      *
      * @return array<string>
      */
-    private function autoloadReducer(array $carry, $item): array
+    private function autoloadReducer(array $carry, array|string $item): array
     {
         if (\is_array($item)) {
             return array_merge($carry, $this->reduceAutoload($item));

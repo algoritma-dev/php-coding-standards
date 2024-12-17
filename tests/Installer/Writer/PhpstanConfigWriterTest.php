@@ -11,10 +11,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class PhpstanConfigWriterTest extends TestCase
 {
-    /**
-     * @var vfsStreamDirectory
-     */
-    private $vfsRoot;
+    private vfsStreamDirectory $vfsRoot;
 
     protected function setUp(): void
     {

@@ -29,6 +29,8 @@ class CreateRectorConfigCommandTest extends TestCase
     }
 
     /**
+     * @param list<string> $args
+     *
      * @throws \Exception
      */
     #[DataProvider('executeProvider')]

@@ -20,7 +20,7 @@ class Installer
     /**
      * @var array<string, mixed>
      */
-    private $composerDefinition;
+    private array $composerDefinition;
 
     private JsonFile $composerJson;
 
