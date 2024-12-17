@@ -3,7 +3,5 @@ parameters:
     paths:
         - src/
         - tests/
-    excludePaths:
-        - tests/Stub/
 includes:
 	- phpstan-baseline.neon
