@@ -13,15 +13,9 @@ class AutoloadPathProviderTest extends TestCase
 {
     private string $composerFilePath;
 
-    /**
-     * @var string
-     */
-    private $projectRoot;
+    private string $projectRoot;
 
-    /**
-     * @var vfsStreamDirectory
-     */
-    private $vfsRoot;
+    private vfsStreamDirectory $vfsRoot;
 
     protected function setUp(): void
     {

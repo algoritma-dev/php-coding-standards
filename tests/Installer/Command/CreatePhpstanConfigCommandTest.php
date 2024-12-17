@@ -29,6 +29,8 @@ class CreatePhpstanConfigCommandTest extends TestCase
     }
 
     /**
+     * @param list<string> $args
+     *
      * @throws \Exception
      */
     #[DataProvider('executeProvider')]
