@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Algoritma\CodingStandardsTest\Rules;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Algoritma\CodingStandards\Rules\AbstractRuleProvider;
 use Algoritma\CodingStandards\Rules\RulesProviderInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
@@ -23,9 +26,7 @@ abstract class AbstractRulesProviderTest extends TestCase
         $this->assertRulesAreAlphabeticallySorted(static::getRulesProvider());
     }
 
-    /**
-     * @dataProvider ruleNamesDataProvider
-     */
+    #[DataProvider('ruleNamesDataProvider')]
     public function testRuleAreRiskyAsExpected(string $ruleName): void
     {
         $fixer = $this->getFixerByName($ruleName);
@@ -33,13 +34,11 @@ abstract class AbstractRulesProviderTest extends TestCase
         $this->assertSame(
             $this->shouldBeRisky(),
             $fixer->isRisky(),
-            sprintf('Fixer %s is %s as expected', $ruleName, $this->shouldBeRisky() ? 'risky' : 'NOT risky')
+            sprintf('Fixer %s is %s as expected', $ruleName, $this->shouldBeRisky() ? 'risky' : 'NOT risky'),
         );
     }
 
-    /**
-     * @dataProvider ruleSetNamesDataProvider
-     */
+    #[DataProvider('ruleSetNamesDataProvider')]
     public function testRuleSetsAreRiskyAsExpected(string $ruleSetName): void
     {
         $ruleSet = new RuleSet([$ruleSetName => true]);
@@ -49,14 +48,12 @@ abstract class AbstractRulesProviderTest extends TestCase
             $this->assertSame(
                 $this->shouldBeRisky(),
                 $fixer->isRisky(),
-                sprintf('Ruleset %s includes %s rules, such as %s', $ruleSetName, $this->shouldBeRisky() ? 'risky' : 'NOT risky', $ruleName)
+                sprintf('Ruleset %s includes %s rules, such as %s', $ruleSetName, $this->shouldBeRisky() ? 'risky' : 'NOT risky', $ruleName),
             );
         }
     }
 
-    /**
-     * @dataProvider ruleNamesDataProvider
-     */
+    #[DataProvider('ruleNamesDataProvider')]
     public function testRulesDoNotOverrideRuleSets(string $ruleName): void
     {
         if ($this->ruleIsMappedAsDeprecated($ruleName)) {
@@ -164,18 +161,18 @@ abstract class AbstractRulesProviderTest extends TestCase
 
             $this->assertEquals($defaultConfiguration, $ruleConfiguration, sprintf(
                 'Ruleset relies on default configuration for rule %s, but it is being overridden',
-                $ruleName
+                $ruleName,
             ));
         } elseif ($ruleConfiguration === true) {
             $this->assertEquals($ruleSetConfiguration, $defaultConfiguration, sprintf(
                 'Ruleset does not use the default config for rule %s, and it is being overridden with "true" in %s',
                 $ruleName,
-                \get_class($rulesProvider)
+                $rulesProvider::class,
             ));
         } else {
             $this->assertEquals($ruleSetConfiguration, $ruleConfiguration, sprintf(
                 'Rule %s has a different configuration from the one from ruleset',
-                $ruleName
+                $ruleName,
             ));
         }
     }
@@ -188,7 +185,7 @@ abstract class AbstractRulesProviderTest extends TestCase
      */
     private function getEnabledRuleSets(): array
     {
-        if (empty($this->enabledRuleSets)) {
+        if ($this->enabledRuleSets === []) {
             foreach (self::ruleSetNamesDataProvider() as $data) {
                 $ruleSetName = $data[0];
                 $this->enabledRuleSets[$ruleSetName] = new RuleSet([$ruleSetName => true]);

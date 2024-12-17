@@ -50,7 +50,7 @@ final class RiskyRulesProvider extends AbstractRuleProvider
             'phpdoc_list_type' => true,
             'php_unit_assert_new_names' => true,
             'phpdoc_array_type' => true,
-            'class_keyword' => true
+            'class_keyword' => true,
         ]);
     }
 }

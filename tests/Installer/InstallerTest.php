@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Package\Package;
@@ -18,10 +19,7 @@ use Prophecy\Argument;
 
 class InstallerTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $composerFilePath;
+    private string $composerFilePath;
 
     /**
      * @var string
@@ -73,11 +71,10 @@ class InstallerTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidUpgradeProvider
-     *
      * @param array{string, string} $currentPackageV
      * @param array{string, string} $targetPackageV
      */
+    #[DataProvider('invalidUpgradeProvider')]
     public function testCheckUpgradeTestNotNecessary(array $currentPackageV, array $targetPackageV): void
     {
         $currentPackage = new Package('dummy', $currentPackageV[0], $currentPackageV[1]);
@@ -92,7 +89,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
 
         $io->isInteractive()
@@ -104,11 +101,10 @@ class InstallerTest extends TestCase
     }
 
     /**
-     * @dataProvider validUpgradeProvider
-     *
      * @param array{string, string} $currentPackageV
      * @param array{string, string} $targetPackageV
      */
+    #[DataProvider('validUpgradeProvider')]
     public function testCheckUpgradeTestNecessary(array $currentPackageV, array $targetPackageV): void
     {
         $currentPackage = new Package('dummy', $currentPackageV[0], $currentPackageV[1]);
@@ -123,7 +119,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
 
         $io->isInteractive()
@@ -149,7 +145,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
 
         $io->isInteractive()
@@ -179,7 +175,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
 
         $io->isInteractive()
@@ -215,7 +211,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
         $installer->requestCreateCsConfig();
     }
@@ -238,7 +234,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
 
         $installer->requestCreateCsConfig();
@@ -264,7 +260,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            $phpCsWriter->reveal()
+            $phpCsWriter->reveal(),
         );
 
         $installer->requestCreateCsConfig();

@@ -32,7 +32,7 @@ class PhpCsConfigWriterTest extends TestCase
 
         $content = file_get_contents($filename);
 
-        $expected = <<<'TEXT'
+        $expected = <<<'EOD'
             <?php
 
             /*
@@ -62,7 +62,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             return $config;
 
-            TEXT;
+            EOD;
 
         $this->assertSame($expected, $content);
     }
@@ -76,7 +76,7 @@ class PhpCsConfigWriterTest extends TestCase
 
         $content = file_get_contents($filename);
 
-        $expected = <<<'TEXT'
+        $expected = <<<'EOD'
             <?php
 
             /*
@@ -106,7 +106,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             return $config;
 
-            TEXT;
+            EOD;
 
         $this->assertSame($expected, $content);
     }
@@ -120,7 +120,7 @@ class PhpCsConfigWriterTest extends TestCase
 
         $content = file_get_contents($filename);
 
-        $expected = <<<'TEXT'
+        $expected = <<<'EOD'
             <?php
 
             /*
@@ -149,7 +149,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             return $config;
 
-            TEXT;
+            EOD;
 
         $this->assertSame($expected, $content);
     }
@@ -163,7 +163,7 @@ class PhpCsConfigWriterTest extends TestCase
 
         $content = file_get_contents($filename);
 
-        $expected = <<<'TEXT'
+        $expected = <<<'EOD'
             <?php
 
             /*
@@ -192,7 +192,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             return $config;
 
-            TEXT;
+            EOD;
 
         $this->assertSame($expected, $content);
     }

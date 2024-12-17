@@ -22,7 +22,7 @@ final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
             $autoloadPathProvider = '$autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);';
         }
 
-        return <<<FILE
+        return <<<EOD
             <?php
 
             /*
@@ -32,10 +32,10 @@ final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
 
             {$rulesProviderConfig}
 
-            \$config = new PhpCsFixer\Config();
+            \$config = new PhpCsFixer\\Config();
             \$config->setRules(\$rulesProvider->getRules());
 
-            \$finder = new PhpCsFixer\Finder();
+            \$finder = new PhpCsFixer\\Finder();
 
             /*
              * You can set manually these paths:
@@ -47,7 +47,7 @@ final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
 
             return \$config;
 
-            FILE;
+            EOD;
     }
 
     private function createRulesProviderConfig(bool $noRisky = false): string
@@ -64,11 +64,11 @@ final class PhpCsConfigWriter implements PhpCsConfigWriterInterface
 
         $providersLine = implode("\n", $providersLine);
 
-        return <<<TEXT
+        return <<<EOD
             \$additionalRules = [];
-            \$rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
+            \$rulesProvider = new Algoritma\\CodingStandards\\Rules\\CompositeRulesProvider([
             {$providersLine}
             ]);
-            TEXT;
+            EOD;
     }
 }
