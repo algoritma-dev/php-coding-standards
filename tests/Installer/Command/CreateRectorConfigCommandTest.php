@@ -34,7 +34,7 @@ class CreateRectorConfigCommandTest extends TestCase
      * @throws \Exception
      */
     #[DataProvider('executeProvider')]
-    public function testExecute(array $args, bool $noDev, bool $noRisky): void
+    public function testExecute(array $args, bool $noDev): void
     {
         $command = new CreateRectorConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
@@ -46,7 +46,6 @@ class CreateRectorConfigCommandTest extends TestCase
         $writer->writeConfigFile(
             'rector.php',
             $noDev,
-            $noRisky,
         )
             ->shouldBeCalled();
 
@@ -56,7 +55,7 @@ class CreateRectorConfigCommandTest extends TestCase
     }
 
     /**
-     * @return array{string[], bool, bool}[]
+     * @return array{string[], bool}[]
      */
     public static function executeProvider(): array
     {
@@ -64,21 +63,9 @@ class CreateRectorConfigCommandTest extends TestCase
             [
                 ['algoritma-rector-create-config'],
                 false,
-                false,
             ],
             [
                 ['algoritma-rector-create-config', '--no-dev'],
-                true,
-                false,
-            ],
-            [
-                ['algoritma-rector-create-config', '--no-risky'],
-                false,
-                true,
-            ],
-            [
-                ['algoritma-rector-create-config', '--no-dev', '--no-risky'],
-                true,
                 true,
             ],
         ];

@@ -34,7 +34,7 @@ class CreatePhpstanConfigCommandTest extends TestCase
      * @throws \Exception
      */
     #[DataProvider('executeProvider')]
-    public function testExecute(array $args, bool $noDev, bool $noRisky): void
+    public function testExecute(array $args, bool $noDev): void
     {
         $command = new CreatePhpstanConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
@@ -46,7 +46,6 @@ class CreatePhpstanConfigCommandTest extends TestCase
         $writer->writeConfigFile(
             'phpstan.neon',
             $noDev,
-            $noRisky,
         )
             ->shouldBeCalled();
 
@@ -56,7 +55,7 @@ class CreatePhpstanConfigCommandTest extends TestCase
     }
 
     /**
-     * @return array{string[], bool, bool}[]
+     * @return array{string[], bool}[]
      */
     public static function executeProvider(): array
     {
@@ -64,21 +63,9 @@ class CreatePhpstanConfigCommandTest extends TestCase
             [
                 ['algoritma-phpstan-create-config'],
                 false,
-                false,
             ],
             [
                 ['algoritma-phpstan-create-config', '--no-dev'],
-                true,
-                false,
-            ],
-            [
-                ['algoritma-phpstan-create-config', '--no-risky'],
-                false,
-                true,
-            ],
-            [
-                ['algoritma-phpstan-create-config', '--no-dev', '--no-risky'],
-                true,
                 true,
             ],
         ];

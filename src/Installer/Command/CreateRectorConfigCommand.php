@@ -39,11 +39,10 @@ class CreateRectorConfigCommand extends BaseCommand
             ->setDescription('Write the configuration for rector')
             ->setDefinition([
                 new InputOption('no-dev', null, InputOption::VALUE_NONE, 'Do not include autoload-dev directories'),
-                new InputOption('no-risky', null, InputOption::VALUE_NONE, 'Do not include risky rules'),
             ])
             ->setHelp(
                 <<<'EOD'
-                    Write config file in <comment>.php-cs-fixer.dist.php</comment>.
+                    Write config file in <comment>rector.php</comment>.
                     EOD,
             )
         ;
@@ -56,7 +55,6 @@ class CreateRectorConfigCommand extends BaseCommand
         $configWriter->writeConfigFile(
             'rector.php',
             (bool) $input->getOption('no-dev'),
-            (bool) $input->getOption('no-risky'),
         );
 
         return 0;

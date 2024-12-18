@@ -39,11 +39,10 @@ class CreatePhpstanConfigCommand extends BaseCommand
             ->setDescription('Write the configuration for phpstan')
             ->setDefinition([
                 new InputOption('no-dev', null, InputOption::VALUE_NONE, 'Do not include autoload-dev directories'),
-                new InputOption('no-risky', null, InputOption::VALUE_NONE, 'Do not include risky rules'),
             ])
             ->setHelp(
                 <<<'EOD'
-                    Write config file in <comment>.php-cs-fixer.dist.php</comment>.
+                    Write config file in <comment>phpstan.neon</comment>.
                     EOD,
             )
         ;
@@ -56,7 +55,6 @@ class CreatePhpstanConfigCommand extends BaseCommand
         $configWriter->writeConfigFile(
             'phpstan.neon',
             (bool) $input->getOption('no-dev'),
-            (bool) $input->getOption('no-risky'),
         );
 
         return 0;
