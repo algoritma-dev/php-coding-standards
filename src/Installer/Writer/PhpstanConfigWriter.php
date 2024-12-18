@@ -19,9 +19,6 @@ final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
 
     private function createConfigSource(): string
     {
-        InstalledVersions::isInstalled('symfony/framework-bundle');
-        InstalledVersions::isInstalled('doctrine/orm');
-
         return Neon::encode([
             'includes' => [
                 'phpstan-rules.php',
