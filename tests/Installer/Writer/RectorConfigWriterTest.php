@@ -41,6 +41,8 @@ class RectorConfigWriterTest extends TestCase
             ]);
             
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
+            
+            $setsProvider = new Algoritma\CodingStandards\Sets\RectorSetsProvider();
 
             return RectorConfig::configure()
                 ->withFileExtensions(['php'])
@@ -48,13 +50,8 @@ class RectorConfigWriterTest extends TestCase
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
                 ->withPhpSets()
-                ->withPreparedSets(
-                    deadCode: true,
-                    codeQuality: true,
-                    typeDeclarations: true,
-                    instanceOf: true,
-                    earlyReturn: true,
-                )->withRules($rulesProvider->getRules());
+                ->withSets($setsProvider->getSets())
+                ->withRules($rulesProvider->getRules());
 
             EOD;
 
@@ -83,19 +80,16 @@ class RectorConfigWriterTest extends TestCase
             
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
 
+            $setsProvider = new Algoritma\CodingStandards\Sets\RectorSetsProvider();
+
             return RectorConfig::configure()
                 ->withFileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
                 ->withPhpSets()
-                ->withPreparedSets(
-                    deadCode: true,
-                    codeQuality: true,
-                    typeDeclarations: true,
-                    instanceOf: true,
-                    earlyReturn: true,
-                )->withRules($rulesProvider->getRules());
+                ->withSets($setsProvider->getSets())
+                ->withRules($rulesProvider->getRules());
 
             EOD;
 

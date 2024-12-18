@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use Algoritma\CodingStandards\Rules\AbstractRuleProvider;
 use Algoritma\CodingStandards\Rules\RulesProviderInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use PhpCsFixer\Fixer\ConfigurableFixerInterface;
-use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\FixerFactory;
-use PhpCsFixer\RuleSet\RuleSet;
 
 abstract class AbstractRulesProviderTest extends TestCase
 {

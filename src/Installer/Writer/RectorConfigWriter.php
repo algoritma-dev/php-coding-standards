@@ -22,6 +22,8 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
             $autoloadPathProvider = '$autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);';
         }
 
+        $setsProvider = '$setsProvider = new Algoritma\CodingStandards\Sets\RectorSetsProvider();';
+
         return <<<EOD
             <?php
 
@@ -30,6 +32,8 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
             {$rulesProviderConfig}
 
             {$autoloadPathProvider}
+            
+            {$setsProvider}
 
             return RectorConfig::configure()
                 ->withFileExtensions(['php'])
@@ -37,13 +41,8 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
                 ->withParallel()
                 ->withPaths(\$autoloadPathProvider->getPaths())
                 ->withPhpSets()
-                ->withPreparedSets(
-                    deadCode: true,
-                    codeQuality: true,
-                    typeDeclarations: true,
-                    instanceOf: true,
-                    earlyReturn: true,
-                )->withRules(\$rulesProvider->getRules());
+                ->withSets(\$setsProvider->getSets())
+                ->withRules(\$rulesProvider->getRules());
 
             EOD;
     }
