@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer\Writer;
 
-use Composer\InstalledVersions;
 use Nette\Neon\Neon;
 
 final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
