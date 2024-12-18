@@ -49,9 +49,13 @@ class RectorConfigWriterTest extends TestCase
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
+                ->withSkipPaths([
+                    '**/vendor/*',
+                    '**/node_modules/*',
+                ])
                 ->withPhpSets()
-                ->withSets($setsProvider->getSets())
-                ->withRules($rulesProvider->getRules());
+                ->withSets(array_merge($setsProvider->getSets(), [/* custom sets */]))
+                ->withRules(array_merge($rulesProvider->getRules(), [/* custom rules */]));
 
             EOD;
 
@@ -87,9 +91,13 @@ class RectorConfigWriterTest extends TestCase
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
+                ->withSkipPaths([
+                    '**/vendor/*',
+                    '**/node_modules/*',
+                ])
                 ->withPhpSets()
-                ->withSets($setsProvider->getSets())
-                ->withRules($rulesProvider->getRules());
+                ->withSets(array_merge($setsProvider->getSets(), [/* custom sets */]))
+                ->withRules(array_merge($rulesProvider->getRules(), [/* custom rules */]));
 
             EOD;
 
