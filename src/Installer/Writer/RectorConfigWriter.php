@@ -40,7 +40,7 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths(\$autoloadPathProvider->getPaths())
-                ->withSkipPaths([
+                ->withSkipPath([
                     '**/vendor/*',
                     '**/node_modules/*',
                 ])

@@ -49,7 +49,7 @@ class RectorConfigWriterTest extends TestCase
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
-                ->withSkipPaths([
+                ->withSkipPath([
                     '**/vendor/*',
                     '**/node_modules/*',
                 ])
@@ -91,7 +91,7 @@ class RectorConfigWriterTest extends TestCase
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
-                ->withSkipPaths([
+                ->withSkipPath([
                     '**/vendor/*',
                     '**/node_modules/*',
                 ])
