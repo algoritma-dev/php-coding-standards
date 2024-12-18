@@ -82,7 +82,7 @@ class PhpstanConfigWriterTest extends TestCase
                 <?php
 
                 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
-                return ['parameters' => ['paths' => [$autoloadPathProvider->getPaths()]]];
+                return ['parameters' => ['paths' => $autoloadPathProvider->getPaths()]];
 
                 EOD;
 
@@ -150,7 +150,7 @@ class PhpstanConfigWriterTest extends TestCase
                 <?php
 
                 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
-                return ['parameters' => ['paths' => [$autoloadPathProvider->getPaths()]]];
+                return ['parameters' => ['paths' => $autoloadPathProvider->getPaths()]];
 
                 EOD;
 
