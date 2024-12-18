@@ -1,4 +1,4 @@
-# Algoritma.it PHP Coding Standard
+# Algoritma PHP Coding Standard
 
 ## Installation
 
@@ -10,7 +10,7 @@ $ composer require --dev algoritma/php-coding-standard
 
 When you install it, a plugin will ask you some questions to setup your project automatically.
 
-The installer will add a `.php-cs-fixer.dist.php` file in your project root directory,
+The installer will add the `.php-cs-fixer.dist.php`, `rector.php`, `phpstan.neon` files in your project root directory,
 then you can edit manually if you need some changes.
 
 The CS config will be configured to find your project files using
@@ -22,29 +22,12 @@ The installer will also add two scripts in your `composer.json`;
 
 ```php
 "scripts": {
-  "cs-check": "php-cs-fixer fix --dry-run --diff",
-  "cs-fix": "php-cs-fixer fix --diff"
+    "cs-check": "php-cs-fixer fix --dry-run --diff",
+    "cs-fix": "php-cs-fixer fix --diff",
+    "rector-check": "rector process --dry-run",
+    "rector-fix": "rector process",
+    "phpstan": "phpstan analyze"
 }
-```
-
-## Configuration
-
-The installation configuration should be enough to use it.
-
-If you need to change the CS config file, we suggest to don't edit the main `.php-cs-fixer.dist.php` file.
-
-You can create a new file `.php-cs-fixer.php` with something like this:
-
-```php
-<?php
-
-/** @var PhpCsFixer\Config $config */
-$config = require __DIR__ . '/.php-cs-fixer.dist.php';
-
-// change your configuration...
-$config->setUsingCache(false);
-
-return $config;
 ```
 
 ## Usage
@@ -61,11 +44,31 @@ To automatically fix code style:
 $ composer cs-fix
 ```
 
+To automatically check for refactor:
+
+```
+$ composer rector-check
+```
+
+To automatically refactor fix:
+
+```
+$ composer rector-fix
+```
+
+To run static analisys check:
+
+```
+$ composer phpstan
+```
+
 ## PhpCsFixer configuration
 
 See [PhpCsFixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) GitHub page.
+See [Rector](https://github.com/rectorphp/rector) GitHub page.
+See [PHPStan](https://github.com/phpstan/phpstan) GitHub page.
 
-## Risky rules
+## Risky rules (PHP-CS-Fixer)
 
 Risky rules may be unstable, and cause unintended behavioral changes to your code. If you want to add these rules, you can create your own `.php-cs-fixer.php`
 configuration:
@@ -108,4 +111,38 @@ Usage:
 Options:
       --no-dev                   Do not include autoload-dev directories
       --no-risky                 Do not include risky rules
+```
+
+If you have any problem updating to a new version, you can regenerate
+the default `rector.php` with the command:
+
+```
+$ composer algoritma-rector-create-config
+```
+
+```
+$ composer algoritma-rector-create-config --help
+
+Usage:
+  algoritma-rector-create-config [options]
+
+Options:
+      --no-dev                   Do not include autoload-dev directories
+```
+
+If you have any problem updating to a new version, you can regenerate
+the default `phpstan.neon` with the command:
+
+```
+$ composer algoritma-phpstan-create-config
+```
+
+```
+$ composer algoritma-phpstan-create-config --help
+
+Usage:
+  algoritma-phpstan-create-config [options]
+
+Options:
+      --no-dev                   Do not include autoload-dev directories
 ```
