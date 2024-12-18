@@ -105,9 +105,23 @@ class Installer
             return;
         }
 
+        if (is_file($this->projectRoot . '/.php-cs-fixer.dist.php')) {
+            move_uploaded_file($this->projectRoot . '/.php-cs-fixer.dist.php', $this->projectRoot . '/.php-cs-fixer.php.old');
+        }
+
+        if (is_file($this->projectRoot . '/phpstan.neon')) {
+            move_uploaded_file($this->projectRoot . '/phpstan.neon', $this->projectRoot . '/phpstan.neon.old');
+        }
+
+        if (is_file($this->projectRoot . '/rector.php')) {
+            move_uploaded_file($this->projectRoot . '/rector.php', $this->projectRoot . '/rector.php.old');
+        }
+
         $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
-        $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
+        $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php');
+        $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
+        $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }
 
     private function isBcBreak(PackageInterface $currentPackage, PackageInterface $targetPackage): bool
@@ -172,28 +186,12 @@ class Installer
     {
         $destPath = $this->projectRoot . '/phpstan.neon';
 
-        if (file_exists($destPath)) {
+        if (is_file($destPath)) {
             $this->io->write("\n  <comment>Skipping... PHPStan config file already exists.</comment>");
             $this->io->write('  <info>Delete phpstan.neon if you want to install it.</info>');
 
             return;
         }
-
-        $question = [
-            sprintf(
-                "  <question>%s</question>\n",
-                'Do you want to create the PHPStan configuration in your project root? (Y/n)',
-            ),
-            '  <info>It will create a phpstan.neon file in your project root directory.</info> ',
-        ];
-
-        $answer = $this->io->askConfirmation(implode("\n", $question), true);
-
-        if (! $answer) {
-            return;
-        }
-
-        $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
         $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
     }
@@ -202,28 +200,12 @@ class Installer
     {
         $destPath = $this->projectRoot . '/rector.php';
 
-        if (file_exists($destPath)) {
+        if (is_file($destPath)) {
             $this->io->write("\n  <comment>Skipping... Rector config file already exists.</comment>");
             $this->io->write('  <info>Delete rector.php if you want to install it.</info>');
 
             return;
         }
-
-        $question = [
-            sprintf(
-                "  <question>%s</question>\n",
-                'Do you want to create the Rector configuration in your project root? (Y/n)',
-            ),
-            '  <info>It will create a rector.php file in your project root directory.</info> ',
-        ];
-
-        $answer = $this->io->askConfirmation(implode("\n", $question), true);
-
-        if (! $answer) {
-            return;
-        }
-
-        $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
         $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }

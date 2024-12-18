@@ -14,12 +14,6 @@ parameters:
 			path: src/Installer/Installer.php
 
 		-
-			message: '#^Call to function method_exists\(\) with Algoritma\\CodingStandards\\Installer\\Installer and ''checkUpgrade'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/Installer/Plugin.php
-
-		-
 			message: '#^Method Algoritma\\CodingStandards\\Installer\\Plugin\:\:activate\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
 			identifier: throws.unusedType
 			count: 1
