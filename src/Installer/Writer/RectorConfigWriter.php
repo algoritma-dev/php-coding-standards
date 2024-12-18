@@ -44,8 +44,6 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
                     codeQuality: true,
                     typeDeclarations: true,
                     instanceOf: true,
-                    codingStyle: true,
-                    phpunitCodeQuality: true,
                     earlyReturn: true,
                 )->withRules(\$rulesProvider->getRules());
 

@@ -121,8 +121,8 @@ class Dumper
 
         try {
             $exitCode = $application->run(new ArrayInput(['describe', 'name' => $fixer->getName()]), $bufferedOutput);
-        } catch (\Throwable $exception) {
-            throw new \RuntimeException('Error while running describe for rule: ' . $exception->getMessage(), 0, $exception);
+        } catch (\Throwable $throwable) {
+            throw new \RuntimeException('Error while running describe for rule: ' . $throwable->getMessage(), 0, $throwable);
         }
 
         if ($exitCode !== 0) {

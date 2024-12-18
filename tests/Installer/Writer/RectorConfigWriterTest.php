@@ -55,8 +55,6 @@ class RectorConfigWriterTest extends TestCase
                     codeQuality: true,
                     typeDeclarations: true,
                     instanceOf: true,
-                    codingStyle: true,
-                    phpunitCodeQuality: true,
                     earlyReturn: true,
                 )->withRules($rulesProvider->getRules());
 
@@ -100,8 +98,6 @@ class RectorConfigWriterTest extends TestCase
                     codeQuality: true,
                     typeDeclarations: true,
                     instanceOf: true,
-                    codingStyle: true,
-                    phpunitCodeQuality: true,
                     earlyReturn: true,
                 )->withRules($rulesProvider->getRules());
 
