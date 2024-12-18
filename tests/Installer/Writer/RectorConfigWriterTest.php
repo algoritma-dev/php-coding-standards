@@ -32,9 +32,7 @@ class RectorConfigWriterTest extends TestCase
         $expected = <<<'EOD'
             <?php
 
-            use RectorConfigRectorConfig;
-            use RectorPHPUnitSetPHPUnitSetList;
-            use RectorTypeDeclarationRectorClassMethodReturnNeverTypeRector;
+            use Rector\Config\RectorConfig;
             
             $additionalRules = [];
             $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
@@ -48,7 +46,7 @@ class RectorConfigWriterTest extends TestCase
                 ->fileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
-                ->withPaths($autoloadPathProvider->getPaths()})
+                ->withPaths($autoloadPathProvider->getPaths())
                 ->withPhpSets()
                 ->withPreparedSets(
                     deadCode: true,
@@ -75,9 +73,7 @@ class RectorConfigWriterTest extends TestCase
         $expected = <<<'EOD'
             <?php
 
-            use RectorConfigRectorConfig;
-            use RectorPHPUnitSetPHPUnitSetList;
-            use RectorTypeDeclarationRectorClassMethodReturnNeverTypeRector;
+            use Rector\Config\RectorConfig;
             
             $additionalRules = [];
             $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
@@ -91,7 +87,7 @@ class RectorConfigWriterTest extends TestCase
                 ->fileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
-                ->withPaths($autoloadPathProvider->getPaths()})
+                ->withPaths($autoloadPathProvider->getPaths())
                 ->withPhpSets()
                 ->withPreparedSets(
                     deadCode: true,

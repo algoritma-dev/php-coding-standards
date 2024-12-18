@@ -72,7 +72,7 @@ final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
             <?php
             
             {$autoloadPathProvider}
-            return ['parameters' => ['paths' => [\$autoloadPathProvider->getPaths()]]];
+            return ['parameters' => ['paths' => \$autoloadPathProvider->getPaths()]];
 
             EOD;
     }

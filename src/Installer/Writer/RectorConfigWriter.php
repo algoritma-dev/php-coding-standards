@@ -25,9 +25,7 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
         return <<<EOD
             <?php
 
-            use RectorConfigRectorConfig;
-            use RectorPHPUnitSetPHPUnitSetList;
-            use RectorTypeDeclarationRectorClassMethodReturnNeverTypeRector;
+            use Rector\\Config\\RectorConfig;
 
             {$rulesProviderConfig}
 
@@ -37,7 +35,7 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
                 ->fileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
-                ->withPaths(\$autoloadPathProvider->getPaths()})
+                ->withPaths(\$autoloadPathProvider->getPaths())
                 ->withPhpSets()
                 ->withPreparedSets(
                     deadCode: true,
