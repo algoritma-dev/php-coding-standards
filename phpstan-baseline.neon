@@ -82,27 +82,3 @@ parameters:
 			message: '#^Out of 4 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
 			count: 1
 			path: tests/Installer/PluginTest.php
-
-		-
-			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/RulesMaintenance/Dumper.php
-
-		-
-			message: '#^Comparison operation "\<" between 1 and 0 is always false\.$#'
-			identifier: smaller.alwaysFalse
-			count: 1
-			path: tests/RulesMaintenance/DumperTest.php
-
-		-
-			message: '#^Method Algoritma\\CodingStandardsTest\\RulesMaintenance\\RuleListTest\:\:testAllListAreAlphabetical\(\) has parameter \$rulesList with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/RulesMaintenance/RuleListTest.php
-
-		-
-			message: '#^Method Algoritma\\CodingStandardsTest\\RulesMaintenance\\RuleListTest\:\:testGetAllMappedRules\(\) has parameter \$rulesList with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/RulesMaintenance/RuleListTest.php
