@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer;
 
+use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
 use Composer\Composer;
 use Composer\Factory;
 use Composer\IO\IOInterface;
@@ -24,7 +26,11 @@ class Installer
 
     private JsonFile $composerJson;
 
-    private PhpCsConfigWriterInterface $phpCsWriter;
+    private readonly PhpCsConfigWriterInterface $phpCsWriter;
+
+    private readonly PhpCsConfigWriterInterface $phpstanWriter;
+
+    private readonly PhpCsConfigWriterInterface $rectorWriter;
 
     /**
      * @throws \RuntimeException
@@ -36,6 +42,8 @@ class Installer
         ?string $projectRoot = null,
         ?string $composerPath = null,
         ?PhpCsConfigWriterInterface $phpCsWriter = null,
+        ?PhpCsConfigWriterInterface $phpstanWriter = null,
+        ?PhpCsConfigWriterInterface $rectorWriter = null,
     ) {
         // Get composer.json location
         $composerFile = $composerPath ?? Factory::getComposerFile();
@@ -51,6 +59,8 @@ class Installer
         // Parse the composer.json
         $this->parseComposerDefinition($composerFile);
         $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigFixerWriter();
+        $this->phpstanWriter = $phpstanWriter ?: new PhpstanConfigWriter();
+        $this->rectorWriter = $rectorWriter ?: new RectorConfigWriter();
     }
 
     /**
@@ -59,7 +69,9 @@ class Installer
     public function installCommands(): void
     {
         $this->io->write('<info>Setting up Algoritma Coding Standards</info>');
-        $this->requestCreateCsConfig();
+        $this->requestCreatePhpCsConfig();
+        $this->requestCreatePhpstanConfig();
+        $this->requestCreateRectorConfig();
         $this->requestAddComposerScripts();
         $this->composerJson->write($this->composerDefinition);
     }
@@ -114,11 +126,6 @@ class Installer
         return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
     }
 
-    public function setPhpCsWriter(PhpCsConfigWriterInterface $phpCsWriter): void
-    {
-        $this->phpCsWriter = $phpCsWriter;
-    }
-
     /**
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
@@ -131,7 +138,7 @@ class Installer
         $this->composerDefinition = $definition;
     }
 
-    public function requestCreateCsConfig(): void
+    public function requestCreatePhpCsConfig(): void
     {
         $destPath = $this->projectRoot . '/.php-cs-fixer.dist.php';
 
@@ -159,6 +166,66 @@ class Installer
         $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
+    }
+
+    public function requestCreatePhpstanConfig(): void
+    {
+        $destPath = $this->projectRoot . '/phpstan.neon';
+
+        if (file_exists($destPath)) {
+            $this->io->write("\n  <comment>Skipping... PHPStan config file already exists.</comment>");
+            $this->io->write('  <info>Delete phpstan.neon if you want to install it.</info>');
+
+            return;
+        }
+
+        $question = [
+            sprintf(
+                "  <question>%s</question>\n",
+                'Do you want to create the PHPStan configuration in your project root? (Y/n)',
+            ),
+            '  <info>It will create a phpstan.neon file in your project root directory.</info> ',
+        ];
+
+        $answer = $this->io->askConfirmation(implode("\n", $question), true);
+
+        if (! $answer) {
+            return;
+        }
+
+        $this->io->write("\n  <info>Writing configuration in project root...</info>");
+
+        $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
+    }
+
+    public function requestCreateRectorConfig(): void
+    {
+        $destPath = $this->projectRoot . '/rector.php';
+
+        if (file_exists($destPath)) {
+            $this->io->write("\n  <comment>Skipping... Rector config file already exists.</comment>");
+            $this->io->write('  <info>Delete rector.php if you want to install it.</info>');
+
+            return;
+        }
+
+        $question = [
+            sprintf(
+                "  <question>%s</question>\n",
+                'Do you want to create the Rector configuration in your project root? (Y/n)',
+            ),
+            '  <info>It will create a rector.php file in your project root directory.</info> ',
+        ];
+
+        $answer = $this->io->askConfirmation(implode("\n", $question), true);
+
+        if (! $answer) {
+            return;
+        }
+
+        $this->io->write("\n  <info>Writing configuration in project root...</info>");
+
+        $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }
 
     public function requestAddComposerScripts(): void
