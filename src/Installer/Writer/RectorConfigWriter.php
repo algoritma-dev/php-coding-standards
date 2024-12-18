@@ -32,7 +32,7 @@ final class RectorConfigWriter implements PhpCsConfigWriterInterface
             {$autoloadPathProvider}
 
             return RectorConfig::configure()
-                ->fileExtensions(['php'])
+                ->withFileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths(\$autoloadPathProvider->getPaths())

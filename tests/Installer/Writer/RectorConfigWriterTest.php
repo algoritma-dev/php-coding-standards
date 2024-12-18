@@ -43,7 +43,7 @@ class RectorConfigWriterTest extends TestCase
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
             return RectorConfig::configure()
-                ->fileExtensions(['php'])
+                ->withFileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
@@ -84,7 +84,7 @@ class RectorConfigWriterTest extends TestCase
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
 
             return RectorConfig::configure()
-                ->fileExtensions(['php'])
+                ->withFileExtensions(['php'])
                 ->withImportNames(importShortClasses: false)
                 ->withParallel()
                 ->withPaths($autoloadPathProvider->getPaths())
