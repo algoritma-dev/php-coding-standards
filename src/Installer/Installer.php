@@ -69,9 +69,9 @@ class Installer
     public function installCommands(): void
     {
         $this->io->write('<info>Setting up Algoritma Coding Standards</info>');
-        $this->requestCreatePhpCsConfig();
-        $this->requestCreatePhpstanConfig();
-        $this->requestCreateRectorConfig();
+        $this->createPhpCsConfig();
+        $this->createPhpstanConfig();
+        $this->createRectorConfig();
         $this->requestAddComposerScripts();
         $this->composerJson->write($this->composerDefinition);
     }
@@ -152,37 +152,21 @@ class Installer
         $this->composerDefinition = $definition;
     }
 
-    public function requestCreatePhpCsConfig(): void
+    public function createPhpCsConfig(): void
     {
         $destPath = $this->projectRoot . '/.php-cs-fixer.dist.php';
 
-        if (file_exists($destPath)) {
+        if (is_file($destPath)) {
             $this->io->write("\n  <comment>Skipping... CS config file already exists.</comment>");
             $this->io->write('  <info>Delete .php-cs-fixer.dist.php if you want to install it.</info>');
 
             return;
         }
 
-        $question = [
-            sprintf(
-                "  <question>%s</question>\n",
-                'Do you want to create the CS configuration in your project root? (Y/n)',
-            ),
-            '  <info>It will create a .php-cs-fixer.dist.php file in your project root directory.</info> ',
-        ];
-
-        $answer = $this->io->askConfirmation(implode("\n", $question), true);
-
-        if (! $answer) {
-            return;
-        }
-
-        $this->io->write("\n  <info>Writing configuration in project root...</info>");
-
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php', false, true);
     }
 
-    public function requestCreatePhpstanConfig(): void
+    public function createPhpstanConfig(): void
     {
         $destPath = $this->projectRoot . '/phpstan.neon';
 
@@ -196,7 +180,7 @@ class Installer
         $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
     }
 
-    public function requestCreateRectorConfig(): void
+    public function createRectorConfig(): void
     {
         $destPath = $this->projectRoot . '/rector.php';
 

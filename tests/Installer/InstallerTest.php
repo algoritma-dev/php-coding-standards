@@ -200,7 +200,7 @@ class InstallerTest extends TestCase
         $installer->checkUpgrade($currentPackage, $targetPackage);
     }
 
-    public function testRequestCreatePhpCsFixerConfigWithAlreadyExistingFile(): void
+    public function testCreatePhpCsFixerConfigWithAlreadyExistingFile(): void
     {
         touch($this->projectRoot . '/.php-cs-fixer.dist.php');
 
@@ -223,10 +223,10 @@ class InstallerTest extends TestCase
             $this->composerFilePath,
             $phpCsWriter->reveal(),
         );
-        $installer->requestCreatePhpCsConfig();
+        $installer->createPhpCsConfig();
     }
 
-    public function testRequestCreatePhpstanConfigWithAlreadyExistingFile(): void
+    public function testCreatePhpstanConfigWithAlreadyExistingFile(): void
     {
         touch($this->projectRoot . '/phpstan.neon');
 
@@ -250,10 +250,10 @@ class InstallerTest extends TestCase
             null,
             $writer->reveal(),
         );
-        $installer->requestCreatePhpstanConfig();
+        $installer->createPhpstanConfig();
     }
 
-    public function testRequestCreateRectorConfigWithAlreadyExistingFile(): void
+    public function testCreateRectorConfigWithAlreadyExistingFile(): void
     {
         touch($this->projectRoot . '/rector.php');
 
@@ -278,7 +278,7 @@ class InstallerTest extends TestCase
             null,
             $writer->reveal(),
         );
-        $installer->requestCreateRectorConfig();
+        $installer->createRectorConfig();
     }
 
     public function testRequestCreatePhpCsFixerConfig(): void
@@ -288,8 +288,6 @@ class InstallerTest extends TestCase
         $composer = $this->prophesize(Composer::class);
         $phpCsWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
 
-        $io->write(Argument::any())->shouldBeCalled();
-        $io->askConfirmation(Argument::any(), true)->shouldBeCalled()->willReturn(true);
         $composer->getPackage()->willReturn($package);
         $package->getAutoload()->willReturn([]);
         $package->getDevAutoload()->willReturn([]);
@@ -304,7 +302,7 @@ class InstallerTest extends TestCase
             $phpCsWriter->reveal(),
         );
 
-        $installer->requestCreatePhpCsConfig();
+        $installer->createPhpCsConfig();
     }
 
     public function testRequestCreatePhpstanConfig(): void
@@ -329,7 +327,7 @@ class InstallerTest extends TestCase
             $writer->reveal(),
         );
 
-        $installer->requestCreatePhpstanConfig();
+        $installer->createPhpstanConfig();
     }
 
     public function testRequestCreateRectorConfig(): void
@@ -355,6 +353,6 @@ class InstallerTest extends TestCase
             $writer->reveal(),
         );
 
-        $installer->requestCreateRectorConfig();
+        $installer->createRectorConfig();
     }
 }
