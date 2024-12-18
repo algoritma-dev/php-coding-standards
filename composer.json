@@ -9,7 +9,7 @@
     "keywords": [
         "algoritma",
         "algoritma.it",
-        "coding standard"
+        "PHP Coding Standard"
     ],
     "config": {
         "sort-packages": true,
@@ -28,6 +28,7 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-doctrine": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
         "rector/rector": "^2.0",
