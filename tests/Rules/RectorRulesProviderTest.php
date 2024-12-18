@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-use Algoritma\CodingStandards\Rules\PhpstanRulesProvider;
 use Algoritma\CodingStandards\Rules\RectorRulesProvider;
 
 use const false;
