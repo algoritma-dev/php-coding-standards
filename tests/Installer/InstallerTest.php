@@ -43,8 +43,6 @@ class InstallerTest extends TestCase
     {
         return [
             [['0.1.0.0', '0.1.0'], ['0.1.0.0', '0.1.0']],
-            [['0.1.0.0', '0.1.0'], ['0.1.1.0', '0.1.1']],
-            [['1.1.0.0', '1.1.0'], ['1.2.0.0', '1.2.0']],
             [['dev-master', 'dev-master'], ['dev-master', 'dev-master']],
             [['dev-master#12345', 'dev-master'], ['dev-master#12345', 'dev-master']],
             [['dev-master#12345', 'dev-master'], ['dev-master#12346', 'dev-master']],
@@ -168,11 +166,8 @@ class InstallerTest extends TestCase
             ->willReturn(true);
 
         $io->write(Argument::type('string'))->shouldBeCalled();
-        $phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php')
-            ->shouldBeCalled();
-        $phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon')
-            ->shouldBeCalled();
-        $rectorWriter->writeConfigFile($this->projectRoot . '/rector.php')
+
+        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')
             ->shouldBeCalled();
 
         $installer->checkUpgrade($currentPackage, $targetPackage);

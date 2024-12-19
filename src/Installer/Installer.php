@@ -111,24 +111,9 @@ class Installer
             return;
         }
 
-        if (is_file($this->projectRoot . '/.php-cs-fixer.dist.php')) {
-            move_uploaded_file($this->projectRoot . '/.php-cs-fixer.dist.php', $this->projectRoot . '/.php-cs-fixer.php.old');
-        }
-
-        if (is_file($this->projectRoot . '/phpstan.neon')) {
-            move_uploaded_file($this->projectRoot . '/phpstan.neon', $this->projectRoot . '/phpstan.neon.old');
-        }
-
-        if (is_file($this->projectRoot . '/rector.php')) {
-            move_uploaded_file($this->projectRoot . '/rector.php', $this->projectRoot . '/rector.php.old');
-        }
-
         $this->io->write("\n  <info>Writing configuration in project root...</info>");
 
-        $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php');
-        $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
         $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
-        $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }
 
     private function isBcBreak(PackageInterface $currentPackage, PackageInterface $targetPackage): bool
@@ -142,7 +127,7 @@ class Installer
             $constraint = '^' . $constraint;
         }
 
-//        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
+        //        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
         return true;
     }
 
