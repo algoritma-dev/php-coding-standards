@@ -62,9 +62,19 @@ final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
             
             {$rulesProviderConfig}
             
+            /**
+             * Paths need to be absolute only on PHP Coniguration.
+             */
+            \$paths = array_map(
+                static function(string \$path) {
+                    return \\Symfony\\Component\\Filesystem\\Path::makeAbsolute(\$path), __DIR__);
+                }, \$autoloadPathProvider->getPaths());
+
+            \$paths = array_values(array_unique(\$paths));
+            
             return [
                 'parameters' => [
-                    'paths' => \$autoloadPathProvider->getPaths(),
+                    'paths' => \$paths,
                     'treatPhpDocTypesAsCertain' => false,
                     'inferPrivatePropertyTypeFromConstructor' => true,
                     'type_perfect' => [

@@ -38,7 +38,7 @@ class PhpstanConfigWriterTest extends TestCase
                 	- algoritma-phpstan-config.php
 
                 parameters:
-                	level: 8
+                	level: 6
                 	excludePaths:
                 		- **/node_modules/*
                 		- **/vendor/*
@@ -60,10 +60,20 @@ class PhpstanConfigWriterTest extends TestCase
                     new Algoritma\CodingStandards\Rules\PhpstanRulesProvider(),
                     new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
                 ]);
+                
+                /**
+                 * Paths need to be absolute only on PHP Coniguration.
+                 */
+                $paths = array_map(
+                    static function(string $path) {
+                        return \Symfony\Component\Filesystem\Path::makeAbsolute($path), __DIR__);
+                    }, $autoloadPathProvider->getPaths());
+
+                $paths = array_values(array_unique($paths));
 
                 return [
                     'parameters' => [
-                        'paths' => $autoloadPathProvider->getPaths(),
+                        'paths' => $paths,
                         'treatPhpDocTypesAsCertain' => false,
                         'inferPrivatePropertyTypeFromConstructor' => true,
                         'type_perfect' => [
@@ -101,7 +111,7 @@ class PhpstanConfigWriterTest extends TestCase
                 	- algoritma-phpstan-config.php
 
                 parameters:
-                	level: 8
+                	level: 6
                 	excludePaths:
                 		- **/node_modules/*
                 		- **/vendor/*
@@ -123,10 +133,20 @@ class PhpstanConfigWriterTest extends TestCase
                     new Algoritma\CodingStandards\Rules\PhpstanRulesProvider(),
                     new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
                 ]);
+                
+                /**
+                 * Paths need to be absolute only on PHP Coniguration.
+                 */
+                $paths = array_map(
+                    static function(string $path) {
+                        return \Symfony\Component\Filesystem\Path::makeAbsolute($path), __DIR__);
+                    }, $autoloadPathProvider->getPaths());
+
+                $paths = array_values(array_unique($paths));
 
                 return [
                     'parameters' => [
-                        'paths' => $autoloadPathProvider->getPaths(),
+                        'paths' => $paths,
                         'treatPhpDocTypesAsCertain' => false,
                         'inferPrivatePropertyTypeFromConstructor' => true,
                         'type_perfect' => [
