@@ -147,7 +147,6 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'whitespace_after_comma_in_array' => true,
             'heredoc_closing_marker' => true,
             'multiline_string_to_heredoc' => true,
-            'numeric_literal_separator' => true,
             'ordered_attributes' => true,
             'php_unit_attributes' => true,
             'string_implicit_backslashes' => true,
