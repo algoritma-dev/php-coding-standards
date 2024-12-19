@@ -39,6 +39,6 @@ class CompositeRulesProviderTest extends TestCase
             'dummy' => ['opt2' => false],
         ];
 
-        $this->assertSame($expected, $provider->getRules());
+        static::assertSame($expected, $provider->getRules());
     }
 }

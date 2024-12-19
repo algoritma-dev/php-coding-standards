@@ -39,7 +39,7 @@ class AutoloadPathProviderTest extends TestCase
         );
 
         $expected = ['src/', 'tests/'];
-        $this->assertSame($expected, $provider->getPaths());
+        static::assertSame($expected, $provider->getPaths());
     }
 
     public function testGetPathsWithDevOff(): void
@@ -51,7 +51,7 @@ class AutoloadPathProviderTest extends TestCase
         );
 
         $expected = ['src/'];
-        $this->assertSame($expected, $provider->getPaths());
+        static::assertSame($expected, $provider->getPaths());
     }
 
     public function testGetPathsWithWrongComposerJsonPath(): void

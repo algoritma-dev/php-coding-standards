@@ -62,7 +62,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             EOD;
 
-        $this->assertSame($expected, $content);
+        static::assertSame($expected, $content);
     }
 
     public function testWriteConfigFileWithNoDev(): void
@@ -107,7 +107,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             EOD;
 
-        $this->assertSame($expected, $content);
+        static::assertSame($expected, $content);
     }
 
     public function testWriteConfigFileWithNoRisky(): void
@@ -150,7 +150,7 @@ class PhpCsConfigWriterTest extends TestCase
 
             EOD;
 
-        $this->assertSame($expected, $content);
+        static::assertSame($expected, $content);
     }
 
     public function testWriteConfigFileWithNoDevAndNoRisky(): void
@@ -193,6 +193,6 @@ class PhpCsConfigWriterTest extends TestCase
 
             EOD;
 
-        $this->assertSame($expected, $content);
+        static::assertSame($expected, $content);
     }
 }

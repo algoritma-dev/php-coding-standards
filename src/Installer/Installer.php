@@ -102,33 +102,6 @@ class Installer
         $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
     }
 
-    private function isBcBreak(PackageInterface $currentPackage, PackageInterface $targetPackage): bool
-    {
-        if ($targetPackage->getFullPrettyVersion() === $currentPackage->getFullPrettyVersion()) {
-            return false;
-        }
-
-        $constraint = $currentPackage->getVersion();
-        if (! str_starts_with($constraint, 'dev-')) {
-            $constraint = '^' . $constraint;
-        }
-
-        //        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
-        return true;
-    }
-
-    /**
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    private function parseComposerDefinition(string $composerFile): void
-    {
-        $this->composerJson = new JsonFile($composerFile);
-        /** @var array<string, mixed> $definition */
-        $definition = $this->composerJson->read();
-        $this->composerDefinition = $definition;
-    }
-
     public function createPhpCsConfig(): void
     {
         $destPath = $this->projectRoot . '/.php-cs-fixer.dist.php';
@@ -240,5 +213,32 @@ class Installer
         $scripts[$composerCommand] = $command;
 
         $this->composerDefinition['scripts'] = $scripts;
+    }
+
+    private function isBcBreak(PackageInterface $currentPackage, PackageInterface $targetPackage): bool
+    {
+        if ($targetPackage->getFullPrettyVersion() === $currentPackage->getFullPrettyVersion()) {
+            return false;
+        }
+
+        $constraint = $currentPackage->getVersion();
+        if (! str_starts_with($constraint, 'dev-')) {
+            $constraint = '^' . $constraint;
+        }
+
+        //        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
+        return true;
+    }
+
+    /**
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    private function parseComposerDefinition(string $composerFile): void
+    {
+        $this->composerJson = new JsonFile($composerFile);
+        /** @var array<string, mixed> $definition */
+        $definition = $this->composerJson->read();
+        $this->composerDefinition = $definition;
     }
 }
