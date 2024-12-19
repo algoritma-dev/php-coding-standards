@@ -22,7 +22,7 @@ final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
                 'algoritma-phpstan-config.php',
             ],
             'parameters' => [
-                'level' => 8,
+                'level' => 6,
                 'excludePaths' => [
                     '**/node_modules/*',
                     '**/vendor/*',
