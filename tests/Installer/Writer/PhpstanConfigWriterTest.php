@@ -62,7 +62,7 @@ class PhpstanConfigWriterTest extends TestCase
                 ]);
                 
                 /**
-                 * Paths need to be absolute only on PHP Coniguration.
+                 * Paths need to be absolute only on PHP Configuration.
                  */
                 $paths = array_map(
                     static function(string $path) {
@@ -135,7 +135,7 @@ class PhpstanConfigWriterTest extends TestCase
                 ]);
                 
                 /**
-                 * Paths need to be absolute only on PHP Coniguration.
+                 * Paths need to be absolute only on PHP Configuration.
                  */
                 $paths = array_map(
                     static function(string $path) {
