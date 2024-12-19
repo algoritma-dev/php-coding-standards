@@ -97,21 +97,7 @@ class Installer
             return;
         }
 
-        $question = [
-            '  <error>You are upgrading "' . $currentPackage->getPrettyName() . '" with possible BC breaks.</error>',
-            sprintf(
-                '  <question>%s</question>',
-                'Do you want to write the new configuration? (Y/n)',
-            ),
-        ];
-
-        $answer = $this->io->askConfirmation(implode("\n", $question), true);
-
-        if (! $answer) {
-            return;
-        }
-
-        $this->io->write("\n  <info>Writing configuration in project root...</info>");
+        $this->io->write("\n  <info>Writing new configuration in project root...</info>");
 
         $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
     }
