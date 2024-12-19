@@ -77,7 +77,8 @@ class InstallerTest extends TestCase
         $io = $this->prophesize(IOInterface::class);
         $composer = $this->prophesize(Composer::class);
         $phpCsWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
-        $phpstanWrite = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanAlgoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $rectorWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
 
         $installer = new Installer(
@@ -86,7 +87,8 @@ class InstallerTest extends TestCase
             $this->projectRoot,
             $this->composerFilePath,
             $phpCsWriter->reveal(),
-            $phpstanWrite->reveal(),
+            $phpstanWriter->reveal(),
+            $phpstanAlgoritmaWriter->reveal(),
             $rectorWriter->reveal(),
         );
 
@@ -111,7 +113,8 @@ class InstallerTest extends TestCase
         $io = $this->prophesize(IOInterface::class);
         $composer = $this->prophesize(Composer::class);
         $phpCsWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
-        $phpstanWrite = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanAlgoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $rectorWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
 
         $installer = new Installer(
@@ -120,7 +123,8 @@ class InstallerTest extends TestCase
             $this->projectRoot,
             $this->composerFilePath,
             $phpCsWriter->reveal(),
-            $phpstanWrite->reveal(),
+            $phpstanWriter->reveal(),
+            $phpstanAlgoritmaWriter->reveal(),
             $rectorWriter->reveal(),
         );
 
@@ -142,6 +146,7 @@ class InstallerTest extends TestCase
         $composer = $this->prophesize(Composer::class);
         $phpCsWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $phpstanWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanAlgoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $rectorWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
 
         $installer = new Installer(
@@ -151,6 +156,7 @@ class InstallerTest extends TestCase
             $this->composerFilePath,
             $phpCsWriter->reveal(),
             $phpstanWriter->reveal(),
+            $phpstanAlgoritmaWriter->reveal(),
             $rectorWriter->reveal(),
         );
 
@@ -253,6 +259,32 @@ class InstallerTest extends TestCase
         $installer->createPhpstanConfig();
     }
 
+    public function testCreatePhpstanAlgoritmaConfigWithAlreadyExistingFileShouldWriteAnyway(): void
+    {
+        touch($this->projectRoot . '/phpstan-algoritma-config.neon');
+
+        $package = $this->prophesize(PackageInterface::class);
+        $io = $this->prophesize(IOInterface::class);
+        $composer = $this->prophesize(Composer::class);
+        $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
+
+        $writer->writeConfigFile(Argument::cetera())->shouldBeCalled();
+        $composer->getPackage()->willReturn($package);
+        $package->getAutoload()->willReturn([]);
+        $package->getDevAutoload()->willReturn([]);
+
+        $installer = new Installer(
+            $io->reveal(),
+            $composer->reveal(),
+            $this->projectRoot,
+            $this->composerFilePath,
+            null,
+            null,
+            $writer->reveal(),
+        );
+        $installer->createPhpstanAlgoritmaConfig();
+    }
+
     public function testCreateRectorConfigWithAlreadyExistingFile(): void
     {
         touch($this->projectRoot . '/rector.php');
@@ -274,6 +306,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
+            null,
             null,
             null,
             $writer->reveal(),
@@ -330,6 +363,31 @@ class InstallerTest extends TestCase
         $installer->createPhpstanConfig();
     }
 
+    public function testCreatePhpstanAlgoritmaConfig(): void
+    {
+        $package = $this->prophesize(PackageInterface::class);
+        $io = $this->prophesize(IOInterface::class);
+        $composer = $this->prophesize(Composer::class);
+        $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
+
+        $composer->getPackage()->willReturn($package);
+        $package->getAutoload()->willReturn([]);
+        $writer->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldBeCalled();
+        $package->getDevAutoload()->willReturn([]);
+
+        $installer = new Installer(
+            $io->reveal(),
+            $composer->reveal(),
+            $this->projectRoot,
+            $this->composerFilePath,
+            null,
+            null,
+            $writer->reveal(),
+        );
+
+        $installer->createPhpstanAlgoritmaConfig();
+    }
+
     public function testRequestCreateRectorConfig(): void
     {
         $package = $this->prophesize(PackageInterface::class);
@@ -348,6 +406,7 @@ class InstallerTest extends TestCase
             $composer->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
+            null,
             null,
             null,
             $writer->reveal(),
