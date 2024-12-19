@@ -4,6 +4,19 @@
 
 Currently, [Composer](https://getcomposer.org/) is the only supported installation tool.
 
+Add repository source on composer.json:
+
+```
+"repositories": {
+    "algoritma-php-cs": {
+        "type": "vcs",
+        "url": "https://carelle:glpat-tB_sW53pfyD4Gy9JFBZ-@gitlab.algoritma.it/algoritma/php-coding-standard.git"
+    }
+}
+```
+
+then run the command
+
 ```
 $ composer require --dev algoritma/php-coding-standard
 ```
