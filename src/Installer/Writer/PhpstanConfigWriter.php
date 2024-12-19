@@ -63,7 +63,7 @@ final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
             {$rulesProviderConfig}
             
             /**
-             * Paths need to be absolute only on PHP Coniguration.
+             * Paths need to be absolute only on PHP Configuration.
              */
             \$paths = array_map(
                 static function(string \$path) {
