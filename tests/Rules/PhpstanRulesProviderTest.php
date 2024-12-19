@@ -6,8 +6,6 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Rules\PhpstanRulesProvider;
 
-use const false;
-
 class PhpstanRulesProviderTest extends AbstractRulesProviderTest
 {
     protected static function getRulesProvider(): PhpstanRulesProvider
@@ -17,6 +15,6 @@ class PhpstanRulesProviderTest extends AbstractRulesProviderTest
 
     protected function shouldBeRisky(): bool
     {
-        return false;
+        return \false;
     }
 }

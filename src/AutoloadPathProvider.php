@@ -67,7 +67,7 @@ class AutoloadPathProvider
 
         $autoloadPaths = $this->reduceAutoload($autoloads);
 
-        return array_filter($autoloadPaths, fn(string $path): bool => is_dir($this->projectRoot . \DIRECTORY_SEPARATOR . $path));
+        return array_filter($autoloadPaths, fn (string $path): bool => is_dir($this->projectRoot . \DIRECTORY_SEPARATOR . $path));
     }
 
     /**

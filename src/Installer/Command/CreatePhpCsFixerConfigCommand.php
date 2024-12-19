@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer\Command;
 
-use Composer\Command\BaseCommand;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,7 +15,7 @@ class CreatePhpCsFixerConfigCommand extends BaseCommand
 {
     private PhpCsConfigWriterInterface $configWriter;
 
-    public function __construct(string $name = null)
+    public function __construct(?string $name = null)
     {
         $this->configWriter = new PhpCsConfigFixerWriter();
 

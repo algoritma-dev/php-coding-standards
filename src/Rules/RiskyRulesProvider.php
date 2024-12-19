@@ -11,6 +11,7 @@ final class RiskyRulesProvider extends AbstractRuleProvider
         return $this->filterRules([
             '@PER-CS2.0:risky' => true,
             '@PSR12:risky' => true,
+            '@Symfony:risky' => true,
             'array_push' => true,
             'combine_nested_dirname' => true,
             'dir_constant' => true,

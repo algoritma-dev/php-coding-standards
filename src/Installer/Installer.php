@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer;
 
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
+use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
@@ -13,8 +15,6 @@ use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
 use Composer\Package\PackageInterface;
 use Composer\Semver\Semver;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 
 class Installer
 {
@@ -186,7 +186,6 @@ class Installer
             'phpstan' => 'phpstan analyze',
         ];
 
-        /** @var mixed $scriptsDefinition */
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
 
         if (\is_array($scriptsDefinition) && [] === array_diff_key($scripts, $scriptsDefinition)) {

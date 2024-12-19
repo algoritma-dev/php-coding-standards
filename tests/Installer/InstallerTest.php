@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer;
 
-use PHPUnit\Framework\Attributes\DataProvider;
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Package\Package;
-use Composer\Package\PackageInterface;
 use Algoritma\CodingStandards\Installer\Installer;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Algoritma\CodingStandardsTest\Util;
+use Composer\Composer;
+use Composer\IO\IOInterface;
+use Composer\Package\Package;
+use Composer\Package\PackageInterface;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Prophecy\Argument;
 
 class InstallerTest extends TestCase
