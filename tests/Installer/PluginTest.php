@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer;
 
+use Algoritma\CodingStandards\Installer\CommandProvider;
+use Algoritma\CodingStandards\Installer\Installer;
+use Algoritma\CodingStandards\Installer\Plugin;
+use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\OperationInterface;
@@ -15,10 +19,6 @@ use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
-use Algoritma\CodingStandards\Installer\CommandProvider;
-use Algoritma\CodingStandards\Installer\Installer;
-use Algoritma\CodingStandards\Installer\Plugin;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Prophecy\Argument;
 
 class PluginTest extends TestCase

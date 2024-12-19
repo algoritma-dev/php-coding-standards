@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Installer;
 
+use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
 use Algoritma\CodingStandards\Installer\Command\CreateRectorConfigCommand;
-use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
-use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Installer\CommandProvider;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 
 class CommandProviderTest extends TestCase
 {

@@ -6,8 +6,6 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Rules\DefaultRulesProvider;
 
-use const false;
-
 class DefaultRulesProviderTest extends AbstractRulesProviderTest
 {
     protected static function getRulesProvider(): DefaultRulesProvider
@@ -17,6 +15,6 @@ class DefaultRulesProviderTest extends AbstractRulesProviderTest
 
     protected function shouldBeRisky(): bool
     {
-        return false;
+        return \false;
     }
 }

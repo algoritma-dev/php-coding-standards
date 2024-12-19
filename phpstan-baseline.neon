@@ -8,12 +8,6 @@ parameters:
 			path: src/Installer/Installer.php
 
 		-
-			message: '#^PHPDoc tag @var with type mixed is not subtype of native type mixed\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: src/Installer/Installer.php
-
-		-
 			message: '#^Method Algoritma\\CodingStandards\\Installer\\Plugin\:\:activate\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
 			identifier: throws.unusedType
 			count: 1
