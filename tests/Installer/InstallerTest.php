@@ -93,8 +93,8 @@ class InstallerTest extends TestCase
 
         $io->isInteractive()
             ->willReturn(true);
-        $io->askConfirmation(Argument::cetera())
-            ->shouldNotBeCalled();
+
+        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldNotBeCalled();
 
         $installer->checkUpgrade($currentPackage, $targetPackage);
     }
@@ -129,9 +129,7 @@ class InstallerTest extends TestCase
 
         $io->isInteractive()
             ->willReturn(true);
-        $io->askConfirmation(Argument::cetera())
-            ->shouldBeCalled()
-            ->willReturn(false);
+        $io->write(Argument::cetera())->shouldBeCalled();
 
         $installer->checkUpgrade($currentPackage, $targetPackage);
     }
@@ -161,13 +159,10 @@ class InstallerTest extends TestCase
 
         $io->isInteractive()
             ->willReturn(true);
-        $io->askConfirmation(Argument::cetera())
-            ->shouldBeCalled()
-            ->willReturn(true);
+        $io->write(Argument::cetera())->shouldBeCalled();
 
-        $io->write(Argument::type('string'))->shouldBeCalled();
-
-        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')
+        $phpstanAlgoritmaWriter
+            ->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')
             ->shouldBeCalled();
 
         $installer->checkUpgrade($currentPackage, $targetPackage);
@@ -192,8 +187,6 @@ class InstallerTest extends TestCase
 
         $io->isInteractive()
             ->willReturn(false);
-        $io->askConfirmation(Argument::cetera())
-            ->shouldNotBeCalled();
 
         $io->write(Argument::containingString('Skip'))->shouldBeCalled();
         $phpCsWriter->writeConfigFile(Argument::cetera())
