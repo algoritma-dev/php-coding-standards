@@ -16,7 +16,7 @@ class AutoloadPathProvider
 
         $projectRootPath = $projectRoot ?: realpath(\dirname($this->composerPath));
 
-        if (false === $projectRootPath) {
+        if ($projectRootPath === false) {
             throw new \RuntimeException('Unable to get project root.');
         }
 
@@ -33,7 +33,7 @@ class AutoloadPathProvider
         }
 
         $composerContent = file_get_contents($this->composerPath);
-        if (false === $composerContent) {
+        if ($composerContent === false) {
             throw new \RuntimeException('Unable to read composer.json');
         }
 

@@ -105,6 +105,11 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'phpdoc_align' => [
                 'align' => 'left',
             ],
+            'yoda_style' => [
+                'equal' => false,
+                'identical' => false,
+                'less_and_greater' => false,
+            ],
             'phpdoc_annotation_without_dot' => true,
             'phpdoc_indent' => true,
             'phpdoc_inline_tag_normalizer' => true,

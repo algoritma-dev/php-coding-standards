@@ -93,7 +93,7 @@ class Installer
             return;
         }
 
-        if (false === $this->isBcBreak($currentPackage, $targetPackage)) {
+        if ($this->isBcBreak($currentPackage, $targetPackage) === false) {
             return;
         }
 
@@ -188,7 +188,7 @@ class Installer
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
 
-        if (\is_array($scriptsDefinition) && [] === array_diff_key($scripts, $scriptsDefinition)) {
+        if (\is_array($scriptsDefinition) && array_diff_key($scripts, $scriptsDefinition) === []) {
             $this->io->write("\n  <comment>Skipping... Scripts already exist in composer.json.</comment>");
 
             return;

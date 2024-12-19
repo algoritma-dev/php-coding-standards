@@ -61,7 +61,7 @@ final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
             '    new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),',
         ];
 
-        if (false === $noRisky) {
+        if ($noRisky === false) {
             $providersLine[] = '    new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),';
         }
 
