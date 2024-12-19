@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer;
 
+use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
 use Composer\Composer;
@@ -30,6 +31,8 @@ class Installer
 
     private readonly PhpCsConfigWriterInterface $phpstanWriter;
 
+    private readonly PhpCsConfigWriterInterface $phpstanAlgoritmaWriter;
+
     private readonly PhpCsConfigWriterInterface $rectorWriter;
 
     /**
@@ -43,6 +46,7 @@ class Installer
         ?string $composerPath = null,
         ?PhpCsConfigWriterInterface $phpCsWriter = null,
         ?PhpCsConfigWriterInterface $phpstanWriter = null,
+        ?PhpCsConfigWriterInterface $phpstanAlgoritmaWriter = null,
         ?PhpCsConfigWriterInterface $rectorWriter = null,
     ) {
         // Get composer.json location
@@ -60,6 +64,7 @@ class Installer
         $this->parseComposerDefinition($composerFile);
         $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigFixerWriter();
         $this->phpstanWriter = $phpstanWriter ?: new PhpstanConfigWriter();
+        $this->phpstanAlgoritmaWriter = $phpstanAlgoritmaWriter ?: new PhpstanAlgoritmaConfigWriter();
         $this->rectorWriter = $rectorWriter ?: new RectorConfigWriter();
     }
 
@@ -71,6 +76,7 @@ class Installer
         $this->io->write('<info>Setting up Algoritma Coding Standards</info>');
         $this->createPhpCsConfig();
         $this->createPhpstanConfig();
+        $this->createPhpstanAlgoritmaConfig();
         $this->createRectorConfig();
         $this->requestAddComposerScripts();
         $this->composerJson->write($this->composerDefinition);
@@ -121,6 +127,7 @@ class Installer
 
         $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php');
         $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
+        $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
         $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }
 
@@ -170,14 +177,19 @@ class Installer
     {
         $destPath = $this->projectRoot . '/phpstan.neon';
 
-        if (is_file($destPath)) {
+        if (! is_file($destPath)) {
+            $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
+        } else {
             $this->io->write("\n  <comment>Skipping... PHPStan config file already exists.</comment>");
             $this->io->write('  <info>Delete phpstan.neon if you want to install it.</info>');
-
-            return;
         }
 
-        $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
+        $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
+    }
+
+    public function createPhpstanAlgoritmaConfig(): void
+    {
+        $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
     }
 
     public function createRectorConfig(): void
