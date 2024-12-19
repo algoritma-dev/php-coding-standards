@@ -142,9 +142,8 @@ class Installer
             $constraint = '^' . $constraint;
         }
 
-        // it needs an upgrade but has potential BC breaks so is not urgent
-        // it needs an immediate semver-compliant upgrade
-        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
+//        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
+        return true;
     }
 
     /**
