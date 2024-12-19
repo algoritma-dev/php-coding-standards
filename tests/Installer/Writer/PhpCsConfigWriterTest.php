@@ -46,7 +46,8 @@ class PhpCsConfigWriterTest extends TestCase
 
             $config = new PhpCsFixer\Config();
             $config->setRules($rulesProvider->getRules());
-
+            $config->setRiskyAllowed(true);
+            
             $finder = new PhpCsFixer\Finder();
 
             /*
@@ -90,7 +91,8 @@ class PhpCsConfigWriterTest extends TestCase
 
             $config = new PhpCsFixer\Config();
             $config->setRules($rulesProvider->getRules());
-
+            $config->setRiskyAllowed(true);
+            
             $finder = new PhpCsFixer\Finder();
 
             /*

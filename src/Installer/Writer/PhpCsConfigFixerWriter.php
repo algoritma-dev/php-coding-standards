@@ -22,6 +22,11 @@ final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
             $autoloadPathProvider = '$autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);';
         }
 
+        $riskyConfig = "\n\$config->setRiskyAllowed(true);";
+        if ($noRisky) {
+            $riskyConfig = '';
+        }
+
         return <<<EOD
             <?php
 
@@ -33,10 +38,10 @@ final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
             {$rulesProviderConfig}
 
             \$config = new PhpCsFixer\\Config();
-            \$config->setRules(\$rulesProvider->getRules());
-
+            \$config->setRules(\$rulesProvider->getRules());{$riskyConfig}
+            
             \$finder = new PhpCsFixer\\Finder();
-
+            
             /*
              * You can set manually these paths:
              */
