@@ -10,7 +10,7 @@ Add repository source on composer.json:
 "repositories": {
     "algoritma-php-cs": {
         "type": "vcs",
-        "url": "https://carelle:glpat-tB_sW53pfyD4Gy9JFBZ-@gitlab.algoritma.it/algoritma/php-coding-standard.git"
+        "url": "https://:glpat-_D99XwkMwsofRF2Fjahk@gitlab.algoritma.it/algoritma/php-coding-standard.git"
     }
 }
 ```
