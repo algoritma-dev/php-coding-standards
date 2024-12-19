@@ -66,7 +66,7 @@ class PhpstanConfigWriterTest extends TestCase
                  */
                 $paths = array_map(
                     static function(string $path) {
-                        return \Symfony\Component\Filesystem\Path::makeAbsolute($path), __DIR__);
+                        return \Symfony\Component\Filesystem\Path::makeAbsolute($path, __DIR__);
                     }, $autoloadPathProvider->getPaths());
 
                 $paths = array_values(array_unique($paths));
@@ -139,7 +139,7 @@ class PhpstanConfigWriterTest extends TestCase
                  */
                 $paths = array_map(
                     static function(string $path) {
-                        return \Symfony\Component\Filesystem\Path::makeAbsolute($path), __DIR__);
+                        return \Symfony\Component\Filesystem\Path::makeAbsolute($path, __DIR__);
                     }, $autoloadPathProvider->getPaths());
 
                 $paths = array_values(array_unique($paths));
