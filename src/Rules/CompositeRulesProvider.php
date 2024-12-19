@@ -23,11 +23,6 @@ final class CompositeRulesProvider implements RulesProviderInterface
         }
     }
 
-    private function addRulesProvider(RulesProviderInterface $provider): void
-    {
-        $this->providers[] = $provider;
-    }
-
     public function getRules(): array
     {
         $rules = [];
@@ -37,5 +32,10 @@ final class CompositeRulesProvider implements RulesProviderInterface
         }
 
         return array_merge([], ...$rules);
+    }
+
+    private function addRulesProvider(RulesProviderInterface $provider): void
+    {
+        $this->providers[] = $provider;
     }
 }

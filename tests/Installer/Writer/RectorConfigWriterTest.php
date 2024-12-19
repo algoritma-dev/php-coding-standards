@@ -59,7 +59,7 @@ class RectorConfigWriterTest extends TestCase
 
             EOD;
 
-        $this->assertSame($expected, $content);
+        static::assertSame($expected, $content);
     }
 
     public function testWriteConfigFileWithNoDev(): void
@@ -101,6 +101,6 @@ class RectorConfigWriterTest extends TestCase
 
             EOD;
 
-        $this->assertSame($expected, $content);
+        static::assertSame($expected, $content);
     }
 }

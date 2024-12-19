@@ -41,6 +41,7 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'concat_space' => [
                 'spacing' => 'one',
             ],
+            'declare_strict_types' => true,
             'curly_braces_position' => true,
             'declare_parentheses' => true,
             'empty_loop_body' => true,
@@ -98,6 +99,8 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'no_whitespace_before_comma_in_array' => true,
             'not_operator_with_successor_space' => true,
             'normalize_index_brace' => true,
+            'no_useless_return' => true,
+            'ordered_class_elements' => true,
             'nullable_type_declaration' => true,
             'object_operator_without_whitespace' => true,
             'octal_notation' => true,
@@ -112,6 +115,7 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             ],
             'phpdoc_annotation_without_dot' => true,
             'phpdoc_indent' => true,
+            'phpdoc_line_span' => true,
             'phpdoc_inline_tag_normalizer' => true,
             'phpdoc_no_alias_tag' => true,
             'phpdoc_no_package' => true,
@@ -156,6 +160,13 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'ordered_attributes' => true,
             'php_unit_attributes' => true,
             'string_implicit_backslashes' => true,
+            'php_unit_dedicate_assert' => ['target' => 'newest'],
+            'php_unit_dedicate_assert_internal_type' => true,
+            'php_unit_mock' => true,
+            'php_unit_test_case_static_method_calls' => ['call_type' => 'static'],
+            'strict_comparison' => true,
+            'strict_param' => true,
+            'void_return' => true,
         ];
 
         return $this->filterRules($rules);

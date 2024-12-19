@@ -17,7 +17,7 @@ class CreatePhpstanConfigCommandTest extends TestCase
     {
         $command = new CreatePhpstanConfigCommand();
         $writer = $command->getConfigWriter();
-        $this->assertSame($writer, $command->getConfigWriter());
+        static::assertSame($writer, $command->getConfigWriter());
     }
 
     public function testSetConfigWriter(): void
@@ -25,7 +25,7 @@ class CreatePhpstanConfigCommandTest extends TestCase
         $command = new CreatePhpstanConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
-        $this->assertSame($writer->reveal(), $command->getConfigWriter());
+        static::assertSame($writer->reveal(), $command->getConfigWriter());
     }
 
     /**
@@ -51,7 +51,7 @@ class CreatePhpstanConfigCommandTest extends TestCase
 
         $result = $command->run($input, $output->reveal());
 
-        $this->assertSame(0, $result);
+        static::assertSame(0, $result);
     }
 
     /**

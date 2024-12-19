@@ -9,12 +9,12 @@ use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 abstract class AbstractRulesProviderTest extends TestCase
 {
-    abstract protected function shouldBeRisky(): bool;
-
     public function testRulesAreAlphabeticallySorted(): void
     {
         $this->assertRulesAreAlphabeticallySorted(static::getRulesProvider());
     }
+
+    abstract protected function shouldBeRisky(): bool;
 
     protected static function getRulesProvider(): RulesProviderInterface
     {
@@ -28,6 +28,6 @@ abstract class AbstractRulesProviderTest extends TestCase
         $sortedRules = $rules;
         ksort($sortedRules);
 
-        $this->assertEquals($sortedRules, $rules, 'Rules are not alphabetically sorted');
+        static::assertEquals($sortedRules, $rules, 'Rules are not alphabetically sorted');
     }
 }
