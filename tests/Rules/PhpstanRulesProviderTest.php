@@ -6,7 +6,7 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Rules\PhpstanRulesProvider;
 
-class PhpstanRulesProviderTest extends AbstractRulesProviderTest
+class PhpstanRulesProviderTest extends AbstractRulesProviderTestCase
 {
     protected static function getRulesProvider(): PhpstanRulesProvider
     {

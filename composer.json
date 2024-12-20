@@ -19,7 +19,7 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": ">=8.2",
+        "php": "^8.3",
         "ext-json": "*",
         "composer-plugin-api": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "^v3.65.0",
@@ -47,7 +47,10 @@
     },
     "scripts": {
         "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
-        "cs-fix": "php-cs-fixer fix --diff --allow-risky yes"
+        "cs-fix": "php-cs-fixer fix --diff --allow-risky yes",
+        "rector-check": "rector process --dry-run",
+        "rector-fix": "rector process",
+        "phpstan": "phpstan analyze"
     },
     "autoload": {
         "psr-4": {

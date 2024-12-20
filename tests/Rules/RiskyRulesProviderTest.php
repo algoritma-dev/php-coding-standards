@@ -6,7 +6,7 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Rules\RiskyRulesProvider;
 
-class RiskyRulesProviderTest extends AbstractRulesProviderTest
+class RiskyRulesProviderTest extends AbstractRulesProviderTestCase
 {
     protected static function getRulesProvider(): RiskyRulesProvider
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Sets;
 
+use Rector\Php\PhpVersionResolver\ComposerJsonPhpVersionResolver;
 use Rector\Set\ValueObject\SetList;
 
 class RectorSetsProvider implements SetsProviderInterface
@@ -22,12 +23,12 @@ class RectorSetsProvider implements SetsProviderInterface
 
     private function getPhpSet(): string
     {
-        $version = PHP_VERSION_ID;
+        $version = ComposerJsonPhpVersionResolver::resolveFromCwdOrFail();
 
         return match (true) {
-            $version >= 80_200 && $version <= 80_299 => SetList::PHP_82,
-            $version >= 80_300 && $version <= 80_399 => SetList::PHP_83,
-            $version >= 80_400 && $version <= 80_499 => SetList::PHP_84,
+            $version >= 80200 && $version <= 80299 => SetList::PHP_82,
+            $version >= 80300 && $version <= 80399 => SetList::PHP_83,
+            $version >= 80400 && $version <= 80499 => SetList::PHP_84,
             true => throw new \Exception('PHP version not supported'),
         };
     }

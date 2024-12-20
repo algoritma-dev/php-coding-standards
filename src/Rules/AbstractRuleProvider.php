@@ -15,7 +15,7 @@ abstract class AbstractRuleProvider implements RulesProviderInterface
      *
      * The map has the following format: [ version => [ oldRuleName => newRuleName ] ]
      */
-    private const DEPRECATION_MAP = [
+    private const array DEPRECATION_MAP = [
         '3.11.0' => [
             'no_trailing_comma_in_list_call' => 'no_trailing_comma_in_singleline',
             'no_trailing_comma_in_singleline_array' => 'no_trailing_comma_in_singleline',
@@ -45,7 +45,7 @@ abstract class AbstractRuleProvider implements RulesProviderInterface
      * This array maps the introduction of new rules in PHP-CS-Fixer, when no deprecated counterpart is present
      * for older versions.
      */
-    private const INTRODUCTION_MAP = [
+    private const array INTRODUCTION_MAP = [
         '3.5.0' => [
             'get_class_to_class_keyword',
         ],
@@ -77,7 +77,7 @@ abstract class AbstractRuleProvider implements RulesProviderInterface
      * This array maps the usage of rules into rulesets (like PER-CS) in new versions of PHP-CS-Fixer, hence avoiding the
      * overriding.
      */
-    private const INCLUSION_MAP = [
+    private const array INCLUSION_MAP = [
         '3.36.0' => ['unary_operator_spaces'],
     ];
 

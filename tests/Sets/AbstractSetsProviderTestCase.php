@@ -7,7 +7,7 @@ namespace Algoritma\CodingStandardsTest\Sets;
 use Algoritma\CodingStandards\Sets\SetsProviderInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
-abstract class AbstractSetsProviderTest extends TestCase
+abstract class AbstractSetsProviderTestCase extends TestCase
 {
     public function testRulesAreAlphabeticallySorted(): void
     {

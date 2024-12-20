@@ -6,7 +6,7 @@ namespace Algoritma\CodingStandardsTest\Sets;
 
 use Algoritma\CodingStandards\Sets\RectorSetsProvider;
 
-class RectorSetsProviderTest extends AbstractSetsProviderTest
+class RectorSetsProviderTest extends AbstractSetsProviderTestCase
 {
     protected static function getSetsProvider(): RectorSetsProvider
     {
