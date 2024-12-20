@@ -149,14 +149,14 @@ class Installer
     {
         $destPath = $this->projectRoot . '/phpstan.neon';
 
-        if (! is_file($destPath)) {
-            $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
-        } else {
+        if (is_file($destPath)) {
             $this->io->write("\n  <comment>Skipping... PHPStan config file already exists.</comment>");
             $this->io->write('  <info>Delete phpstan.neon if you want to install it.</info>');
+
+            return;
         }
 
-        $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
+        $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
     }
 
     public function createPhpstanAlgoritmaConfig(): void
