@@ -6,7 +6,7 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Rules\RectorRulesProvider;
 
-class RectorRulesProviderTest extends AbstractRulesProviderTest
+class RectorRulesProviderTest extends AbstractRulesProviderTestCase
 {
     protected static function getRulesProvider(): RectorRulesProvider
     {

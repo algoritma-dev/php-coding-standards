@@ -6,7 +6,7 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Rules\DefaultRulesProvider;
 
-class DefaultRulesProviderTest extends AbstractRulesProviderTest
+class DefaultRulesProviderTest extends AbstractRulesProviderTestCase
 {
     protected static function getRulesProvider(): DefaultRulesProvider
     {

@@ -24,13 +24,3 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: src/Rules/AbstractRuleProvider.php
-
-		-
-			message: '#^Out of 4 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
-			count: 3
-			path: src/Rules/AbstractRuleProvider.php
-
-		-
-			message: '#^Out of 4 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
-			count: 1
-			path: tests/Installer/PluginTest.php
