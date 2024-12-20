@@ -15,6 +15,7 @@ use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
 use Composer\Package\PackageInterface;
 use Composer\Semver\Semver;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
@@ -93,11 +94,39 @@ class Installer
             return;
         }
 
-        if ($this->isBcBreak($currentPackage, $targetPackage) === false) {
-            return;
-        }
+        if ($this->isBcBreak($currentPackage, $targetPackage)) {
+            $question = [
+                '  <error>You are upgrading "' . $currentPackage->getPrettyName() . '" with possible BC breaks.</error>',
+                sprintf(
+                    '  <question>%s</question>',
+                    'Do you want to write the new configuration? (Y/n)',
+                ),
+            ];
 
-        $this->io->write("\n  <info>Writing new configuration in project root...</info>");
+            $answer = $this->io->askConfirmation(implode("\n", $question), true);
+
+            if ($answer) {
+                $this->io->write("\n  <info>Writing configuration in project root (old configuration will renamed *.old)...</info>");
+
+                $fs = new Filesystem();
+
+                if ($fs->exists($this->projectRoot . '/.php-cs-fixer.dist.php')) {
+                    $fs->rename($this->projectRoot . '/.php-cs-fixer.dist.php', $this->projectRoot . '/.php-cs-fixer.php.old');
+                }
+
+                if ($fs->exists($this->projectRoot . '/phpstan.neon')) {
+                    $fs->rename($this->projectRoot . '/phpstan.neon', $this->projectRoot . '/phpstan.neon.old');
+                }
+
+                if ($fs->exists($this->projectRoot . '/rector.php')) {
+                    $fs->rename($this->projectRoot . '/rector.php', $this->projectRoot . '/rector.php.old');
+                }
+
+                $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php');
+                $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
+                $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
+            }
+        }
 
         $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
     }
@@ -226,8 +255,7 @@ class Installer
             $constraint = '^' . $constraint;
         }
 
-        //        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
-        return true;
+        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
     }
 
     /**
