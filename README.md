@@ -1,5 +1,11 @@
 # Algoritma PHP Coding Standard
 
+| Branch | PHP version supported |
+|--------|-----------------------|
+| 1.0    | 7.4, 8.0              |
+| 2.0    | 8.1, 8.2              |
+| 3.0    | 8.3                   |
+
 ## Installation
 
 Currently, [Composer](https://getcomposer.org/) is the only supported installation tool.
