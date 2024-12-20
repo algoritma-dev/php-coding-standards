@@ -56,10 +56,19 @@ class InstallerTest extends TestCase
     {
         return [
             [['0.1.0.0', '0.1.0'], ['0.2.0.0', '0.2.0']],
-            [['0.1.0.1', '0.1.1'], ['0.1.0.2', '0.1.2']],
             [['0.1.0.0', '0.1.0'], ['1.0.0.0', '1.0.0']],
             [['1.0.0.0', '1.0.0'], ['2.0.0.0', '2.0.0']],
             [['dev-master', 'dev-master'], ['dev-feature', 'dev-feature']],
+        ];
+    }
+
+    /**
+     * @return array{array{string, string}, array{string, string}}[]
+     */
+    public static function validUpgradeMinorsProvider(): array
+    {
+        return [
+            [['0.1.0.1', '0.1.1'], ['0.1.0.2', '0.1.2']],
         ];
     }
 
@@ -94,7 +103,10 @@ class InstallerTest extends TestCase
         $io->isInteractive()
             ->willReturn(true);
 
-        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldNotBeCalled();
+        $phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php')->shouldNotBeCalled();
+        $phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon')->shouldNotBeCalled();
+        $rectorWriter->writeConfigFile($this->projectRoot . '/rector.php')->shouldNotBeCalled();
+        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldBeCalled();
 
         $installer->checkUpgrade($currentPackage, $targetPackage);
     }
@@ -129,7 +141,51 @@ class InstallerTest extends TestCase
 
         $io->isInteractive()
             ->willReturn(true);
-        $io->write(Argument::cetera())->shouldBeCalled();
+        $io->write(Argument::cetera())
+            ->shouldBeCalled();
+        $io->askConfirmation(Argument::cetera())
+            ->willReturn(true)
+            ->shouldBeCalled();
+
+        $installer->checkUpgrade($currentPackage, $targetPackage);
+    }
+
+    /**
+     * @param array{string, string} $currentPackageV
+     * @param array{string, string} $targetPackageV
+     */
+    #[DataProvider('validUpgradeMinorsProvider')]
+    public function testCheckUpgradeTestNecessaryMinor(array $currentPackageV, array $targetPackageV): void
+    {
+        $currentPackage = new Package('dummy', $currentPackageV[0], $currentPackageV[1]);
+        $targetPackage = new Package('dummy', $targetPackageV[0], $targetPackageV[1]);
+
+        $io = $this->prophesize(IOInterface::class);
+        $composer = $this->prophesize(Composer::class);
+        $phpCsWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpstanAlgoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $rectorWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+
+        $installer = new Installer(
+            $io->reveal(),
+            $composer->reveal(),
+            $this->projectRoot,
+            $this->composerFilePath,
+            $phpCsWriter->reveal(),
+            $phpstanWriter->reveal(),
+            $phpstanAlgoritmaWriter->reveal(),
+            $rectorWriter->reveal(),
+        );
+
+        $io->isInteractive()
+            ->willReturn(true);
+        $io->write(Argument::cetera())
+            ->shouldNotBeCalled();
+        $io->askConfirmation(Argument::cetera())
+            ->shouldNotBeCalled();
+
+        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldBeCalled();
 
         $installer->checkUpgrade($currentPackage, $targetPackage);
     }
@@ -160,6 +216,14 @@ class InstallerTest extends TestCase
         $io->isInteractive()
             ->willReturn(true);
         $io->write(Argument::cetera())->shouldBeCalled();
+        $io->askConfirmation(Argument::cetera())
+            ->willReturn(true)
+            ->shouldBeCalled();
+
+        $phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php')->shouldBeCalled();
+        $phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon')->shouldBeCalled();
+        $rectorWriter->writeConfigFile($this->projectRoot . '/rector.php')->shouldBeCalled();
+        $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldBeCalled();
 
         $phpstanAlgoritmaWriter
             ->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')
