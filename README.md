@@ -31,7 +31,7 @@ composer autoload sources.
 
 Only `psr-0`, `psr-4` and `classmap` autoloads are supported.
 
-The installer will also add two scripts in your `composer.json`;
+The installer will also add five scripts in your `composer.json`;
 
 ```php
 "scripts": {
@@ -75,10 +75,12 @@ To run static analisys check:
 $ composer phpstan
 ```
 
-## PhpCsFixer configuration
+## Configuration
 
 See [PhpCsFixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) GitHub page.
+
 See [Rector](https://github.com/rectorphp/rector) GitHub page.
+
 See [PHPStan](https://github.com/phpstan/phpstan) GitHub page.
 
 ## Risky rules (PHP-CS-Fixer)
