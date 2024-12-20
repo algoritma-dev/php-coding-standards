@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\ValueObject\PhpVersion;
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector;
