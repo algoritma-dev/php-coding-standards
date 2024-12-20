@@ -14,7 +14,6 @@ use Composer\Package\Package;
 use Composer\Package\PackageInterface;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Prophecy\Argument;
 
 class InstallerTest extends TestCase
@@ -75,8 +74,9 @@ class InstallerTest extends TestCase
     /**
      * @param array{string, string} $currentPackageV
      * @param array{string, string} $targetPackageV
+     *
+     * @dataProvider invalidUpgradeProvider
      */
-    #[DataProvider('invalidUpgradeProvider')]
     public function testCheckUpgradeTestNotNecessary(array $currentPackageV, array $targetPackageV): void
     {
         $currentPackage = new Package('dummy', $currentPackageV[0], $currentPackageV[1]);
@@ -114,8 +114,9 @@ class InstallerTest extends TestCase
     /**
      * @param array{string, string} $currentPackageV
      * @param array{string, string} $targetPackageV
+     *
+     * @dataProvider validUpgradeProvider
      */
-    #[DataProvider('validUpgradeProvider')]
     public function testCheckUpgradeTestNecessary(array $currentPackageV, array $targetPackageV): void
     {
         $currentPackage = new Package('dummy', $currentPackageV[0], $currentPackageV[1]);
@@ -153,8 +154,9 @@ class InstallerTest extends TestCase
     /**
      * @param array{string, string} $currentPackageV
      * @param array{string, string} $targetPackageV
+     *
+     * @dataProvider validUpgradeMinorsProvider
      */
-    #[DataProvider('validUpgradeMinorsProvider')]
     public function testCheckUpgradeTestNecessaryMinor(array $currentPackageV, array $targetPackageV): void
     {
         $currentPackage = new Package('dummy', $currentPackageV[0], $currentPackageV[1]);

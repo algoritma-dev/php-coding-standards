@@ -7,7 +7,6 @@ namespace Algoritma\CodingStandardsTest\Installer\Command;
 use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -32,8 +31,9 @@ class CreateConfigCommandTest extends TestCase
      * @param list<string> $args
      *
      * @throws \Exception
+     *
+     * @dataProvider executeProvider
      */
-    #[DataProvider('executeProvider')]
     public function testExecute(array $args, bool $noDev, bool $noRisky): void
     {
         $command = new CreatePhpCsFixerConfigCommand();

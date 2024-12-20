@@ -158,7 +158,7 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'heredoc_closing_marker' => true,
             'multiline_string_to_heredoc' => true,
             'ordered_attributes' => true,
-            'php_unit_attributes' => true,
+            'php_unit_attributes' => false,
             'string_implicit_backslashes' => true,
             'php_unit_dedicate_assert' => ['target' => 'newest'],
             'php_unit_dedicate_assert_internal_type' => true,

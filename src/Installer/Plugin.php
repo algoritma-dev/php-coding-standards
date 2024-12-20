@@ -20,12 +20,17 @@ use Composer\Plugin\PluginInterface;
  */
 class Plugin implements EventSubscriberInterface, PluginInterface, Capable
 {
+    private ?Installer $installer;
+
     /**
      * Constructor.
      *
      * Optionally accept the project root into which to install.
      */
-    public function __construct(private ?Installer $installer = null) {}
+    public function __construct(?Installer $installer = null)
+    {
+        $this->installer = $installer;
+    }
 
     /**
      * Return this package name.

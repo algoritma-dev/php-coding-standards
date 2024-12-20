@@ -19,7 +19,9 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
-    private readonly string $projectRoot;
+    private IOInterface $io;
+
+    private string $projectRoot;
 
     /**
      * @var array<string, mixed>
@@ -28,28 +30,30 @@ class Installer
 
     private JsonFile $composerJson;
 
-    private readonly PhpCsConfigWriterInterface $phpCsWriter;
+    private PhpCsConfigWriterInterface $phpCsWriter;
 
-    private readonly PhpCsConfigWriterInterface $phpstanWriter;
+    private PhpCsConfigWriterInterface $phpstanWriter;
 
-    private readonly PhpCsConfigWriterInterface $phpstanAlgoritmaWriter;
+    private PhpCsConfigWriterInterface $phpstanAlgoritmaWriter;
 
-    private readonly PhpCsConfigWriterInterface $rectorWriter;
+    private PhpCsConfigWriterInterface $rectorWriter;
 
     /**
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function __construct(
-        private readonly IOInterface $io,
+        IOInterface $io,
         Composer $composer,
         ?string $projectRoot = null,
         ?string $composerPath = null,
         ?PhpCsConfigWriterInterface $phpCsWriter = null,
         ?PhpCsConfigWriterInterface $phpstanWriter = null,
         ?PhpCsConfigWriterInterface $phpstanAlgoritmaWriter = null,
-        ?PhpCsConfigWriterInterface $rectorWriter = null,
+        ?PhpCsConfigWriterInterface $rectorWriter = null
     ) {
+        $this->io = $io;
+
         // Get composer.json location
         $composerFile = $composerPath ?? Factory::getComposerFile();
         // Calculate project root from composer.json, if necessary

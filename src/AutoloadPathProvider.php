@@ -6,11 +6,13 @@ namespace Algoritma\CodingStandards;
 
 class AutoloadPathProvider
 {
-    private readonly string $composerPath;
+    private string $composerPath;
 
-    private readonly string $projectRoot;
+    private string $projectRoot;
 
-    public function __construct(?string $composerFile = null, ?string $projectRoot = null, private readonly bool $dev = true)
+    private bool $dev;
+
+    public function __construct(?string $composerFile = null, ?string $projectRoot = null, bool $dev = true)
     {
         $this->composerPath = ($composerFile ?: trim(getenv('COMPOSER') ?: '')) ?: './composer.json';
 
@@ -21,6 +23,7 @@ class AutoloadPathProvider
         }
 
         $this->projectRoot = rtrim($projectRootPath, '/\\');
+        $this->dev = $dev;
     }
 
     /**
@@ -89,8 +92,10 @@ class AutoloadPathProvider
      * @param array<mixed>|string $item
      *
      * @return array<string>
+     *
+     * @phpstan-ignore-next-line
      */
-    private function autoloadReducer(array $carry, array|string $item): array
+    private function autoloadReducer(array $carry, $item): array
     {
         if (\is_array($item)) {
             return array_merge($carry, $this->reduceAutoload($item));

@@ -32,8 +32,9 @@ class CreateRectorConfigCommandTest extends TestCase
      * @param list<string> $args
      *
      * @throws \Exception
+     *
+     * @dataProvider executeProvider
      */
-    #[DataProvider('executeProvider')]
     public function testExecute(array $args, bool $noDev): void
     {
         $command = new CreateRectorConfigCommand();
