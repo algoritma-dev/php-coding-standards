@@ -17,15 +17,20 @@ class CreatePhpstanConfigCommandTest extends TestCase
     {
         $command = new CreatePhpstanConfigCommand();
         $writer = $command->getConfigWriter();
+        $algoritmaWriter = $command->getAlgoritmaConfigWriter();
         static::assertSame($writer, $command->getConfigWriter());
+        static::assertSame($algoritmaWriter, $command->getAlgoritmaConfigWriter());
     }
 
     public function testSetConfigWriter(): void
     {
         $command = new CreatePhpstanConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $algoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
+        $command->setAlgoritmaConfigWriter($algoritmaWriter->reveal());
         static::assertSame($writer->reveal(), $command->getConfigWriter());
+        static::assertSame($algoritmaWriter->reveal(), $command->getAlgoritmaConfigWriter());
     }
 
     /**
@@ -38,13 +43,21 @@ class CreatePhpstanConfigCommandTest extends TestCase
     {
         $command = new CreatePhpstanConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $algoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
+        $command->setAlgoritmaConfigWriter($algoritmaWriter->reveal());
 
         $input = new ArgvInput($args, $command->getDefinition());
         $output = $this->prophesize(OutputInterface::class);
 
         $writer->writeConfigFile(
             'phpstan.neon',
+            $noDev,
+        )
+            ->shouldBeCalled();
+
+        $algoritmaWriter->writeConfigFile(
+            'phpstan-algoritma-config.php',
             $noDev,
         )
             ->shouldBeCalled();
