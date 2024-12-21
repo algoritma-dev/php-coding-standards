@@ -20,7 +20,7 @@ before_script:
 checks:
     parallel:
         matrix:
-            -   PHP_VERSION: [ '8.3' ]
+            -   PHP_VERSION: [ '8.3', '8.4' ]
     image: php:$PHP_VERSION
     stage: test
     script:
@@ -31,7 +31,7 @@ checks:
 tests:
     parallel:
         matrix:
-            -   PHP_VERSION: [ '8.3' ]
+            -   PHP_VERSION: [ '8.3', '8.4' ]
     image: php:$PHP_VERSION
     stage: test
     script:
