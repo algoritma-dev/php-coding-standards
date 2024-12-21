@@ -4,13 +4,13 @@ setup: build composer-update
 PHP_V=7.4
 
 shell:
-	docker-compose run --user 1000:1000 --rm php${PHP_V} bash
+	docker-compose run --user 1000:1000 --rm php${PHP_V} sh
 
 start:
 	docker-compose up -d php${PHP_V}
 
 composer-update: start
-	docker-compose exec --user 1000:1000 php${PHP_V} composer update
+	docker-compose exec --user 1000:1000 php${PHP_V} php composer.phar update
 
 pre-commit-check: rector cs-fix phpstan tests
 
