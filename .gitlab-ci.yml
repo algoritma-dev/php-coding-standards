@@ -4,7 +4,7 @@ stages: # List of stages for jobs, and their order of execution
 variables:
     GIT_STRATEGY: fetch
     GIT_DEPTH: "20"
-    COMPOSER_ALLOW_SUPERUSER : "1"
+    COMPOSER_ALLOW_SUPERUSER: "1"
 
 before_script:
     # Install composer dependencies
@@ -15,13 +15,26 @@ before_script:
     - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
     - php composer-setup.php
     - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    - php composer.phar install --prefer-dist
 
-php8.3:
-    image: php:8.3
+checks:
+    parallel:
+        matrix:
+            -   PHP_VERSION: [ '8.3' ]
+    image: php:$PHP_VERSION
     stage: test
     script:
-        - php composer.phar install --prefer-dist
         - php composer.phar cs-check
         - php composer.phar rector-check
         - php composer.phar phpstan
+
+tests:
+    parallel:
+        matrix:
+            -   PHP_VERSION: [ '8.3' ]
+    image: php:$PHP_VERSION
+    stage: test
+    script:
         - vendor/bin/phpunit --configuration phpunit.xml.dist
+
+
