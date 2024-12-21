@@ -5,6 +5,7 @@ variables:
     GIT_STRATEGY: fetch
     GIT_DEPTH: "20"
     COMPOSER_ALLOW_SUPERUSER: "1"
+    PHP_CS_FIXER_IGNORE_ENV: "1"
 
 before_script:
     # Install composer dependencies
