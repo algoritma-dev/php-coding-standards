@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CreatePhpstanConfigCommand extends BaseCommand
 {
     private PhpCsConfigWriterInterface $configWriter;
+
     private PhpCsConfigWriterInterface $algoritmaConfigWriter;
 
     public function __construct(?string $name = null)
