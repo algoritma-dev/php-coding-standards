@@ -1,25 +1,27 @@
 # Makefile for Insight Core Project
 setup: build composer-update
 
+PHP_V=8.3
+
 shell:
-	docker-compose run --user 1000:1000 --rm php bash
+	docker-compose run --user 1000:1000 --rm php${PHP_V} sh
 
 start:
-	docker-compose up -d php
+	docker-compose up -d php${PHP_V}
 
 composer-update: start
-	docker-compose exec --user 1000:1000 php composer update
+	docker-compose exec --user 1000:1000 php${PHP_V} php composer.phar update
 
 pre-commit-check: rector cs-fix phpstan tests
 
 rector: start
-	docker-compose exec --user 1000:1000 php vendor/bin/rector --ansi
+	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/rector --ansi
 
 cs-fix: start
-	docker-compose exec --user 1000:1000 php vendor/bin/php-cs-fixer fix --verbose --ansi
+	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/php-cs-fixer fix --verbose --ansi
 
 phpstan: start
-	docker-compose exec --user 1000:1000 php vendor/bin/phpstan analyse --ansi --memory-limit=-1
+	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/phpstan analyse --ansi --memory-limit=-1
 
 tests: start
-	docker-compose exec --user 1000:1000 php vendor/bin/phpunit --colors=always
+	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/phpunit --colors=always --display-warnings --display-deprecations
