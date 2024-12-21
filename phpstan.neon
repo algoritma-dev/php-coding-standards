@@ -6,6 +6,5 @@ parameters:
     paths:
         - src/
         - tests/
-    treatPhpDocTypesAsCertain: true
     errorFormat: ticketswap
     editorUrl: "phpstorm://open?file=%%file%%&line=%%line%%"

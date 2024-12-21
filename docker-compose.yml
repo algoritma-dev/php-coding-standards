@@ -1,36 +1,53 @@
 version: '3.2'
 
 services:
-  php7.4:
-    command:
-      - tail
-      - -f
-      - /dev/null
-    image: php:7.4-cli-alpine
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    environment:
-      PHP_IDE_CONFIG: "serverName=PhpCodingStandard"
-      SYMFONY_DEPRECATIONS_HELPER: disabled
-    working_dir: /app
-    volumes:
-      - .:/app
-      - ~/.composer:/home/application/.composer
-    user: 1000:1000
+    php7.4:
+        command:
+            - tail
+            - -f
+            - /dev/null
+        image: php:7.4-cli-alpine
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        environment:
+            PHP_IDE_CONFIG: "serverName=PhpCodingStandard"
+            SYMFONY_DEPRECATIONS_HELPER: disabled
+        working_dir: /app
+        volumes:
+            - .:/app
+            - ~/.composer:/home/application/.composer
+        user: 1000:1000
 
-  php8.0:
-      command:
-          - tail
-          - -f
-          - /dev/null
-      image: php:8.0-cli-alpine
-      extra_hosts:
-          - "host.docker.internal:host-gateway"
-      environment:
-          PHP_IDE_CONFIG: "serverName=PhpCodingStandard"
-          SYMFONY_DEPRECATIONS_HELPER: disabled
-      working_dir: /app
-      volumes:
-          - .:/app
-          - ~/.composer:/home/application/.composer
-      user: 1000:1000
+    php8.0:
+        command:
+            - tail
+            - -f
+            - /dev/null
+        image: php:8.0-cli-alpine
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        environment:
+            PHP_IDE_CONFIG: "serverName=PhpCodingStandard"
+            SYMFONY_DEPRECATIONS_HELPER: disabled
+        working_dir: /app
+        volumes:
+            - .:/app
+            - ~/.composer:/home/application/.composer
+        user: 1000:1000
+
+    php8.1:
+        command:
+            - tail
+            - -f
+            - /dev/null
+        image: php:8.1-cli-alpine
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        environment:
+            PHP_IDE_CONFIG: "serverName=PhpCodingStandard"
+            SYMFONY_DEPRECATIONS_HELPER: disabled
+        working_dir: /app
+        volumes:
+            - .:/app
+            - ~/.composer:/home/application/.composer
+        user: 1000:1000
