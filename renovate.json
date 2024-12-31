@@ -4,5 +4,6 @@
         "config:recommended"
     ],
     "prConcurrentLimit": 5,
-    "enabledManagers": ["composer"]
+    "enabledManagers": ["composer"],
+    "baseBranches": ["master", "1.0"]
 }
