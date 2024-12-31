@@ -29,7 +29,6 @@ renovate:
     stage: composer
     rules:
         - if: '$CI_PIPELINE_SOURCE == "schedule"'
-        - if: '$CI_PIPELINE_SOURCE == "push"'
 
 checks:
     extends: .test
