@@ -3,5 +3,6 @@
     "extends": [
         "config:recommended"
     ],
-    "prConcurrentLimit": 5
+    "prConcurrentLimit": 5,
+    "enabledManagers": ["composer"]
 }
