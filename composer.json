@@ -49,7 +49,7 @@
     "scripts": {
         "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
         "cs-fix": "php-cs-fixer fix --diff --allow-risky yes",
-        "md": "phpmd src ansi phpmd.xml",
+        "md": "phpmd src tests ansi phpmd.xml",
         "rector-check": "rector process --dry-run",
         "rector-fix": "rector process",
         "phpstan": "phpstan analyze"
