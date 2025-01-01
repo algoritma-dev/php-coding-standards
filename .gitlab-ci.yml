@@ -1,55 +1,67 @@
 include:
-    - remote: https://gitlab.com/renovate-bot/renovate-runner/-/raw/v19.60.1/templates/renovate.gitlab-ci.yml
+  - remote: https://gitlab.com/renovate-bot/renovate-runner/-/raw/v19.60.1/templates/renovate.gitlab-ci.yml
 
 stages: # List of stages for jobs, and their order of execution
-    - test
-    - composer
+  - test
+  - composer
 
 variables:
-    GIT_STRATEGY: fetch
-    GIT_DEPTH: "20"
-    COMPOSER_ALLOW_SUPERUSER: "1"
-    PHP_CS_FIXER_IGNORE_ENV: "1"
+  GIT_STRATEGY: fetch
+  GIT_DEPTH: "20"
+  COMPOSER_ALLOW_SUPERUSER: "1"
+  PHP_CS_FIXER_IGNORE_ENV: "1"
+
+workflow:
+  rules:
+    # No pipeline when there is a MR whose title starts with Draft
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TITLE =~ /^(\[Draft\]|\(Draft\)|Draft:)/
+      when: never
+    # do not run on push, except on protected branches
+    - if: $CI_PIPELINE_SOURCE != "push" || ($CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_PROTECTED == "true")
+    # Trigger a pipeline in case of MR event, which means the MR is ready, since we did not go through the first case
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 .test:
-    rules:
-        -   if: '$CI_PIPELINE_SOURCE != "schedule"'
-    before_script:
-        # Install composer dependencies
-        - apt-get update && apt-get install wget git libzip-dev zip -y
-        - docker-php-ext-install zip
-        - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
-        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-        - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-        - php composer-setup.php
-        - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-        - php composer.phar install --prefer-dist
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - changes:
+        - '**/*.php'
+  before_script:
+    # Install composer dependencies
+    - apt-get update && apt-get install wget git libzip-dev zip -y
+    - docker-php-ext-install zip
+    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    - php composer.phar install --prefer-dist
 
 renovate:
-    stage: composer
-    rules:
-        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  stage: composer
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
 checks:
-    extends: .test
-    parallel:
-        matrix:
-            -   PHP_VERSION: [ '8.3', '8.4' ]
-    image: php:$PHP_VERSION
-    stage: test
-    script:
-        - php composer.phar cs-check
-        - php composer.phar rector-check
-        - php composer.phar phpstan
+  extends: .test
+  parallel:
+    matrix:
+      - PHP_VERSION: [ '8.3', '8.4' ]
+  image: php:$PHP_VERSION
+  stage: test
+  script:
+    - php composer.phar cs-check
+    - php composer.phar rector-check
+    - php composer.phar phpstan
 
 tests:
-    extends: .test
-    parallel:
-        matrix:
-            -   PHP_VERSION: [ '8.3', '8.4' ]
-    image: php:$PHP_VERSION
-    stage: test
-    script:
-        - vendor/bin/phpunit --configuration phpunit.xml.dist
+  extends: .test
+  parallel:
+    matrix:
+      - PHP_VERSION: [ '8.3', '8.4' ]
+  image: php:$PHP_VERSION
+  stage: test
+  script:
+    - vendor/bin/phpunit --configuration phpunit.xml.dist
 
 
