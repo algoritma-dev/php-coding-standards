@@ -1,9 +1,9 @@
 # Algoritma PHP Coding Standard
 
-| Branch | PHP version supported |
-|--------|-----------------------|
-| 1.0    | 7.4, 8.0, 8.1, 8.2    |
-| 3.0    | 8.3, 8.4              |
+| Version | PHP version supported |
+|-------- |-----------------------|
+| 1.0     | 7.4, 8.0, 8.1, 8.2    |
+| 3.0     | 8.3, 8.4              |
 
 ## Installation
 
@@ -15,7 +15,7 @@ Add repository source on composer.json:
 "repositories": {
     "algoritma-php-cs": {
         "type": "vcs",
-        "url": "https://:glpat-_D99XwkMwsofRF2Fjahk@gitlab.algoritma.it/algoritma/php-coding-standard.git"
+        "url": "https://:glpat-Hw9asjC2Q3gX4Cy9PB9k@gitlab.algoritma.it/algoritma/php-coding-standard.git"
     }
 }
 ```
