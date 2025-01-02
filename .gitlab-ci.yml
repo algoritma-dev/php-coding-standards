@@ -13,15 +13,7 @@ variables:
 
 .test:
   rules:
-#    # No pipeline when there is a MR whose title starts with Draft
-#    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TITLE =~ /^(\[Draft\]|\(Draft\)|Draft:)/
-#      when: never
-#    # do not run on push, except on protected branches
-#    - if: $CI_PIPELINE_SOURCE != "push" || ($CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_PROTECTED == "true")
-#    # Trigger a pipeline in case of MR event, which means the MR is ready, since we did not go through the first case
-#    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: '$CI_PIPELINE_SOURCE != "schedule"'
-#      when: never
   before_script:
     # Install composer dependencies
     - apt-get update && apt-get install wget git libzip-dev zip -y
