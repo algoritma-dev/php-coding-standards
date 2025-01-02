@@ -24,6 +24,7 @@ workflow:
 .test:
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule"'
+      when: never
     - changes:
         - '**/*.php'
   before_script:
