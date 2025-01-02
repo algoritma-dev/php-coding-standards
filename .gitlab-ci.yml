@@ -61,6 +61,7 @@ prepare_release:
         - if: $CI_COMMIT_TAG
     script:
         - apk add curl jq
+        - echo "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/changelog?version=$CI_COMMIT_TAG"'
         - 'curl -H "PRIVATE-TOKEN: $RELEASE_API_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/changelog?version=$CI_COMMIT_TAG" | jq -r .notes > release_notes.md'
     artifacts:
         paths:
@@ -81,9 +82,5 @@ release:
         description: release_notes.md
         tag_name: '$CI_COMMIT_TAG'
         ref: '$CI_COMMIT_SHA'
-        assets:
-            links:
-                - name: 'Container Image $CI_COMMIT_TAG'
-                  url: "https://$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA"
 
 
