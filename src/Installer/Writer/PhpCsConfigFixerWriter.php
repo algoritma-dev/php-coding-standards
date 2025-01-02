@@ -39,14 +39,16 @@ final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
 
             \$config = new PhpCsFixer\\Config();
             \$config->setRules(\$rulesProvider->getRules());{$riskyConfig}
-            
+
             \$finder = new PhpCsFixer\\Finder();
-            
+
             /*
              * You can set manually these paths:
              */
             {$autoloadPathProvider}
-            \$finder->in(\$autoloadPathProvider->getPaths());
+            \$finder
+                ->in(\$autoloadPathProvider->getPaths())
+                ->exclude(['node_modules', '*/vendor/*']);
 
             \$config->setFinder(\$finder);
 

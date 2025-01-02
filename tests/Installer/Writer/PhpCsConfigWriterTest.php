@@ -47,14 +47,16 @@ class PhpCsConfigWriterTest extends TestCase
             $config = new PhpCsFixer\Config();
             $config->setRules($rulesProvider->getRules());
             $config->setRiskyAllowed(true);
-            
+
             $finder = new PhpCsFixer\Finder();
 
             /*
              * You can set manually these paths:
              */
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
-            $finder->in($autoloadPathProvider->getPaths());
+            $finder
+                ->in($autoloadPathProvider->getPaths())
+                ->exclude(['node_modules', '*/vendor/*']);
 
             $config->setFinder($finder);
 
@@ -92,14 +94,16 @@ class PhpCsConfigWriterTest extends TestCase
             $config = new PhpCsFixer\Config();
             $config->setRules($rulesProvider->getRules());
             $config->setRiskyAllowed(true);
-            
+
             $finder = new PhpCsFixer\Finder();
 
             /*
              * You can set manually these paths:
              */
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
-            $finder->in($autoloadPathProvider->getPaths());
+            $finder
+                ->in($autoloadPathProvider->getPaths())
+                ->exclude(['node_modules', '*/vendor/*']);
 
             $config->setFinder($finder);
 
@@ -142,7 +146,9 @@ class PhpCsConfigWriterTest extends TestCase
              * You can set manually these paths:
              */
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
-            $finder->in($autoloadPathProvider->getPaths());
+            $finder
+                ->in($autoloadPathProvider->getPaths())
+                ->exclude(['node_modules', '*/vendor/*']);
 
             $config->setFinder($finder);
 
@@ -185,7 +191,9 @@ class PhpCsConfigWriterTest extends TestCase
              * You can set manually these paths:
              */
             $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
-            $finder->in($autoloadPathProvider->getPaths());
+            $finder
+                ->in($autoloadPathProvider->getPaths())
+                ->exclude(['node_modules', '*/vendor/*']);
 
             $config->setFinder($finder);
 
