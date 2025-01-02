@@ -3,7 +3,8 @@ include:
 
 stages: # List of stages for jobs, and their order of execution
   - test
-  - composer
+  - renovate
+  - release
 
 variables:
   GIT_STRATEGY: fetch
@@ -26,7 +27,7 @@ variables:
     - php composer.phar install --prefer-dist
 
 renovate:
-  stage: composer
+  stage: renovate
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
@@ -52,5 +53,16 @@ tests:
   stage: test
   script:
     - vendor/bin/phpunit --configuration phpunit.xml.dist
+
+release:
+    stage: release
+    image: registry.gitlab.com/gitlab-org/release-cli:latest
+    rules:
+        - if: $CI_COMMIT_TAG                 # Run this job when a tag is created
+    script:
+        - echo "running release_job"
+    release:                               # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
+        tag_name: '$CI_COMMIT_TAG'
+        description: './CHANGELOG-3.0.md'
 
 
