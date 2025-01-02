@@ -54,18 +54,6 @@ tests:
   script:
     - vendor/bin/phpunit --configuration phpunit.xml.dist
 
-prepare_release:
-    stage: release
-    image: alpine:latest
-    rules:
-        - if: $CI_COMMIT_TAG
-    script:
-        - apk add curl jq
-        - 'curl -H "PRIVATE-TOKEN: $RELEASE_API_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/changelog?version=$CI_COMMIT_TAG" | jq -r .notes > release_notes.md'
-    artifacts:
-        paths:
-            - release_notes.md
-
 release:
     stage: release
     image: registry.gitlab.com/gitlab-org/release-cli:latest
@@ -75,7 +63,8 @@ release:
     rules:
         - if: $CI_COMMIT_TAG
     script:
-        - echo "Creating release"
+        - apk add curl jq
+        - 'curl -H "PRIVATE-TOKEN: $RELEASE_API_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/changelog?version=$CI_COMMIT_TAG" | jq -r .notes > release_notes.md'
     release:
         name: 'Release $CI_COMMIT_TAG'
         description: release_notes.md
