@@ -5,13 +5,5 @@
     ],
     "prConcurrentLimit": 5,
     "enabledManagers": ["composer"],
-    "baseBranches": ["master", "1.0"],
-    "packageRules": [
-        {
-            "groupName": "dev-dependencies",
-            "matchManagers": ["composer"],
-            "matchDepTypes": ["require-dev"],
-            "enabled": false
-        }
-    ]
+    "baseBranches": ["master", "1.0"]
 }
