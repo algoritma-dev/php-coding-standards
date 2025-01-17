@@ -1,0 +1,11 @@
+includes:
+	- phpstan-baseline.neon
+
+parameters:
+    phpVersion: 80200
+    level: 8
+    paths:
+        - src/
+        - tests/
+    errorFormat: ticketswap
+    editorUrl: "phpstorm://open?file=%%file%%&line=%%line%%"

@@ -19,7 +19,7 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": "^8.3 || ^8.4",
+        "php": ">=8.1",
         "ext-json": "*",
         "composer-plugin-api": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "v3.67.0",
@@ -44,7 +44,7 @@
         "phpmd/phpmd": "^2.15",
         "phpspec/prophecy": "^v1.20",
         "phpspec/prophecy-phpunit": "^v2.3",
-        "phpunit/phpunit": "^11.5"
+        "phpunit/phpunit": "^10.5 || ^11.5"
     },
     "scripts": {
         "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
