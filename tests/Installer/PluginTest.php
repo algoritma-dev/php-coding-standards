@@ -23,7 +23,7 @@ use Prophecy\Argument;
 
 class PluginTest extends TestCase
 {
-    private const string PACKAGE_NAME = 'algoritma/php-coding-standard';
+    private const PACKAGE_NAME = 'algoritma/php-coding-standard';
 
     public function testGetPackageName(): void
     {
