@@ -5,5 +5,5 @@
     ],
     "prConcurrentLimit": 5,
     "enabledManagers": ["composer"],
-    "baseBranches": ["master", "1.0"]
+    "baseBranches": ["master"]
 }
