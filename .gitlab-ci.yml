@@ -26,6 +26,7 @@ variables:
     - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
     - php composer.phar install --prefer-dist
   artifacts:
+    when: on_failure
     expire_in: 4 hours
 
 renovate:
