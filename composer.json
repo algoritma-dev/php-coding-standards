@@ -17,6 +17,7 @@
             "phpstan/extension-installer": true
         }
     },
+    "bin": "bin",
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
