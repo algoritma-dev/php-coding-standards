@@ -139,6 +139,8 @@ class Installer
         }
 
         $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
+        $this->requestAddComposerScripts();
+        $this->composerJson->write($this->composerDefinition);
     }
 
     public function createPhpCsConfig(): void
