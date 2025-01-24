@@ -23,7 +23,7 @@ final class PHPMDConfigWriter implements PhpCsConfigWriterInterface
                 xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
                 xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
             >
-            <!-- Algoritma RuleSets are load automatically -->
+            <!-- Algoritma RuleSets are load automatically (by using the algphpmd binary) -->
             <!-- PHPMD custom configuration HERE -->
             </ruleset>
             EOD;
