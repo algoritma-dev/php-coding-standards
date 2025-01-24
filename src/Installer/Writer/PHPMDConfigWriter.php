@@ -9,12 +9,12 @@ final class PHPMDConfigWriter implements PhpCsConfigWriterInterface
     public function writeConfigFile(?string $filename = null, bool $noDev = false, bool $noRisky = false): void
     {
         $filename = $filename ?: 'phpmd.xml';
-        file_put_contents($filename, $this->createConfigSource($noDev));
+        file_put_contents($filename, $this->createConfigSource());
     }
 
-    private function createConfigSource(bool $noDev = false): string
+    private function createConfigSource(): string
     {
-        return <<<EOD
+        return <<<'EOD'
             <?xml version="1.0"?>
             <ruleset
                 name="algoritma/php-coding-standards"
@@ -25,22 +25,6 @@ final class PHPMDConfigWriter implements PhpCsConfigWriterInterface
             >
             <!-- PHPMD custom configuration -->
             </ruleset>
-            EOD;
-    }
-
-    private function createRulesProviderConfig(): string
-    {
-        $providersLine = [
-            '    new Algoritma\CodingStandards\Rules\RectorRulesProvider(),',
-        ];
-        $providersLine[] = '    new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),';
-        $providersLine = implode("\n", $providersLine);
-
-        return <<<EOD
-            \$additionalRules = [];
-            \$rulesProvider = new Algoritma\\CodingStandards\\Rules\\CompositeRulesProvider([
-            {$providersLine}
-            ]);
             EOD;
     }
 }

@@ -38,6 +38,8 @@ class Installer
 
     private readonly PhpCsConfigWriterInterface $rectorWriter;
 
+    public PhpCsConfigWriterInterface $phpmdWriter;
+
     /**
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
@@ -215,7 +217,7 @@ class Installer
             'rector-check' => 'rector process --dry-run',
             'rector-fix' => 'rector process',
             'phpstan' => 'phpstan analyze',
-            'phpmd' => "algphpmd $paths ansi phpmd.xml",
+            'phpmd' => "algphpmd {$paths} ansi phpmd.xml",
         ];
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
@@ -229,7 +231,7 @@ class Installer
 
         $list = [];
         foreach ($diffScripts as $key => $command) {
-            $list[] .= '  - <info>' . $key . ': ' . $command . '</info>';
+            $list[] = '  - <info>' . $key . ': ' . $command . '</info>';
         }
 
         $question = [
