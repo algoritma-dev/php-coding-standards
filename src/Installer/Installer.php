@@ -215,7 +215,7 @@ class Installer
             'rector-check' => 'rector process --dry-run',
             'rector-fix' => 'rector process',
             'phpstan' => 'phpstan analyze',
-            'phpmd' => "phpmd $paths ansi phpmd.xml",
+            'phpmd' => "algphpmd $paths ansi phpmd.xml",
         ];
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
