@@ -102,6 +102,9 @@ class InstallerTest extends TestCase
 
         $io->isInteractive()
             ->willReturn(true);
+        $io->askConfirmation(Argument::cetera())
+            ->willReturn(true)
+            ->shouldBeCalled();
 
         $phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php')->shouldNotBeCalled();
         $phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon')->shouldNotBeCalled();
@@ -166,6 +169,7 @@ class InstallerTest extends TestCase
         $phpstanWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $phpstanAlgoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $rectorWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $phpmdWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
 
         $installer = new Installer(
             $io->reveal(),
@@ -176,6 +180,7 @@ class InstallerTest extends TestCase
             $phpstanWriter->reveal(),
             $phpstanAlgoritmaWriter->reveal(),
             $rectorWriter->reveal(),
+            $phpmdWriter->reveal()
         );
 
         $io->isInteractive()
@@ -183,7 +188,7 @@ class InstallerTest extends TestCase
         $io->write(Argument::cetera())
             ->shouldNotBeCalled();
         $io->askConfirmation(Argument::cetera())
-            ->shouldNotBeCalled();
+            ->shouldBeCalled();
 
         $phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php')->shouldBeCalled();
 
@@ -466,5 +471,32 @@ class InstallerTest extends TestCase
         );
 
         $installer->createRectorConfig();
+    }
+
+    public function testRequestCreatePHPMDConfig(): void
+    {
+        $package = $this->prophesize(PackageInterface::class);
+        $io = $this->prophesize(IOInterface::class);
+        $composer = $this->prophesize(Composer::class);
+        $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
+
+        $composer->getPackage()->willReturn($package);
+        $package->getAutoload()->willReturn([]);
+        $writer->writeConfigFile($this->projectRoot . '/phpmd.xml')->shouldBeCalled();
+        $package->getDevAutoload()->willReturn([]);
+
+        $installer = new Installer(
+            $io->reveal(),
+            $composer->reveal(),
+            $this->projectRoot,
+            $this->composerFilePath,
+            null,
+            null,
+            null,
+            null,
+            $writer->reveal(),
+        );
+
+        $installer->createPHPMDConfig();
     }
 }

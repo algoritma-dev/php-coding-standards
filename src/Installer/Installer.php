@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Installer;
 
+use Algoritma\CodingStandards\AutoloadPathProvider;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Algoritma\CodingStandards\Installer\Writer\PHPMDConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
@@ -19,6 +21,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
+    public PhpCsConfigWriterInterface $phpmdWriter;
+
     private readonly string $projectRoot;
 
     /**
@@ -49,6 +53,7 @@ class Installer
         ?PhpCsConfigWriterInterface $phpstanWriter = null,
         ?PhpCsConfigWriterInterface $phpstanAlgoritmaWriter = null,
         ?PhpCsConfigWriterInterface $rectorWriter = null,
+        ?PhpCsConfigWriterInterface $phpmdWriter = null,
     ) {
         // Get composer.json location
         $composerFile = $composerPath ?? Factory::getComposerFile();
@@ -67,6 +72,7 @@ class Installer
         $this->phpstanWriter = $phpstanWriter ?: new PhpstanConfigWriter();
         $this->phpstanAlgoritmaWriter = $phpstanAlgoritmaWriter ?: new PhpstanAlgoritmaConfigWriter();
         $this->rectorWriter = $rectorWriter ?: new RectorConfigWriter();
+        $this->phpmdWriter = $phpmdWriter ?: new PHPMDConfigWriter();
     }
 
     /**
@@ -79,6 +85,7 @@ class Installer
         $this->createPhpstanConfig();
         $this->createPhpstanAlgoritmaConfig();
         $this->createRectorConfig();
+        $this->createPHPMDConfig();
         $this->requestAddComposerScripts();
         $this->composerJson->write($this->composerDefinition);
     }
@@ -122,13 +129,20 @@ class Installer
                     $fs->rename($this->projectRoot . '/rector.php', $this->projectRoot . '/rector.php.old');
                 }
 
+                if ($fs->exists($this->projectRoot . '/phpmd.xml')) {
+                    $fs->rename($this->projectRoot . '/phpmd.xml', $this->projectRoot . '/phpmd.xml.old');
+                }
+
                 $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php');
                 $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
                 $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
+                $this->phpmdWriter->writeConfigFile($this->projectRoot . '/phpmd.xml');
             }
         }
 
         $this->phpstanAlgoritmaWriter->writeConfigFile($this->projectRoot . '/phpstan-algoritma-config.php');
+        $this->requestAddComposerScripts();
+        $this->composerJson->write($this->composerDefinition);
     }
 
     public function createPhpCsConfig(): void
@@ -178,22 +192,46 @@ class Installer
         $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }
 
+    public function createPHPMDConfig(): void
+    {
+        $destPath = $this->projectRoot . '/phpmd.xml';
+
+        if (is_file($destPath)) {
+            $this->io->write("\n  <comment>Skipping... PHPMD config file already exists.</comment>");
+            $this->io->write('  <info>Delete phpmd.xml if you want to install it.</info>');
+
+            return;
+        }
+
+        $this->phpmdWriter->writeConfigFile($this->projectRoot . '/phpmd.xml');
+    }
+
     public function requestAddComposerScripts(): void
     {
+        $pathProvider = new AutoloadPathProvider(null, null, true);
+        $paths = implode(' ', $pathProvider->getPaths());
+
         $scripts = [
             'cs-check' => 'php-cs-fixer fix --dry-run --diff',
             'cs-fix' => 'php-cs-fixer fix --diff',
             'rector-check' => 'rector process --dry-run',
             'rector-fix' => 'rector process',
             'phpstan' => 'phpstan analyze',
+            'phpmd' => "algphpmd {$paths} ansi phpmd.xml",
         ];
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
+        $diffScripts = array_diff_key($scripts, $scriptsDefinition);
 
-        if (\is_array($scriptsDefinition) && array_diff_key($scripts, $scriptsDefinition) === []) {
+        if (\is_array($scriptsDefinition) && $diffScripts === []) {
             $this->io->write("\n  <comment>Skipping... Scripts already exist in composer.json.</comment>");
 
             return;
+        }
+
+        $list = [];
+        foreach ($diffScripts as $key => $command) {
+            $list[] = '  - <info>' . $key . ': ' . $command . '</info>';
         }
 
         $question = [
@@ -201,12 +239,7 @@ class Installer
                 "  <question>%s</question>\n",
                 'Do you want to add scripts to composer.json? (Y/n)',
             ),
-            '  <info>It will add these scripts:</info>',
-            '  - <info>cs-check</info>',
-            '  - <info>cs-fix</info>',
-            '  - <info>rector-check</info>',
-            '  - <info>rector-fix</info>',
-            '  - <info>phpstan</info>',
+            implode("\n", $list),
             'Answer: ',
         ];
 
