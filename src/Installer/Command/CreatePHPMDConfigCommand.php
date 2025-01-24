@@ -6,7 +6,6 @@ namespace Algoritma\CodingStandards\Installer\Command;
 
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandards\Installer\Writer\PHPMDConfigWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
 use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Algoritma\CodingStandards\PHPMD\Console;
 
 use PHPMD\Console\OutputInterface;
@@ -12,7 +14,6 @@ class Command extends \PHPMD\TextUI\Command
     public static function main(array $args)
     {
         $options = null;
-        $snake_case = false;
         try {
             $ruleSetFactory = new RuleSetFactory();
             $options        = new CommandLineOptions($args, $ruleSetFactory->listAvailableRuleSets());
@@ -28,7 +29,7 @@ class Command extends \PHPMD\TextUI\Command
             $exitCode = $command->run($options, $ruleSetFactory);
             unset($errorStream);
         } catch (\Exception $e) {
-            $file = $options ? $options->getErrorFile() : null;
+            $file = $options instanceof CommandLineOptions ? $options->getErrorFile() : null;
             $writer = new StreamWriter($file ?: STDERR);
             $writer->write($e->getMessage() . PHP_EOL);
 
