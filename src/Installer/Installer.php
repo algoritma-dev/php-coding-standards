@@ -21,6 +21,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
+    public PhpCsConfigWriterInterface $phpmdWriter;
+
     private readonly string $projectRoot;
 
     /**
@@ -37,8 +39,6 @@ class Installer
     private readonly PhpCsConfigWriterInterface $phpstanAlgoritmaWriter;
 
     private readonly PhpCsConfigWriterInterface $rectorWriter;
-
-    public PhpCsConfigWriterInterface $phpmdWriter;
 
     /**
      * @throws \RuntimeException
