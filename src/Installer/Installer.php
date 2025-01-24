@@ -219,11 +219,17 @@ class Installer
         ];
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
+        $diffScripts = array_diff_key($scripts, $scriptsDefinition);
 
-        if (\is_array($scriptsDefinition) && array_diff_key($scripts, $scriptsDefinition) === []) {
+        if (\is_array($scriptsDefinition) && $diffScripts === []) {
             $this->io->write("\n  <comment>Skipping... Scripts already exist in composer.json.</comment>");
 
             return;
+        }
+
+        $list = [];
+        foreach ($diffScripts as $key => $command) {
+            $list[] .= '  - <info>' . $key . ': ' . $command . '</info>';
         }
 
         $question = [
@@ -231,13 +237,7 @@ class Installer
                 "  <question>%s</question>\n",
                 'Do you want to add scripts to composer.json? (Y/n)',
             ),
-            '  <info>It will add these scripts:</info>',
-            '  - <info>cs-check</info>',
-            '  - <info>cs-fix</info>',
-            '  - <info>rector-check</info>',
-            '  - <info>rector-fix</info>',
-            '  - <info>phpstan</info>',
-            '  - <info>phpmd</info>',
+            implode("\n", $list),
             'Answer: ',
         ];
 
