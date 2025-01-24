@@ -118,6 +118,7 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
         $installer = $this->getInstaller($event->getComposer(), $event->getIO());
 
         $installer->checkUpgrade($operation->getInitialPackage(), $operation->getTargetPackage());
+        $installer->requestAddComposerScripts();
     }
 
     /**
