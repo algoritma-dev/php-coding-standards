@@ -45,7 +45,7 @@
         "roave/security-advisories": "dev-latest",
         "phpspec/prophecy": "^v1.20",
         "phpspec/prophecy-phpunit": "^v2.3",
-        "phpunit/phpunit": "^10.5 || ^11.5"
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0"
     },
     "scripts": {
         "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
