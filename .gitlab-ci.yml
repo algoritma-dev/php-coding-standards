@@ -1,9 +1,5 @@
-include:
-  - remote: https://gitlab.com/renovate-bot/renovate-runner/-/raw/v19.60.1/templates/renovate.gitlab-ci.yml
-
 stages: # List of stages for jobs, and their order of execution
   - test
-  - renovate
   - release
 
 variables:
@@ -28,11 +24,6 @@ variables:
   artifacts:
     when: on_failure
     expire_in: 4 hours
-
-renovate:
-  stage: renovate
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
 checks:
   extends: .test
