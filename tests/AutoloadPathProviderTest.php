@@ -38,7 +38,7 @@ class AutoloadPathProviderTest extends TestCase
             true,
         );
 
-        $expected = ['src/', 'tests/'];
+        $expected = ['src/', 'vfs://root', 'tests/'];
         static::assertSame($expected, $provider->getPaths());
     }
 
@@ -50,7 +50,7 @@ class AutoloadPathProviderTest extends TestCase
             false,
         );
 
-        $expected = ['src/'];
+        $expected = ['src/', 'vfs://root'];
         static::assertSame($expected, $provider->getPaths());
     }
 

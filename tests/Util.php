@@ -35,12 +35,13 @@ class Util
                 "psr-4": {
                   "Application\\": [
                     "src/"
-                  ]
+                  ],
+                  "Application\\Root\\": ""
                 }
               },
               "autoload-dev": {
                 "psr-4": {
-                  "ApplicationTest\\": [
+                  "Application\\Test\\": [
                     "tests/"
                   ]
                 }
