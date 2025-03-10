@@ -72,10 +72,10 @@ class AutoloadPathProvider
         /**
          * "psr-4": {
          *     "Fix\\Empty\\Path\\": ""
-         * }
+         * }.
          */
         return array_map(function (string $path): string {
-            if($path === '') {
+            if ($path === '') {
                 return $this->projectRoot;
             }
 
