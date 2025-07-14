@@ -33,14 +33,15 @@ class CreatePHPMDConfigCommandTest extends TestCase
      *
      * @throws \Exception
      */
-    #[DataProvider('executeProvider')]
-    public function testExecute(array $args): void
+    public function testExecute(): void
     {
         $command = new CreatePHPMDConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
 
-        $input = new ArgvInput($args, $command->getDefinition());
+        $input = new ArgvInput([
+            false,
+        ], $command->getDefinition());
         $output = $this->prophesize(OutputInterface::class);
 
         $writer->writeConfigFile('phpmd.xml', false)
@@ -49,18 +50,5 @@ class CreatePHPMDConfigCommandTest extends TestCase
         $result = $command->run($input, $output->reveal());
 
         static::assertSame(0, $result);
-    }
-
-    /**
-     * @return array{string[], bool}[]
-     */
-    public static function executeProvider(): array
-    {
-        return [
-            [
-                ['algoritma-phpmd-create-config'],
-                false,
-            ],
-        ];
     }
 }
