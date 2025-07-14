@@ -36,13 +36,10 @@ class CreatePHPMDConfigCommandTest extends TestCase
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
 
-        $input = new ArgvInput([
-            false,
-        ], $command->getDefinition());
+        $input = new ArgvInput([], $command->getDefinition());
         $output = $this->prophesize(OutputInterface::class);
 
-        $writer->writeConfigFile('phpmd.xml', false)
-            ->shouldBeCalled();
+        $writer->writeConfigFile('phpmd.xml', false)->shouldBeCalled();
 
         $result = $command->run($input, $output->reveal());
 
