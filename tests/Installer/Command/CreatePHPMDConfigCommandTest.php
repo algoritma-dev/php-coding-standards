@@ -7,7 +7,6 @@ namespace Algoritma\CodingStandardsTest\Installer\Command;
 use Algoritma\CodingStandards\Installer\Command\CreatePHPMDConfigCommand;
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -29,8 +28,6 @@ class CreatePHPMDConfigCommandTest extends TestCase
     }
 
     /**
-     * @param list<string> $args
-     *
      * @throws \Exception
      */
     public function testExecute(): void
