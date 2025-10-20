@@ -8,18 +8,6 @@ parameters:
 			path: src/Installer/Installer.php
 
 		-
-			message: '#^Method Algoritma\\CodingStandards\\Installer\\Plugin\:\:activate\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/Installer/Plugin.php
-
-		-
-			message: '#^Method Algoritma\\CodingStandards\\Installer\\Plugin\:\:activate\(\) has RuntimeException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/Installer/Plugin.php
-
-		-
 			message: '#^Method Algoritma\\CodingStandards\\Rules\\AbstractRuleProvider\:\:filterRules\(\) should return T of array\<string, mixed\> but returns array\<string, mixed\>\.$#'
 			identifier: return.type
 			count: 1

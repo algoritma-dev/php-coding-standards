@@ -17,7 +17,7 @@ class CreateRectorConfigCommandTest extends TestCase
     {
         $command = new CreateRectorConfigCommand();
         $writer = $command->getConfigWriter();
-        static::assertSame($writer, $command->getConfigWriter());
+        self::assertSame($writer, $command->getConfigWriter());
     }
 
     public function testSetConfigWriter(): void
@@ -25,7 +25,7 @@ class CreateRectorConfigCommandTest extends TestCase
         $command = new CreateRectorConfigCommand();
         $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
-        static::assertSame($writer->reveal(), $command->getConfigWriter());
+        self::assertSame($writer->reveal(), $command->getConfigWriter());
     }
 
     /**
@@ -51,7 +51,7 @@ class CreateRectorConfigCommandTest extends TestCase
 
         $result = $command->run($input, $output->reveal());
 
-        static::assertSame(0, $result);
+        self::assertSame(0, $result);
     }
 
     /**

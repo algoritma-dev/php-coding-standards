@@ -163,7 +163,7 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'php_unit_dedicate_assert' => ['target' => 'newest'],
             'php_unit_dedicate_assert_internal_type' => true,
             'php_unit_mock' => true,
-            'php_unit_test_case_static_method_calls' => ['call_type' => 'static'],
+            'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
             'strict_comparison' => true,
             'strict_param' => true,
             'void_return' => true,

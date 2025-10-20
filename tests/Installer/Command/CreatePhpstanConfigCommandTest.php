@@ -18,8 +18,8 @@ class CreatePhpstanConfigCommandTest extends TestCase
         $command = new CreatePhpstanConfigCommand();
         $writer = $command->getConfigWriter();
         $algoritmaWriter = $command->getAlgoritmaConfigWriter();
-        static::assertSame($writer, $command->getConfigWriter());
-        static::assertSame($algoritmaWriter, $command->getAlgoritmaConfigWriter());
+        self::assertSame($writer, $command->getConfigWriter());
+        self::assertSame($algoritmaWriter, $command->getAlgoritmaConfigWriter());
     }
 
     public function testSetConfigWriter(): void
@@ -29,8 +29,8 @@ class CreatePhpstanConfigCommandTest extends TestCase
         $algoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
         $command->setAlgoritmaConfigWriter($algoritmaWriter->reveal());
-        static::assertSame($writer->reveal(), $command->getConfigWriter());
-        static::assertSame($algoritmaWriter->reveal(), $command->getAlgoritmaConfigWriter());
+        self::assertSame($writer->reveal(), $command->getConfigWriter());
+        self::assertSame($algoritmaWriter->reveal(), $command->getAlgoritmaConfigWriter());
     }
 
     /**
@@ -64,7 +64,7 @@ class CreatePhpstanConfigCommandTest extends TestCase
 
         $result = $command->run($input, $output->reveal());
 
-        static::assertSame(0, $result);
+        self::assertSame(0, $result);
     }
 
     /**

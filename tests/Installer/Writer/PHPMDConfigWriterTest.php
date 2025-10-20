@@ -43,6 +43,6 @@ class PHPMDConfigWriterTest extends TestCase
             </ruleset>
             EOD;
 
-        static::assertSame($expected, $content);
+        self::assertSame($expected, $content);
     }
 }

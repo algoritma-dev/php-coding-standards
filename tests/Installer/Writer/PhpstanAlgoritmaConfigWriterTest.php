@@ -74,7 +74,7 @@ class PhpstanAlgoritmaConfigWriterTest extends TestCase
 
                 EOD;
 
-        static::assertSame($expected, $content);
+        self::assertSame($expected, $content);
     }
 
     public function testWriteConfigFileWithNoDev(): void
@@ -130,6 +130,6 @@ class PhpstanAlgoritmaConfigWriterTest extends TestCase
 
                 EOD;
 
-        static::assertSame($expected, $content);
+        self::assertSame($expected, $content);
     }
 }

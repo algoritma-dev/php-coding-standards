@@ -28,6 +28,6 @@ abstract class AbstractRulesProviderTestCase extends TestCase
         $sortedRules = $rules;
         ksort($sortedRules);
 
-        static::assertEquals($sortedRules, $rules, 'Rules are not alphabetically sorted');
+        self::assertEquals($sortedRules, $rules, 'Rules are not alphabetically sorted');
     }
 }

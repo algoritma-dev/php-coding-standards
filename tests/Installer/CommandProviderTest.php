@@ -17,12 +17,12 @@ class CommandProviderTest extends TestCase
     {
         $provider = new CommandProvider();
 
-        static::assertInstanceOf(ComposerCommandProvider::class, $provider);
+        self::assertInstanceOf(ComposerCommandProvider::class, $provider);
 
         $commands = $provider->getCommands();
-        static::assertCount(3, $commands);
-        static::assertInstanceOf(CreatePhpCsFixerConfigCommand::class, $commands[0]);
-        static::assertInstanceOf(CreatePhpstanConfigCommand::class, $commands[1]);
-        static::assertInstanceOf(CreateRectorConfigCommand::class, $commands[2]);
+        self::assertCount(3, $commands);
+        self::assertInstanceOf(CreatePhpCsFixerConfigCommand::class, $commands[0]);
+        self::assertInstanceOf(CreatePhpstanConfigCommand::class, $commands[1]);
+        self::assertInstanceOf(CreateRectorConfigCommand::class, $commands[2]);
     }
 }
