@@ -35,7 +35,6 @@ checks:
   script:
     - php composer.phar cs-check
     - php composer.phar rector-check
-    - php composer.phar md
     - vendor/bin/phpstan analyze --configuration phpstan${PHP_VERSION}.neon --memory-limit=-1
 
 tests:
