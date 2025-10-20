@@ -28,23 +28,23 @@ class PluginTest extends TestCase
     public function testGetPackageName(): void
     {
         $packageName = Plugin::getPackageName();
-        static::assertEquals(self::PACKAGE_NAME, $packageName);
+        self::assertEquals(self::PACKAGE_NAME, $packageName);
     }
 
     public function testGetSubscribedEvents(): void
     {
         $plugin = new Plugin();
-        static::assertInstanceOf(PluginInterface::class, $plugin);
-        static::assertInstanceOf(EventSubscriberInterface::class, $plugin);
+        self::assertInstanceOf(PluginInterface::class, $plugin);
+        self::assertInstanceOf(EventSubscriberInterface::class, $plugin);
         $events = Plugin::getSubscribedEvents();
 
-        static::assertCount(2, $events);
+        self::assertCount(2, $events);
 
-        static::assertArrayHasKey(PackageEvents::POST_PACKAGE_INSTALL, $events);
-        static::assertArrayHasKey(PackageEvents::POST_PACKAGE_UPDATE, $events);
+        self::assertArrayHasKey(PackageEvents::POST_PACKAGE_INSTALL, $events);
+        self::assertArrayHasKey(PackageEvents::POST_PACKAGE_UPDATE, $events);
 
-        static::assertTrue(method_exists($plugin, $events[PackageEvents::POST_PACKAGE_INSTALL]));
-        static::assertTrue(method_exists($plugin, $events[PackageEvents::POST_PACKAGE_UPDATE]));
+        self::assertTrue(method_exists($plugin, $events[PackageEvents::POST_PACKAGE_INSTALL]));
+        self::assertTrue(method_exists($plugin, $events[PackageEvents::POST_PACKAGE_UPDATE]));
     }
 
     public function testActive(): void
@@ -58,7 +58,7 @@ class PluginTest extends TestCase
 
         // assert no exceptions
         // @phpstan-ignore-next-line
-        static::assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testGetInstallerAfterSetter(): void
@@ -71,8 +71,8 @@ class PluginTest extends TestCase
 
         $installerInstance = $plugin->getInstaller($composer->reveal(), $io->reveal());
 
-        static::assertInstanceOf(Installer::class, $installerInstance);
-        static::assertSame($installer->reveal(), $installerInstance);
+        self::assertInstanceOf(Installer::class, $installerInstance);
+        self::assertSame($installer->reveal(), $installerInstance);
     }
 
     public function testOnPostPackageUpdate(): void
@@ -233,11 +233,11 @@ class PluginTest extends TestCase
     {
         $plugin = new Plugin();
 
-        static::assertInstanceOf(Capable::class, $plugin);
+        self::assertInstanceOf(Capable::class, $plugin);
 
         $capabilities = $plugin->getCapabilities();
 
-        static::assertArrayHasKey(\Composer\Plugin\Capability\CommandProvider::class, $capabilities);
-        static::assertSame(CommandProvider::class, $capabilities[\Composer\Plugin\Capability\CommandProvider::class]);
+        self::assertArrayHasKey(\Composer\Plugin\Capability\CommandProvider::class, $capabilities);
+        self::assertSame(CommandProvider::class, $capabilities[\Composer\Plugin\Capability\CommandProvider::class]);
     }
 }

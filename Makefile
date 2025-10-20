@@ -1,27 +1,29 @@
 # Makefile for Insight Core Project
 setup: build composer-update
 
-PHP_V=8.3
+PHP_V=8.1
+
+DOCKER_COMPOSE_EXEC=docker-compose exec php${PHP_V}
 
 shell:
-	docker-compose run --user 1000:1000 --rm php${PHP_V} sh
+	${DOCKER_COMPOSE_EXEC} sh
 
 start:
 	docker-compose up -d php${PHP_V}
 
-composer-update: start
-	docker-compose exec --user 1000:1000 php${PHP_V} php composer.phar update
+composer-update:
+	${DOCKER_COMPOSE_EXEC} php composer.phar update
 
 pre-commit-check: rector cs-fix phpstan tests
 
-rector: start
-	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/rector --ansi
+rector:
+	${DOCKER_COMPOSE_EXEC} vendor/bin/rector --ansi
 
-cs-fix: start
-	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/php-cs-fixer fix --verbose --ansi
+cs-fix:
+	${DOCKER_COMPOSE_EXEC} vendor/bin/php-cs-fixer fix --verbose --ansi
 
-phpstan: start
-	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/phpstan analyse --ansi --memory-limit=-1
+phpstan:
+	${DOCKER_COMPOSE_EXEC} vendor/bin/phpstan analyse --ansi --memory-limit=-1
 
-tests: start
-	docker-compose exec --user 1000:1000 php${PHP_V} vendor/bin/phpunit --colors=always --display-warnings --display-deprecations
+test:
+	${DOCKER_COMPOSE_EXEC} vendor/bin/phpunit --colors=always --display-warnings --display-deprecations

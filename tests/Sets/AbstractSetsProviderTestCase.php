@@ -26,6 +26,6 @@ abstract class AbstractSetsProviderTestCase extends TestCase
         $sortedSets = $sets;
         ksort($sortedSets);
 
-        static::assertEquals($sortedSets, $sets, 'Sets are not alphabetically sorted');
+        self::assertEquals($sortedSets, $sets, 'Sets are not alphabetically sorted');
     }
 }

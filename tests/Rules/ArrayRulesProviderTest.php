@@ -15,6 +15,6 @@ class ArrayRulesProviderTest extends TestCase
 
         $provider = new ArrayRulesProvider($rules);
 
-        static::assertSame($rules, $provider->getRules());
+        self::assertSame($rules, $provider->getRules());
     }
 }
