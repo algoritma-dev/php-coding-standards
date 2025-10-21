@@ -23,7 +23,7 @@
         "php": ">=8.1",
         "ext-json": "*",
         "composer-plugin-api": "^1.1 || ^2.0",
-        "friendsofphp/php-cs-fixer": "v3.88.2",
+        "friendsofphp/php-cs-fixer": "v3.89.0",
         "jangregor/phpstan-prophecy": "^2.0",
         "nette/neon": "^3.4",
         "phpstan/extension-installer": "^1.4",
