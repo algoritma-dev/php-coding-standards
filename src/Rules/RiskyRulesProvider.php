@@ -52,6 +52,10 @@ final class RiskyRulesProvider extends AbstractRuleProvider
             'php_unit_assert_new_names' => true,
             'phpdoc_array_type' => true,
             'class_keyword' => true,
+            'declare_strict_types' => true,
+            'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
+            'strict_comparison' => true,
+            'strict_param' => true,
         ]);
     }
 }
