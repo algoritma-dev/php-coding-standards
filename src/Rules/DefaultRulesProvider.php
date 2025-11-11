@@ -40,9 +40,7 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'compact_nullable_typehint' => true,
             'concat_space' => [
                 'spacing' => 'one',
-            ],
-            'declare_strict_types' => true,
-            'curly_braces_position' => true,
+            ], 'curly_braces_position' => true,
             'declare_parentheses' => true,
             'empty_loop_body' => true,
             'explicit_string_variable' => true,
@@ -160,13 +158,6 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'ordered_attributes' => true,
             'php_unit_attributes' => true,
             'string_implicit_backslashes' => true,
-            'php_unit_dedicate_assert' => ['target' => 'newest'],
-            'php_unit_dedicate_assert_internal_type' => true,
-            'php_unit_mock' => true,
-            'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
-            'strict_comparison' => true,
-            'strict_param' => true,
-            'void_return' => true,
         ];
 
         return $this->filterRules($rules);
