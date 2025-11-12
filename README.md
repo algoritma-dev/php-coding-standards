@@ -14,7 +14,7 @@ Add repository source on composer.json:
 "repositories": {
     "algoritma-php-cs": {
         "type": "vcs",
-        "url": "https://:glpat-Hw9asjC2Q3gX4Cy9PB9k@gitlab.algoritma.it/algoritma/php-coding-standard.git"
+        "url": "https://phpcs:glpat-Hw9asjC2Q3gX4Cy9PB9k@gitlab.algoritma.it/algoritma/php-coding-standard.git"
     }
 }
 ```
