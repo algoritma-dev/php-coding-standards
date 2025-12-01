@@ -31,7 +31,7 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "rector/rector": "^2.0",
         "rector/type-perfect": "^2.0",
-        "symfony/console": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+        "symfony/console": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "symfony/polyfill-php80": "^1.0",
         "symplify/phpstan-rules": "^14.0",
         "ticketswap/phpstan-error-formatter": "^1.1",
