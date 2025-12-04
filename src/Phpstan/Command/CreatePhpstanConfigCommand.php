@@ -78,6 +78,8 @@ class CreatePhpstanConfigCommand extends BaseCommand
             (bool) $input->getOption('no-dev'),
         );
 
+        $output->writeln('<success>PHPStan config file created.</success>');
+
         return 0;
     }
 }

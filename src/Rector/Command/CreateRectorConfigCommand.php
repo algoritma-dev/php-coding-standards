@@ -57,6 +57,8 @@ class CreateRectorConfigCommand extends BaseCommand
             (bool) $input->getOption('no-dev'),
         );
 
+        $output->writeln('<success>Rector config file created.</success>');
+
         return 0;
     }
 }

@@ -59,6 +59,8 @@ class CreatePhpCsFixerConfigCommand extends BaseCommand
             (bool) $input->getOption('no-risky'),
         );
 
+        $output->writeln('<success>PHP-CS-Fixer config file created.</success>');
+
         return 0;
     }
 }
