@@ -1,5 +1,5 @@
 {
-    "name": "algoritma-dev/php-coding-standards",
+    "name": "algoritma/php-coding-standards",
     "description": "A usefull PHP Coding Standard for your projects, based on PHPStan, PHP CS Fixer and Rector.",
     "type": "composer-plugin",
     "extra": {
