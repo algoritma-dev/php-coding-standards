@@ -3,7 +3,7 @@
     "description": "A usefull PHP Coding Standard for your projects, based on PHPStan, PHP CS Fixer and Rector.",
     "type": "composer-plugin",
     "extra": {
-        "class": "Algoritma\\CodingStandards\\Installer\\Plugin"
+        "class": "Algoritma\\CodingStandards\\Composer\\Plugin"
     },
     "authors": [
         {
