@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandards\Rector;
 
 use Algoritma\CodingStandards\Shared\SetsProviderInterface;
+use Composer\InstalledVersions;
+use Composer\Semver\VersionParser;
 use Rector\Php\PhpVersionResolver\ComposerJsonPhpVersionResolver;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
 class RectorSetsProvider implements SetsProviderInterface
 {
     public function getSets(): array
     {
-        return [
+        $sets = [
             SetList::CODE_QUALITY,
             SetList::EARLY_RETURN,
             SetList::INSTANCEOF,
@@ -20,6 +23,8 @@ class RectorSetsProvider implements SetsProviderInterface
             $this->getPhpSet(),
             SetList::TYPE_DECLARATION,
         ];
+
+        return array_merge($sets, $this->getPhpUnitSets());
     }
 
     private function getPhpSet(): string
@@ -34,5 +39,33 @@ class RectorSetsProvider implements SetsProviderInterface
             $version >= 80500 && $version <= 80599 => SetList::PHP_85,
             true => throw new \Exception('PHP version not supported'),
         };
+    }
+
+    private function getPhpUnitSets(): array
+    {
+        if (!class_exists(InstalledVersions::class) || !InstalledVersions::isInstalled('phpunit/phpunit')) {
+            return [];
+        }
+
+        $versionParser = new VersionParser();
+        $phpunitVersion = $versionParser->normalize((string) InstalledVersions::getVersion('phpunit/phpunit'));
+
+        if (str_starts_with($phpunitVersion, '12.')) {
+            return [PHPUnitSetList::PHPUNIT_120];
+        }
+
+        if (str_starts_with($phpunitVersion, '11.')) {
+            return [PHPUnitSetList::PHPUNIT_110];
+        }
+
+        if (str_starts_with($phpunitVersion, '10.')) {
+            return [PHPUnitSetList::PHPUNIT_100];
+        }
+
+        if (str_starts_with($phpunitVersion, '9.')) {
+            return [PHPUnitSetList::PHPUNIT_90];
+        }
+
+        return [];
     }
 }
