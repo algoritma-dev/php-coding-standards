@@ -186,7 +186,7 @@ class Installer
             'cs-fix' => 'php-cs-fixer fix --diff',
             'rector-check' => 'rector process --dry-run',
             'rector-fix' => 'rector process',
-            'phpstan' => 'phpstan analyze',
+            'phpstan' => 'phpstan analyze --memory-limit=-1',
         ];
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
