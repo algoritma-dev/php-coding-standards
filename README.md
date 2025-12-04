@@ -62,6 +62,59 @@ To run static analisys check:
 $ composer phpstan
 ```
 
+## Configuration Generation
+
+If you need to regenerate the default configuration files, use the following commands:
+
+To regenerate the default `.php-cs-fixer.dist.php` configuration:
+
+```
+$ composer algoritma-cs-create-config
+```
+
+```
+$ composer algoritma-cs-create-config --help
+
+Usage:
+  algoritma-cs-create-config [options]
+
+Options:
+      --no-dev                   Do not include autoload-dev directories
+      --no-risky                 Do not include risky rules
+```
+
+To regenerate the default `rector.php` configuration:
+
+```
+$ composer algoritma-rector-create-config
+```
+
+```
+$ composer algoritma-rector-create-config --help
+
+Usage:
+  algoritma-rector-create-config [options]
+
+Options:
+      --no-dev                   Do not include autoload-dev directories
+```
+
+To regenerate the default `phpstan.neon` configuration:
+
+```
+$ composer algoritma-phpstan-create-config
+```
+
+```
+$ composer algoritma-phpstan-create-config --help
+
+Usage:
+  algoritma-phpstan-create-config [options]
+
+Options:
+      --no-dev                   Do not include autoload-dev directories
+```
+
 ## Main Dependencies
 
 This project relies on the following tools to enforce coding standards:
@@ -97,58 +150,4 @@ $config->setRules($rulesProvider->getRules());
 
 return $config;
 
-```
-
-## Generate configuration
-
-If you have any problem updating to a new version, you can regenerate
-the default `.php-cs-fixer.dist.php` with the command:
-
-```
-$ composer algoritma-cs-create-config
-```
-
-```
-$ composer algoritma-cs-create-config --help
-
-Usage:
-  algoritma-cs-create-config [options]
-
-Options:
-      --no-dev                   Do not include autoload-dev directories
-      --no-risky                 Do not include risky rules
-```
-
-If you have any problem updating to a new version, you can regenerate
-the default `rector.php` with the command:
-
-```
-$ composer algoritma-rector-create-config
-```
-
-```
-$ composer algoritma-rector-create-config --help
-
-Usage:
-  algoritma-rector-create-config [options]
-
-Options:
-      --no-dev                   Do not include autoload-dev directories
-```
-
-If you have any problem updating to a new version, you can regenerate
-the default `phpstan.neon` with the command:
-
-```
-$ composer algoritma-phpstan-create-config
-```
-
-```
-$ composer algoritma-phpstan-create-config --help
-
-Usage:
-  algoritma-phpstan-create-config [options]
-
-Options:
-      --no-dev                   Do not include autoload-dev directories
 ```
