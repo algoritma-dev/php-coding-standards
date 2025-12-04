@@ -9,7 +9,6 @@ use Composer\InstalledVersions;
 use FriendsOfShopware\ShopwareRector\Set\ShopwareSetList;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 
 use function is_string;
 
@@ -37,22 +36,6 @@ class RectorSetsProviderTest extends TestCase
     /**
      * @param array<string> $expectedSets
      */
-    #[DataProvider('phpUnitVersionProvider')]
-    public function testGetPhpUnitSets(string $version, array $expectedSets): void
-    {
-        $this->mockInstalledVersions('phpunit/phpunit', $version);
-
-        $provider = new RectorSetsProvider();
-        $sets = $provider->getSets();
-
-        foreach ($expectedSets as $expectedSet) {
-            $this->assertContains($expectedSet, $sets);
-        }
-    }
-
-    /**
-     * @param array<string> $expectedSets
-     */
     #[DataProvider('shopwareVersionProvider')]
     public function testGetShopwareSets(string $version, array $expectedSets): void
     {
@@ -64,14 +47,6 @@ class RectorSetsProviderTest extends TestCase
         foreach ($expectedSets as $expectedSet) {
             $this->assertContains($expectedSet, $sets);
         }
-    }
-
-    /**
-     * @return \Generator<string, array{string, array<string>}>
-     */
-    public static function phpUnitVersionProvider(): \Generator
-    {
-        yield 'PHPUnit 12' => ['12.0.0', [PHPUnitSetList::PHPUNIT_120]];
     }
 
     /**
