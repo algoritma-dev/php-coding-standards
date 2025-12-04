@@ -35,7 +35,7 @@ jobs:
         run: vendor/bin/php-cs-fixer fix --dry-run --diff
 
       - name: Run phpstan
-        run: vendor/bin/phpstan analyse --memory-limit=2G
+        run: vendor/bin/phpstan analyse --memory-limit=2G --configuration=phpstan${{ matrix.php-version }}.neon
 
       - name: Run tests
         run: vendor/bin/phpunit
