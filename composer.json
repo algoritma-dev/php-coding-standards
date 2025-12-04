@@ -1,15 +1,25 @@
 {
-    "name": "algoritma/php-coding-standard",
-    "description": "Algoritma coding standard",
+    "name": "algoritma-dev/php-coding-standards",
+    "description": "A usefull PHP Coding Standard for your projects, based on PHPStan, PHP CS Fixer and Rector.",
     "type": "composer-plugin",
     "extra": {
         "class": "Algoritma\\CodingStandards\\Installer\\Plugin"
     },
-    "license": "MIT",
+    "authors": [
+        {
+            "name": "Algoritma",
+            "email": "info@algoritma.it",
+            "homepage": "https://algoritma.it/"
+        }
+    ],
+    "license": "GPL-3.0-or-later",
     "keywords": [
         "algoritma",
         "algoritma.it",
-        "PHP Coding Standard"
+        "PHP Coding Standards",
+        "PHPStan",
+        "PHP CS Fixer",
+        "Rector"
     ],
     "config": {
         "sort-packages": true,

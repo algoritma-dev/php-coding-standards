@@ -2,45 +2,28 @@
 
 | Version | PHP version supported |
 |-------- |-----------------------|
-| 3.0     | 8.1, 8.2, 8.3, 8.4    |
+| 3.0     | >= 8.1                |
 
 ## Installation
 
-Currently, [Composer](https://getcomposer.org/) is the only supported installation tool.
-
-Add repository source on composer.json:
+To install the coding standard, run the following command:
 
 ```
-"repositories": {
-    "algoritma-php-cs": {
-        "type": "vcs",
-        "url": "https://phpcs:glpat-Hw9asjC2Q3gX4Cy9PB9k@gitlab.algoritma.it/algoritma/php-coding-standard.git"
-    }
-}
-```
-
-then run the command
-
-```
-$ composer require --dev algoritma/php-coding-standard
+$ composer require --dev algoritma-dev/php-coding-standards
 ```
 
 When you install it, a plugin will ask you some questions to setup your project automatically.
 
-The installer will add the `.php-cs-fixer.dist.php`, `rector.php`, `phpstan.neon` files in your project root directory,
-then you can edit manually if you need some changes.
+The installer will add the `.php-cs-fixer.dist.php`, `rector.php`, and `phpstan.neon` files in your project root directory. You can then edit them manually if you need to make any changes.
 
-The CS config will be configured to find your project files using
-composer autoload sources.
-
-Only `psr-0`, `psr-4` and `classmap` autoloads are supported.
+The CS config will be configured to find your project files using composer autoload sources. Only `psr-0`, `psr-4` and `classmap` autoloads are supported.
 
 The installer will also add five scripts in your `composer.json`;
 
-```php
+```json
 "scripts": {
-    "cs-check": "php-cs-fixer fix --dry-run --diff",
-    "cs-fix": "php-cs-fixer fix --diff",
+    "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
+    "cs-fix": "php-cs-fixer fix --diff --allow-risky yes",
     "rector-check": "rector process --dry-run",
     "rector-fix": "rector process",
     "phpstan": "phpstan analyze"
@@ -79,13 +62,17 @@ To run static analisys check:
 $ composer phpstan
 ```
 
+## Main Dependencies
+
+This project relies on the following tools to enforce coding standards:
+
+*   [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
+*   [Rector](https://github.com/rectorphp/rector)
+*   [PHPStan](https://github.com/phpstan/phpstan)
+
 ## Configuration
 
-See [PhpCsFixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) GitHub page.
-
-See [Rector](https://github.com/rectorphp/rector) GitHub page.
-
-See [PHPStan](https://github.com/phpstan/phpstan) GitHub page.
+For more information on how to configure the tools, please refer to their official documentation.
 
 ## Risky rules (PHP-CS-Fixer)
 
