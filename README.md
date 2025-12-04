@@ -9,7 +9,7 @@
 To install the coding standard, run the following command:
 
 ```
-$ composer require --dev algoritma-dev/php-coding-standards
+$ composer require --dev algoritma/php-coding-standards
 ```
 
 When you install it, a plugin will ask you some questions to setup your project automatically.
