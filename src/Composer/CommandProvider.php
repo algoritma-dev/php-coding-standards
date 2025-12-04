@@ -23,6 +23,7 @@ class CommandProvider implements ComposerCommandProvider
             new CreatePhpCsFixerConfigCommand(),
             new CreatePhpstanConfigCommand(),
             new CreateRectorConfigCommand(),
+            new AddComposerScripts(),
         ];
     }
 }
