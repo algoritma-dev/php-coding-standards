@@ -147,7 +147,7 @@ class RectorConfigWriterTest extends TestCase
 
         $data = [
             'root' => [
-                'name' => 'algoritma-dev/php-coding-standard',
+                'name' => 'algoritma/php-coding-standard',
                 'pretty_version' => '1.0.0',
                 'version' => '1.0.0',
                 'reference' => 'mock',

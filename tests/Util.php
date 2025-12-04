@@ -10,7 +10,7 @@ class Util
     {
         return <<<'JSON'
             {
-              "name": "algoritma-dev/php-coding-standard-test",
+              "name": "algoritma/php-coding-standard-test",
               "description": "Facile coding standard test",
               "type": "project",
               "license": "proprietary",
