@@ -46,7 +46,7 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
 
         if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('symfony/framework-bundle')) {
             $withComposerBased[] = 'symfony: true';
-            $rectorConfig .= "\n" . '    ->withSymfonyContainerXml(__DIR__ . \'/var/cache/dev/App_KernelDevDebugContainer.xml\')';
+            $rectorConfig .= "\n" . '    ->withSymfonyContainerXml(__DIR__ . \'/var/cache/dev/AppKernelDevDebugContainer.xml\')';
         }
 
         if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('laravel/framework')) {
