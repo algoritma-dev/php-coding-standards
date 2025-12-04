@@ -11,7 +11,6 @@ use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
-use Composer\Composer;
 use Composer\Factory;
 use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
