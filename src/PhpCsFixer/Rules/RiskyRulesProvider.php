@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Rules;
+namespace Algoritma\CodingStandards\PhpCsFixer\Rules;
+
+use Algoritma\CodingStandards\Shared\Rules\AbstractRuleProvider;
 
 final class RiskyRulesProvider extends AbstractRuleProvider
 {

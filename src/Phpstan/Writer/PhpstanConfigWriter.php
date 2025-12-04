@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Writer;
+namespace Algoritma\CodingStandards\Phpstan\Writer;
 
 use Nette\Neon\Neon;
 
-final class PhpstanConfigWriter implements PhpCsConfigWriterInterface
+final class PhpstanConfigWriter implements PhpstanConfigWriterInterface
 {
     public function writeConfigFile(?string $filename = null, bool $noDev = false, bool $noRisky = false): void
     {

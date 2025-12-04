@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Command;
+namespace Algoritma\CodingStandards\Phpstan\Command;
 
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
-use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
 use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,9 +14,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreatePhpstanConfigCommand extends BaseCommand
 {
-    private PhpCsConfigWriterInterface $configWriter;
+    private PhpstanConfigWriterInterface $configWriter;
 
-    private PhpCsConfigWriterInterface $algoritmaConfigWriter;
+    private PhpstanConfigWriterInterface $algoritmaConfigWriter;
 
     public function __construct(?string $name = null)
     {
@@ -26,22 +26,22 @@ class CreatePhpstanConfigCommand extends BaseCommand
         parent::__construct($name);
     }
 
-    public function getConfigWriter(): PhpCsConfigWriterInterface
+    public function getConfigWriter(): PhpstanConfigWriterInterface
     {
         return $this->configWriter;
     }
 
-    public function setConfigWriter(PhpCsConfigWriterInterface $configWriter): void
+    public function setConfigWriter(PhpstanConfigWriterInterface $configWriter): void
     {
         $this->configWriter = $configWriter;
     }
 
-    public function getAlgoritmaConfigWriter(): PhpCsConfigWriterInterface
+    public function getAlgoritmaConfigWriter(): PhpstanConfigWriterInterface
     {
         return $this->algoritmaConfigWriter;
     }
 
-    public function setAlgoritmaConfigWriter(PhpCsConfigWriterInterface $algoritmaConfigWriter): void
+    public function setAlgoritmaConfigWriter(PhpstanConfigWriterInterface $algoritmaConfigWriter): void
     {
         $this->algoritmaConfigWriter = $algoritmaConfigWriter;
     }

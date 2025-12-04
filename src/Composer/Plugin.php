@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer;
+namespace Algoritma\CodingStandards\Composer;
 
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
@@ -15,21 +15,11 @@ use Composer\Json\JsonFile;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 
-/**
- * Algoritma coding standards installer.
- */
 class Plugin implements EventSubscriberInterface, PluginInterface, Capable
 {
-    /**
-     * Constructor.
-     *
-     * Optionally accept the project root into which to install.
-     */
     public function __construct(private ?Installer $installer = null) {}
 
     /**
-     * Return this package name.
-     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
@@ -43,21 +33,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     }
 
     /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * The array keys are event names and the value can be:
-     *
-     * * The method name to call (priority defaults to 0)
-     * * An array composed of the method name to call and the priority
-     * * An array of arrays composed of the method names to call and respective
-     *   priorities, or 0 if unset
-     *
-     * For instance:
-     *
-     * * array('eventName' => 'methodName')
-     * * array('eventName' => array('methodName', $priority))
-     * * array('eventName' => array(array('methodName1', $priority), array('methodName2'))
-     *
      * @return array<string, string> The event names to listen to
      */
     public static function getSubscribedEvents(): array
@@ -97,7 +72,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     public function onPostPackageUpdate(PackageEvent $event): void
     {
         if (! $event->isDevMode()) {
-            // Do nothing in production mode.
             return;
         }
 
@@ -111,7 +85,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
         $name = $package->getName();
 
         if ($name !== self::getPackageName()) {
-            // we are not updating it
             return;
         }
 
@@ -128,7 +101,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     public function onPostPackageInstall(PackageEvent $event): void
     {
         if (! $event->isDevMode()) {
-            // Do nothing in production mode.
             return;
         }
 
@@ -142,7 +114,6 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
         $name = $package->getName();
 
         if ($name !== self::getPackageName()) {
-            // we are not installing it
             return;
         }
 
@@ -151,27 +122,12 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     }
 
     /**
-     * Method by which a Plugin announces its API implementations, through an array
-     * with a special structure.
-     *
-     * The key must be a string, representing a fully qualified class/interface name
-     * which Composer Plugin API exposes.
-     * The value must be a string as well, representing the fully qualified class name
-     * of the implementing class.
-     *
-     * @tutorial
-     *
-     * return array(
-     *     'Composer\Plugin\Capability\CommandProvider' => 'My\CommandProvider',
-     *     'Composer\Plugin\Capability\Validator'       => 'My\Validator',
-     * );
-     *
      * @return string[]
      */
     public function getCapabilities(): array
     {
         return [
-            \Composer\Plugin\Capability\CommandProvider::class => CommandProvider::class,
+            CommandProvider::class => CommandProvider::class,
         ];
     }
 

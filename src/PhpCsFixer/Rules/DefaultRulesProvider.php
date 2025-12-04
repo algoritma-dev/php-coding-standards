@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Rules;
+namespace Algoritma\CodingStandards\PhpCsFixer\Rules;
 
-final class DefaultRulesProvider extends AbstractRuleProvider
+use Algoritma\CodingStandards\Shared\Rules\RulesProviderInterface;
+
+final class DefaultRulesProvider implements RulesProviderInterface
 {
     public function getRules(): array
     {
@@ -160,6 +162,6 @@ final class DefaultRulesProvider extends AbstractRuleProvider
             'string_implicit_backslashes' => true,
         ];
 
-        return $this->filterRules($rules);
+        return $rules;
     }
 }

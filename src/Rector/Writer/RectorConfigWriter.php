@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Writer;
+namespace Algoritma\CodingStandards\Rector\Writer;
 
-final class RectorConfigWriter implements PhpCsConfigWriterInterface
+final class RectorConfigWriter implements RectorConfigWriterInterface
 {
-    public function writeConfigFile(?string $filename = null, bool $noDev = false, bool $noRisky = false): void
+    public function writeConfigFile(?string $filename = null, bool $noDev = false): void
     {
         $filename = $filename ?: 'rector.php';
         file_put_contents($filename, $this->createConfigSource($noDev));

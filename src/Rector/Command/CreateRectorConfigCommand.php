@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Command;
+namespace Algoritma\CodingStandards\Rector\Command;
 
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
-use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
+use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
 use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -13,21 +13,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateRectorConfigCommand extends BaseCommand
 {
-    private PhpCsConfigWriterInterface $configWriter;
+    private RectorConfigWriterInterface $configWriter;
 
     public function __construct(?string $name = null)
     {
-        $this->configWriter = new PhpstanConfigWriter();
+        $this->configWriter = new RectorConfigWriter();
 
         parent::__construct($name);
     }
 
-    public function getConfigWriter(): PhpCsConfigWriterInterface
+    public function getConfigWriter(): RectorConfigWriterInterface
     {
         return $this->configWriter;
     }
 
-    public function setConfigWriter(PhpCsConfigWriterInterface $configWriter): void
+    public function setConfigWriter(RectorConfigWriterInterface $configWriter): void
     {
         $this->configWriter = $configWriter;
     }

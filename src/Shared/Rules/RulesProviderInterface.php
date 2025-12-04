@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Sets;
+namespace Algoritma\CodingStandards\Shared\Rules;
 
-interface SetsProviderInterface
+interface RulesProviderInterface
 {
     /**
      * Get rules.
      *
      * @return array<string|int, array<string, mixed>|bool|string>
      */
-    public function getSets(): array;
+    public function getRules(): array;
 }

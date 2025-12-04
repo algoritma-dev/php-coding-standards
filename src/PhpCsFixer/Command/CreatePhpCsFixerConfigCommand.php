@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Command;
+namespace Algoritma\CodingStandards\PhpCsFixer\Command;
 
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigFixerWriter;
+use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigWriterInterface;
 use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Rules;
+namespace Algoritma\CodingStandards\Shared\Rules;
 
 final class ArrayRulesProvider implements RulesProviderInterface
 {

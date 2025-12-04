@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer;
+namespace Algoritma\CodingStandards\Composer;
 
 use Algoritma\CodingStandards\AutoloadPathProvider;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
-use Algoritma\CodingStandards\Installer\Writer\PHPMDConfigWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
-use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
-use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
+use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigFixerWriter;
+use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigWriterInterface;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
 use Composer\Composer;
 use Composer\Factory;
 use Composer\IO\IOInterface;
@@ -21,8 +20,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Installer
 {
-    public PhpCsConfigWriterInterface $phpmdWriter;
-
     private readonly string $projectRoot;
 
     /**
@@ -34,11 +31,11 @@ class Installer
 
     private readonly PhpCsConfigWriterInterface $phpCsWriter;
 
-    private readonly PhpCsConfigWriterInterface $phpstanWriter;
+    private readonly PhpstanConfigWriter $phpstanWriter;
 
-    private readonly PhpCsConfigWriterInterface $phpstanAlgoritmaWriter;
+    private readonly PhpstanAlgoritmaConfigWriter $phpstanAlgoritmaWriter;
 
-    private readonly PhpCsConfigWriterInterface $rectorWriter;
+    private readonly RectorConfigWriter $rectorWriter;
 
     /**
      * @throws \RuntimeException
@@ -50,10 +47,9 @@ class Installer
         ?string $projectRoot = null,
         ?string $composerPath = null,
         ?PhpCsConfigWriterInterface $phpCsWriter = null,
-        ?PhpCsConfigWriterInterface $phpstanWriter = null,
-        ?PhpCsConfigWriterInterface $phpstanAlgoritmaWriter = null,
-        ?PhpCsConfigWriterInterface $rectorWriter = null,
-        ?PhpCsConfigWriterInterface $phpmdWriter = null,
+        ?PhpstanConfigWriter $phpstanWriter = null,
+        ?PhpstanAlgoritmaConfigWriter $phpstanAlgoritmaWriter = null,
+        ?RectorConfigWriter $rectorWriter = null
     ) {
         // Get composer.json location
         $composerFile = $composerPath ?? Factory::getComposerFile();
@@ -72,7 +68,6 @@ class Installer
         $this->phpstanWriter = $phpstanWriter ?: new PhpstanConfigWriter();
         $this->phpstanAlgoritmaWriter = $phpstanAlgoritmaWriter ?: new PhpstanAlgoritmaConfigWriter();
         $this->rectorWriter = $rectorWriter ?: new RectorConfigWriter();
-        $this->phpmdWriter = $phpmdWriter ?: new PHPMDConfigWriter();
     }
 
     /**
@@ -85,7 +80,6 @@ class Installer
         $this->createPhpstanConfig();
         $this->createPhpstanAlgoritmaConfig();
         $this->createRectorConfig();
-        $this->createPHPMDConfig();
         $this->requestAddComposerScripts();
         $this->composerJson->write($this->composerDefinition);
     }
@@ -129,14 +123,9 @@ class Installer
                     $fs->rename($this->projectRoot . '/rector.php', $this->projectRoot . '/rector.php.old');
                 }
 
-                if ($fs->exists($this->projectRoot . '/phpmd.xml')) {
-                    $fs->rename($this->projectRoot . '/phpmd.xml', $this->projectRoot . '/phpmd.xml.old');
-                }
-
                 $this->phpCsWriter->writeConfigFile($this->projectRoot . '/.php-cs-fixer.dist.php');
                 $this->phpstanWriter->writeConfigFile($this->projectRoot . '/phpstan.neon');
                 $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
-                $this->phpmdWriter->writeConfigFile($this->projectRoot . '/phpmd.xml');
             }
         }
 
@@ -192,32 +181,14 @@ class Installer
         $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
     }
 
-    public function createPHPMDConfig(): void
-    {
-        $destPath = $this->projectRoot . '/phpmd.xml';
-
-        if (is_file($destPath)) {
-            $this->io->write("\n  <comment>Skipping... PHPMD config file already exists.</comment>");
-            $this->io->write('  <info>Delete phpmd.xml if you want to install it.</info>');
-
-            return;
-        }
-
-        $this->phpmdWriter->writeConfigFile($this->projectRoot . '/phpmd.xml');
-    }
-
     public function requestAddComposerScripts(): void
     {
-        $pathProvider = new AutoloadPathProvider(null, null, true);
-        $paths = implode(' ', $pathProvider->getPaths());
-
         $scripts = [
             'cs-check' => 'php-cs-fixer fix --dry-run --diff',
             'cs-fix' => 'php-cs-fixer fix --diff',
             'rector-check' => 'rector process --dry-run',
             'rector-fix' => 'rector process',
             'phpstan' => 'phpstan analyze',
-            'phpmd' => "algphpmd {$paths} ansi phpmd.xml",
         ];
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];

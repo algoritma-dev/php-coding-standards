@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Writer;
+namespace Algoritma\CodingStandards\Phpstan\Writer;
 
-final class PhpstanAlgoritmaConfigWriter implements PhpCsConfigWriterInterface
+final class PhpstanAlgoritmaConfigWriter implements PhpstanConfigWriterInterface
 {
     public function writeConfigFile(?string $filename = null, bool $noDev = false, bool $noRisky = false): void
     {
@@ -15,14 +15,14 @@ final class PhpstanAlgoritmaConfigWriter implements PhpCsConfigWriterInterface
     private function createAlgoritmaConfigFile(bool $noDev): string
     {
         $providersLine = [
-            '    new Algoritma\CodingStandards\Rules\PhpstanRulesProvider(),',
+            '    new Algoritma\CodingStandards\Phpstan\Rules\PhpstanRulesProvider(),',
         ];
-        $providersLine[] = '    new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),';
+        $providersLine[] = '    new Algoritma\CodingStandards\Shared\Rules\ArrayRulesProvider($additionalRules),';
         $providersLine = implode("\n", $providersLine);
 
         $rulesProviderConfig = <<<EOD
             \$additionalRules = [];
-            \$rulesProvider = new Algoritma\\CodingStandards\\Rules\\CompositeRulesProvider([
+            \$rulesProvider = new Algoritma\\CodingStandards\\Shared\\Rules\\CompositeRulesProvider([
             {$providersLine}
             ]);
             EOD;

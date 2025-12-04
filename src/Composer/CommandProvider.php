@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer;
+namespace Algoritma\CodingStandards\Composer;
 
-use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
-use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
-use Algoritma\CodingStandards\Installer\Command\CreateRectorConfigCommand;
+use Algoritma\CodingStandards\PhpCsFixer\Command\CreatePhpCsFixerConfigCommand;
+use Algoritma\CodingStandards\Phpstan\Command\CreatePhpstanConfigCommand;
+use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
 use Composer\Command\BaseCommand;
 
 class CommandProvider implements \Composer\Plugin\Capability\CommandProvider

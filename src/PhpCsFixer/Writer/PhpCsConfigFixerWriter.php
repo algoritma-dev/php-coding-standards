@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandards\Installer\Writer;
+namespace Algoritma\CodingStandards\PhpCsFixer\Writer;
 
 final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
 {
@@ -60,20 +60,20 @@ final class PhpCsConfigFixerWriter implements PhpCsConfigWriterInterface
     private function createRulesProviderConfig(bool $noRisky = false): string
     {
         $providersLine = [
-            '    new Algoritma\CodingStandards\Rules\DefaultRulesProvider(),',
+            '    new Algoritma\CodingStandards\PhpCsFixer\Rules\DefaultRulesProvider(),',
         ];
 
         if ($noRisky === false) {
-            $providersLine[] = '    new Algoritma\CodingStandards\Rules\RiskyRulesProvider(),';
+            $providersLine[] = '    new Algoritma\CodingStandards\PhpCsFixer\Rules\RiskyRulesProvider(),';
         }
 
-        $providersLine[] = '    new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),';
+        $providersLine[] = '    new Algoritma\CodingStandards\Shared\Rules\ArrayRulesProvider($additionalRules),';
 
         $providersLine = implode("\n", $providersLine);
 
         return <<<EOD
             \$additionalRules = [];
-            \$rulesProvider = new Algoritma\\CodingStandards\\Rules\\CompositeRulesProvider([
+            \$rulesProvider = new Algoritma\\CodingStandards\\Shared\\Rules\\CompositeRulesProvider([
             {$providersLine}
             ]);
             EOD;
