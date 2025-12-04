@@ -7,12 +7,16 @@ namespace Algoritma\CodingStandards\Rector;
 use Algoritma\CodingStandards\Shared\SetsProviderInterface;
 use Composer\InstalledVersions;
 use Composer\Semver\VersionParser;
+use FriendsOfShopware\ShopwareRector\Set\ShopwareSetList;
 use Rector\Php\PhpVersionResolver\ComposerJsonPhpVersionResolver;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
 class RectorSetsProvider implements SetsProviderInterface
 {
+    /**
+     * @return array<string>
+     */
     public function getSets(): array
     {
         $sets = [
@@ -24,7 +28,11 @@ class RectorSetsProvider implements SetsProviderInterface
             SetList::TYPE_DECLARATION,
         ];
 
-        return array_merge($sets, $this->getPhpUnitSets());
+        return array_merge(
+            $sets,
+            $this->getPhpUnitSets(),
+            $this->getShopwareSets()
+        );
     }
 
     private function getPhpSet(): string
@@ -41,9 +49,12 @@ class RectorSetsProvider implements SetsProviderInterface
         };
     }
 
+    /**
+     * @return array<string>
+     */
     private function getPhpUnitSets(): array
     {
-        if (!class_exists(InstalledVersions::class) || !InstalledVersions::isInstalled('phpunit/phpunit')) {
+        if (! class_exists(InstalledVersions::class) || ! InstalledVersions::isInstalled('phpunit/phpunit')) {
             return [];
         }
 
@@ -64,6 +75,37 @@ class RectorSetsProvider implements SetsProviderInterface
 
         if (str_starts_with($phpunitVersion, '9.')) {
             return [PHPUnitSetList::PHPUNIT_90];
+        }
+
+        return [];
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function getShopwareSets(): array
+    {
+        if (! class_exists(InstalledVersions::class) || ! InstalledVersions::isInstalled('shopware/core')) {
+            return [];
+        }
+
+        if (! class_exists(ShopwareSetList::class)) {
+            throw new \Exception('Shopware Rector is not installed: composer req frosh/shopware-rector --dev');
+        }
+
+        $versionParser = new VersionParser();
+        $shopwareVersion = $versionParser->normalize((string) InstalledVersions::getVersion('shopware/core'));
+
+        if (str_starts_with($shopwareVersion, '6.8.')) {
+            return [ShopwareSetList::SHOPWARE_6_8_0];
+        }
+
+        if (str_starts_with($shopwareVersion, '6.7.')) {
+            return [ShopwareSetList::SHOPWARE_6_7_0];
+        }
+
+        if (str_starts_with($shopwareVersion, '6.6.')) {
+            return [ShopwareSetList::SHOPWARE_6_6_10];
         }
 
         return [];

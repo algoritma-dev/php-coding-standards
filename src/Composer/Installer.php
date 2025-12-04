@@ -12,6 +12,7 @@ use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
 use Composer\Factory;
+use Composer\InstalledVersions;
 use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
 use Composer\Package\PackageInterface;
@@ -187,6 +188,15 @@ class Installer
             'rector-fix' => 'rector process',
             'phpstan' => 'phpstan analyze --memory-limit=-1',
         ];
+
+        if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('oro/commerce')) {
+            if (! InstalledVersions::isInstalled('oro/upgrade-toolkit')) {
+                $this->io->write("\n<info>Please install 'oro/upgrade-toolkit' with composer require oro/upgrade-toolkit:dev-master --dev</info>");
+            }
+
+            $scripts['upgrade-toolkit-check'] = 'upgrade-toolkit --dry-run';
+            $scripts['upgrade-toolkit-fix'] = 'upgrade-toolkit';
+        }
 
         $scriptsDefinition = $this->composerDefinition['scripts'] ?? [];
         $diffScripts = array_diff_key($scripts, $scriptsDefinition);
