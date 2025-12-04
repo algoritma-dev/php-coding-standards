@@ -27,7 +27,6 @@
             "phpstan/extension-installer": true
         }
     },
-    "bin": ["bin/algphpmd"],
     "prefer-stable": true,
     "require": {
         "php": ">=8.1",
