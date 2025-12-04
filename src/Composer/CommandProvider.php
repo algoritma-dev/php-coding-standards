@@ -8,8 +8,9 @@ use Algoritma\CodingStandards\PhpCsFixer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Phpstan\Command\CreatePhpstanConfigCommand;
 use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
 use Composer\Command\BaseCommand;
+use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 
-class CommandProvider implements \Composer\Plugin\Capability\CommandProvider
+class CommandProvider implements ComposerCommandProvider
 {
     /**
      * Retrieves an array of commands.

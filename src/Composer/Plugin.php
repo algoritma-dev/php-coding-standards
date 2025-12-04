@@ -12,6 +12,7 @@ use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Json\JsonFile;
+use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 
@@ -127,7 +128,7 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
     public function getCapabilities(): array
     {
         return [
-            CommandProvider::class => CommandProvider::class,
+            ComposerCommandProvider::class => CommandProvider::class,
         ];
     }
 
