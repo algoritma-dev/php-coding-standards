@@ -12,8 +12,6 @@ use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Package\Package;
 use Composer\Package\PackageInterface;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Prophecy\Argument;
 
@@ -23,17 +21,27 @@ class InstallerTest extends TestCase
 
     private string $projectRoot;
 
-    private vfsStreamDirectory $vfsRoot;
-
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vfsRoot = vfsStream::setup();
+        $this->projectRoot = sys_get_temp_dir() . '/' . uniqid('test', true);
+        mkdir($this->projectRoot, 0777, true);
 
-        $this->projectRoot = $this->vfsRoot->url();
-        $this->composerFilePath = $this->vfsRoot->url() . '/composer.json';
+        $this->composerFilePath = $this->projectRoot . '/composer.json';
         file_put_contents($this->composerFilePath, Util::getComposerContent());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        if (file_exists($this->composerFilePath)) {
+            unlink($this->composerFilePath);
+        }
+        if (is_dir($this->projectRoot)) {
+            rmdir($this->projectRoot);
+        }
     }
 
     /**

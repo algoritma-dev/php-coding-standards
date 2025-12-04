@@ -6,8 +6,6 @@ namespace Algoritma\CodingStandardsTest;
 
 use Algoritma\CodingStandards\AutoloadPathProvider;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
 class AutoloadPathProviderTest extends TestCase
 {
@@ -15,19 +13,27 @@ class AutoloadPathProviderTest extends TestCase
 
     private string $projectRoot;
 
-    private vfsStreamDirectory $vfsRoot;
-
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vfsRoot = vfsStream::setup();
+        $this->projectRoot = sys_get_temp_dir();
+        $this->composerFilePath = tempnam($this->projectRoot, 'composer');
+        rename($this->composerFilePath, $this->composerFilePath . '.json');
+        $this->composerFilePath .= '.json';
 
-        $this->projectRoot = $this->vfsRoot->url();
-        $this->composerFilePath = $this->vfsRoot->url() . '/composer.json';
-        mkdir($this->vfsRoot->url() . '/src');
-        mkdir($this->vfsRoot->url() . '/tests');
+        mkdir($this->projectRoot . '/src');
+        mkdir($this->projectRoot . '/tests');
         file_put_contents($this->composerFilePath, Util::getComposerContent());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        unlink($this->composerFilePath);
+        rmdir($this->projectRoot . '/src');
+        rmdir($this->projectRoot . '/tests');
     }
 
     public function testGetPathsWithDevOn(): void
@@ -38,7 +44,7 @@ class AutoloadPathProviderTest extends TestCase
             true,
         );
 
-        $expected = ['src/', 'vfs://root', 'tests/'];
+        $expected = ['src/', $this->projectRoot, 'tests/'];
         self::assertSame($expected, $provider->getPaths());
     }
 
@@ -50,7 +56,7 @@ class AutoloadPathProviderTest extends TestCase
             false,
         );
 
-        $expected = ['src/', 'vfs://root'];
+        $expected = ['src/', $this->projectRoot];
         self::assertSame($expected, $provider->getPaths());
     }
 
@@ -83,8 +89,24 @@ class AutoloadPathProviderTest extends TestCase
     public function testWrongComposerPathLeadsToBrokenProjectPath(): void
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Unable to get project root');
+        $this->expectExceptionMessage('Unable to get project root.');
 
         new AutoloadPathProvider('wrong/composer/path/');
+    }
+
+    public function testGetPathsWithComposerEnvVar(): void
+    {
+        putenv('COMPOSER=' . $this->composerFilePath);
+
+        $provider = new AutoloadPathProvider(
+            null,
+            $this.projectRoot,
+            true,
+        );
+
+        $expected = ['src/', $this->projectRoot, 'tests/'];
+        self::assertSame($expected, $provider->getPaths());
+
+        putenv('COMPOSER=');
     }
 }

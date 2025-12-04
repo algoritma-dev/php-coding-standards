@@ -6,28 +6,34 @@ namespace Algoritma\CodingStandardsTest\Installer\Writer;
 
 use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
-class PhpCsConfigWriterTest extends TestCase
+class PhpCsConfigFixerWriterTest extends TestCase
 {
-    private vfsStreamDirectory $vfsRoot;
+    private string $filename;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vfsRoot = vfsStream::setup();
+        $this->filename = tempnam(sys_get_temp_dir(), 'phpcs');
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
+        }
     }
 
     public function testWriteConfigFile(): void
     {
-        $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
         $writer = new PhpCsConfigFixerWriter();
 
-        $writer->writeConfigFile($filename);
+        $writer->writeConfigFile($this->filename);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected = <<<'EOD'
             <?php
@@ -69,12 +75,11 @@ class PhpCsConfigWriterTest extends TestCase
 
     public function testWriteConfigFileWithNoDev(): void
     {
-        $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
         $writer = new PhpCsConfigFixerWriter();
 
-        $writer->writeConfigFile($filename, true);
+        $writer->writeConfigFile($this->filename, true);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected = <<<'EOD'
             <?php
@@ -116,12 +121,11 @@ class PhpCsConfigWriterTest extends TestCase
 
     public function testWriteConfigFileWithNoRisky(): void
     {
-        $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
         $writer = new PhpCsConfigFixerWriter();
 
-        $writer->writeConfigFile($filename, false, true);
+        $writer->writeConfigFile($this->filename, false, true);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected = <<<'EOD'
             <?php
@@ -161,12 +165,11 @@ class PhpCsConfigWriterTest extends TestCase
 
     public function testWriteConfigFileWithNoDevAndNoRisky(): void
     {
-        $filename = $this->vfsRoot->url() . '/.php-cs-fixer.dist.php';
         $writer = new PhpCsConfigFixerWriter();
 
-        $writer->writeConfigFile($filename, true, true);
+        $writer->writeConfigFile($this->filename, true, true);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected = <<<'EOD'
             <?php

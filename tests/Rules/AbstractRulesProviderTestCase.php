@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-use Algoritma\CodingStandards\Rules\RulesProviderInterface;
+use Algoritma\CodingStandards\Shared\Rules\RulesProviderInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 abstract class AbstractRulesProviderTestCase extends TestCase

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Sets;
 
-use Algoritma\CodingStandards\Sets\SetsProviderInterface;
+use Algoritma\CodingStandards\Shared\SetsProviderInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 abstract class AbstractSetsProviderTestCase extends TestCase

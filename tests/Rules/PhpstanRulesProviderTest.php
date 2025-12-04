@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-use Algoritma\CodingStandards\Rules\PhpstanRulesProvider;
+use Algoritma\CodingStandards\Phpstan\Rules\PhpstanRulesProvider;
 
 class PhpstanRulesProviderTest extends AbstractRulesProviderTestCase
 {

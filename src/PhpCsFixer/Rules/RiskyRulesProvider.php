@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\PhpCsFixer\Rules;
 
-use Algoritma\CodingStandards\Shared\Rules\AbstractRuleProvider;
+use Algoritma\CodingStandards\Shared\Rules\RulesProviderInterface;
 
-final class RiskyRulesProvider extends AbstractRuleProvider
+final class RiskyRulesProvider implements RulesProviderInterface
 {
     public function getRules(): array
     {
-        return $this->filterRules([
+        return [
             '@PER-CS2.0:risky' => true,
-            '@PSR12:risky' => true,
             '@Symfony:risky' => true,
             'array_push' => true,
             'combine_nested_dirname' => true,
@@ -58,6 +57,6 @@ final class RiskyRulesProvider extends AbstractRuleProvider
             'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
             'strict_comparison' => true,
             'strict_param' => true,
-        ]);
+        ];
     }
 }

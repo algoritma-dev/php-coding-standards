@@ -6,29 +6,34 @@ namespace Algoritma\CodingStandardsTest\Installer\Writer;
 
 use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
 class PhpstanConfigWriterTest extends TestCase
 {
-    private vfsStreamDirectory $vfsRoot;
+    private string $filename;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vfsRoot = vfsStream::setup();
+        $this->filename = tempnam(sys_get_temp_dir(), 'phpstan');
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
+        }
     }
 
     public function testWriteConfigFile(): void
     {
-        $filename = $this->vfsRoot->url() . '/phpstan.neon';
-
         $writer = new PhpstanConfigWriter();
 
-        $writer->writeConfigFile($filename);
+        $writer->writeConfigFile($this->filename);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected
             = <<<'EOD'
@@ -48,12 +53,11 @@ class PhpstanConfigWriterTest extends TestCase
 
     public function testWriteConfigFileWithNoDev(): void
     {
-        $filename = $this->vfsRoot->url() . '/phpstan.neon';
         $writer = new PhpstanConfigWriter();
 
-        $writer->writeConfigFile($filename, true);
+        $writer->writeConfigFile($this->filename, true);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected
             = <<<'EOD'

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-use Algoritma\CodingStandards\Rules\CompositeRulesProvider;
-use Algoritma\CodingStandards\Rules\RulesProviderInterface;
+use Algoritma\CodingStandards\Shared\Rules\CompositeRulesProvider;
+use Algoritma\CodingStandards\Shared\Rules\RulesProviderInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class CompositeRulesProviderTest extends TestCase

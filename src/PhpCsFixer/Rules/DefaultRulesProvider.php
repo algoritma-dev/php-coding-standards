@@ -12,7 +12,6 @@ final class DefaultRulesProvider implements RulesProviderInterface
     {
         $rules = [
             '@PER-CS2.0' => true,
-            '@PSR12' => true,
             '@Symfony' => true,
             '@DoctrineAnnotation' => true,
             'align_multiline_comment' => true,

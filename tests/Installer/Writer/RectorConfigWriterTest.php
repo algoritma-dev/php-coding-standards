@@ -6,28 +6,34 @@ namespace Algoritma\CodingStandardsTest\Installer\Writer;
 
 use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
 class RectorConfigWriterTest extends TestCase
 {
-    private vfsStreamDirectory $vfsRoot;
+    private string $filename;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vfsRoot = vfsStream::setup();
+        $this->filename = tempnam(sys_get_temp_dir(), 'rector');
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
+        }
     }
 
     public function testWriteConfigFile(): void
     {
-        $filename = $this->vfsRoot->url() . '/rector.php';
         $writer = new RectorConfigWriter();
 
-        $writer->writeConfigFile($filename);
+        $writer->writeConfigFile($this->filename);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected = <<<'EOD'
             <?php
@@ -64,12 +70,11 @@ class RectorConfigWriterTest extends TestCase
 
     public function testWriteConfigFileWithNoDev(): void
     {
-        $filename = $this->vfsRoot->url() . '/rector.php';
         $writer = new RectorConfigWriter();
 
-        $writer->writeConfigFile($filename, true);
+        $writer->writeConfigFile($this->filename, true);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected = <<<'EOD'
             <?php

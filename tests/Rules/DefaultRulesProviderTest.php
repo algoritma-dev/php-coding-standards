@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-use Algoritma\CodingStandards\Rules\DefaultRulesProvider;
+use Algoritma\CodingStandards\PhpCsFixer\Rules\DefaultRulesProvider;
 
 class DefaultRulesProviderTest extends AbstractRulesProviderTestCase
 {

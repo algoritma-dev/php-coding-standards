@@ -6,29 +6,34 @@ namespace Algoritma\CodingStandardsTest\Installer\Writer;
 
 use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 
 class PhpstanAlgoritmaConfigWriterTest extends TestCase
 {
-    private vfsStreamDirectory $vfsRoot;
+    private string $filename;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->vfsRoot = vfsStream::setup();
+        $this->filename = tempnam(sys_get_temp_dir(), 'phpstan-algoritma');
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
+        }
     }
 
     public function testWriteConfigFile(): void
     {
-        $filename = $this->vfsRoot->url() . '/phpstan-algoritma-config.php';
-
         $writer = new PhpstanAlgoritmaConfigWriter();
 
-        $writer->writeConfigFile($filename);
+        $writer->writeConfigFile($this->filename);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected
             = <<<'EOD'
@@ -79,12 +84,11 @@ class PhpstanAlgoritmaConfigWriterTest extends TestCase
 
     public function testWriteConfigFileWithNoDev(): void
     {
-        $filename = $this->vfsRoot->url() . '/phpstan-algoritma-config.php';
         $writer = new PhpstanAlgoritmaConfigWriter();
 
-        $writer->writeConfigFile($filename, true);
+        $writer->writeConfigFile($this->filename, true);
 
-        $content = file_get_contents($filename);
+        $content = file_get_contents($this->filename);
 
         $expected
             = <<<'EOD'
