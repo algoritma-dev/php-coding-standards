@@ -93,7 +93,7 @@ class PluginTest extends TestCase
         $package->getName()->willReturn(self::PACKAGE_NAME);
 
         $plugin = new Plugin($installer->reveal());
-        $installer->checkUpgrade($package, $targetPackage)->shouldBeCalled();
+        $installer->checkUpgrade($package->reveal(), $targetPackage->reveal())->shouldBeCalled();
 
         $plugin->onPostPackageUpdate($event->reveal());
     }
@@ -106,7 +106,7 @@ class PluginTest extends TestCase
 
         $event->getOperation()->willReturn($operation->reveal());
         $event->isDevMode()->willReturn(false);
-        $installer->checkUpgrade(Argument::cetera())->shouldNotBeCalled();
+        $installer->checkUpgrade(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $plugin = new Plugin($installer->reveal());
 
@@ -125,7 +125,7 @@ class PluginTest extends TestCase
         $event->isDevMode()->willReturn(true);
         $event->getComposer()->willReturn($composer->reveal());
         $event->getIO()->willReturn($io->reveal());
-        $installer->checkUpgrade(Argument::cetera())->shouldNotBeCalled();
+        $installer->checkUpgrade(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $plugin = new Plugin($installer->reveal());
         $plugin->onPostPackageUpdate($event->reveal());
@@ -146,7 +146,7 @@ class PluginTest extends TestCase
         $event->getIO()->willReturn($io->reveal());
         $operation->getInitialPackage()->willReturn($package->reveal());
         $package->getName()->shouldBeCalled()->willReturn('foo');
-        $installer->checkUpgrade(Argument::cetera())->shouldNotBeCalled();
+        $installer->checkUpgrade(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $plugin = new Plugin($installer->reveal());
         $plugin->onPostPackageUpdate($event->reveal());
@@ -236,7 +236,7 @@ class PluginTest extends TestCase
 
         $capabilities = $plugin->getCapabilities();
 
-        self::assertArrayHasKey(CommandProvider::class, $capabilities);
-        self::assertSame(CommandProvider::class, $capabilities[CommandProvider::class]);
+        self::assertArrayHasKey(\Composer\Plugin\Capability\CommandProvider::class, $capabilities);
+        self::assertSame(CommandProvider::class, $capabilities[\Composer\Plugin\Capability\CommandProvider::class]);
     }
 }
