@@ -24,7 +24,7 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
             $autoloadPathProvider = '$autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);';
         }
 
-        $setsProvider = '$setsProvider = new Algoritma\CodingStandards\Sets\RectorSetsProvider(null, $this->io);';
+        $setsProvider = '$setsProvider = new Algoritma\CodingStandards\Rector\RectorSetsProvider();';
 
         $rectorConfig = 'return RectorConfig::configure()';
         $rectorConfig .= "\n" . '    ->withFileExtensions([\'php\'])';
@@ -46,6 +46,7 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
 
         if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('symfony/framework-bundle')) {
             $withComposerBased[] = 'symfony: true';
+            $rectorConfig .= "\n" . '    ->withSymfonyContainerXml(__DIR__ . \'/var/cache/dev/App_KernelDevDebugContainer.xml\')';
         }
 
         if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('laravel/framework')) {
@@ -77,15 +78,13 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
 
     private function createRulesProviderConfig(): string
     {
-        $providersLine = [
-            '    new Algoritma\CodingStandards\Rules\RectorRulesProvider(),',
-        ];
-        $providersLine[] = '    new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),';
+        $providersLine = [];
+        $providersLine[] = '    new Algoritma\CodingStandards\Shared\Rules\ArrayRulesProvider($additionalRules),';
         $providersLine = implode("\n", $providersLine);
 
         return <<<EOD
             \$additionalRules = [];
-            \$rulesProvider = new Algoritma\\CodingStandards\\Rules\\CompositeRulesProvider([
+            \$rulesProvider = new Algoritma\\CodingStandards\\Shared\\Rules\\CompositeRulesProvider([
             {$providersLine}
             ]);
             EOD;
