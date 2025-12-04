@@ -100,7 +100,7 @@ class AutoloadPathProviderTest extends TestCase
 
         $provider = new AutoloadPathProvider(
             null,
-            $this.projectRoot,
+            $this->projectRoot,
             true,
         );
 

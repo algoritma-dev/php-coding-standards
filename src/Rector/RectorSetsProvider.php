@@ -31,7 +31,7 @@ class RectorSetsProvider implements SetsProviderInterface
             $version >= 80200 && $version <= 80299 => SetList::PHP_82,
             $version >= 80300 && $version <= 80399 => SetList::PHP_83,
             $version >= 80400 && $version <= 80499 => SetList::PHP_84,
-            $version >= 80500 && $version <= 80499 => SetList::PHP_85,
+            $version >= 80500 && $version <= 80599 => SetList::PHP_85,
             true => throw new \Exception('PHP version not supported'),
         };
     }

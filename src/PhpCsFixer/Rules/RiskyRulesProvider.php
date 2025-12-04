@@ -11,7 +11,7 @@ final class RiskyRulesProvider implements RulesProviderInterface
     public function getRules(): array
     {
         return [
-            '@PER-CS2.0:risky' => true,
+            '@PER-CS2x0:risky' => true,
             '@Symfony:risky' => true,
             'array_push' => true,
             'combine_nested_dirname' => true,

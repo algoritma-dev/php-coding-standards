@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandardsTest\Installer\Writer;
+namespace Algoritma\CodingStandardsTest\Phpstan\Writer;
 
-use Algoritma\CodingStandards\Installer\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class PhpstanConfigWriterTest extends TestCase

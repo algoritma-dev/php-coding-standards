@@ -55,10 +55,10 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getInstaller(Composer $composer, IOInterface $io): Installer
+    public function getInstaller(IOInterface $io): Installer
     {
         if (! $this->installer instanceof Installer) {
-            $this->installer = new Installer($io, $composer);
+            $this->installer = new Installer($io);
         }
 
         return $this->installer;
@@ -88,7 +88,7 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
             return;
         }
 
-        $installer = $this->getInstaller($event->getComposer(), $event->getIO());
+        $installer = $this->getInstaller($event->getIO());
 
         $installer->checkUpgrade($operation->getInitialPackage(), $operation->getTargetPackage());
     }
@@ -117,7 +117,7 @@ class Plugin implements EventSubscriberInterface, PluginInterface, Capable
             return;
         }
 
-        $installer = $this->getInstaller($event->getComposer(), $event->getIO());
+        $installer = $this->getInstaller($event->getIO());
         $installer->installCommands();
     }
 

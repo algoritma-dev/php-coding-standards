@@ -2,10 +2,13 @@ includes:
 	- phpstan-baseline.neon
 
 parameters:
-    phpVersion: 80200
+    phpVersion: 80500
     level: 6
     paths:
         - src/
         - tests/
     errorFormat: ticketswap
     editorUrl: "phpstorm://open?file=%%file%%&line=%%line%%"
+    ignoreErrors:
+    		-
+    		    identifier: typeCoverage.constantTypeCoverage

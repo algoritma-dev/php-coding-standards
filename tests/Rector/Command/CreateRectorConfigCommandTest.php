@@ -2,35 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandardsTest\Installer\Command;
+namespace Algoritma\CodingStandardsTest\Rector\Command;
 
-use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
-use Algoritma\CodingStandards\Installer\Writer\PhpCsConfigWriterInterface;
+use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
+use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreatePhpstanConfigCommandTest extends TestCase
+class CreateRectorConfigCommandTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        putenv('COMPOSER_HOME=' . sys_get_temp_dir());
+    }
+
     public function testGetConfigWriter(): void
     {
-        $command = new CreatePhpstanConfigCommand();
+        $command = new CreateRectorConfigCommand();
         $writer = $command->getConfigWriter();
-        $algoritmaWriter = $command->getAlgoritmaConfigWriter();
         self::assertSame($writer, $command->getConfigWriter());
-        self::assertSame($algoritmaWriter, $command->getAlgoritmaConfigWriter());
     }
 
     public function testSetConfigWriter(): void
     {
-        $command = new CreatePhpstanConfigCommand();
-        $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
-        $algoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $command = new CreateRectorConfigCommand();
+        $writer = $this->prophesize(RectorConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
-        $command->setAlgoritmaConfigWriter($algoritmaWriter->reveal());
         self::assertSame($writer->reveal(), $command->getConfigWriter());
-        self::assertSame($algoritmaWriter->reveal(), $command->getAlgoritmaConfigWriter());
     }
 
     /**
@@ -41,23 +42,15 @@ class CreatePhpstanConfigCommandTest extends TestCase
     #[DataProvider('executeProvider')]
     public function testExecute(array $args, bool $noDev): void
     {
-        $command = new CreatePhpstanConfigCommand();
-        $writer = $this->prophesize(PhpCsConfigWriterInterface::class);
-        $algoritmaWriter = $this->prophesize(PhpCsConfigWriterInterface::class);
+        $command = new CreateRectorConfigCommand();
+        $writer = $this->prophesize(RectorConfigWriterInterface::class);
         $command->setConfigWriter($writer->reveal());
-        $command->setAlgoritmaConfigWriter($algoritmaWriter->reveal());
 
         $input = new ArgvInput($args, $command->getDefinition());
         $output = $this->prophesize(OutputInterface::class);
 
         $writer->writeConfigFile(
-            'phpstan.neon',
-            $noDev,
-        )
-            ->shouldBeCalled();
-
-        $algoritmaWriter->writeConfigFile(
-            'phpstan-algoritma-config.php',
+            'rector.php',
             $noDev,
         )
             ->shouldBeCalled();
@@ -74,11 +67,11 @@ class CreatePhpstanConfigCommandTest extends TestCase
     {
         return [
             [
-                ['algoritma-phpstan-create-config'],
+                ['algoritma-rector-create-config'],
                 false,
             ],
             [
-                ['algoritma-phpstan-create-config', '--no-dev'],
+                ['algoritma-rector-create-config', '--no-dev'],
                 true,
             ],
         ];

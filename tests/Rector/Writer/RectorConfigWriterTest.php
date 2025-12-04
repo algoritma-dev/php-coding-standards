@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandardsTest\Installer\Writer;
+namespace Algoritma\CodingStandardsTest\Rector\Writer;
 
-use Algoritma\CodingStandards\Installer\Writer\RectorConfigWriter;
+use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class RectorConfigWriterTest extends TestCase

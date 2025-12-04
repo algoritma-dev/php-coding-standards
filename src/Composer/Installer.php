@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Composer;
 
-use Algoritma\CodingStandards\AutoloadPathProvider;
 use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
+use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
 use Composer\Composer;
 use Composer\Factory;
 use Composer\IO\IOInterface;
@@ -31,11 +32,11 @@ class Installer
 
     private readonly PhpCsConfigWriterInterface $phpCsWriter;
 
-    private readonly PhpstanConfigWriter $phpstanWriter;
+    private readonly PhpstanConfigWriterInterface $phpstanWriter;
 
-    private readonly PhpstanAlgoritmaConfigWriter $phpstanAlgoritmaWriter;
+    private readonly PhpstanConfigWriterInterface $phpstanAlgoritmaWriter;
 
-    private readonly RectorConfigWriter $rectorWriter;
+    private readonly RectorConfigWriterInterface $rectorWriter;
 
     /**
      * @throws \RuntimeException
@@ -43,17 +44,14 @@ class Installer
      */
     public function __construct(
         private readonly IOInterface $io,
-        Composer $composer,
         ?string $projectRoot = null,
         ?string $composerPath = null,
         ?PhpCsConfigWriterInterface $phpCsWriter = null,
-        ?PhpstanConfigWriter $phpstanWriter = null,
-        ?PhpstanAlgoritmaConfigWriter $phpstanAlgoritmaWriter = null,
-        ?RectorConfigWriter $rectorWriter = null
+        ?PhpstanConfigWriterInterface $phpstanWriter = null,
+        ?PhpstanConfigWriterInterface $phpstanAlgoritmaWriter = null,
+        ?RectorConfigWriterInterface $rectorWriter = null
     ) {
-        // Get composer.json location
         $composerFile = $composerPath ?? Factory::getComposerFile();
-        // Calculate project root from composer.json, if necessary
         $projectRootPath = $projectRoot ?: realpath(\dirname($composerFile));
 
         if (! $projectRootPath) {

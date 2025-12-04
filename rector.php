@@ -13,6 +13,7 @@ return RectorConfig::configure()
     ->withParallel()
     ->withPaths([
         __FILE__,
+        '.php-cs-fixer.dist.php',
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])

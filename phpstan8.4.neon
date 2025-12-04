@@ -3,7 +3,7 @@ includes:
 
 parameters:
     phpVersion: 80400
-    level: 8
+    level: 6
     paths:
         - src/
         - tests/

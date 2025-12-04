@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandards\Phpstan\Command;
 
-use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Composer\Command\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

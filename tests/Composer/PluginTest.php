@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandardsTest\Installer;
+namespace Algoritma\CodingStandardsTest\Composer;
 
-use Algoritma\CodingStandards\Installer\CommandProvider;
-use Algoritma\CodingStandards\Installer\Installer;
-use Algoritma\CodingStandards\Installer\Plugin;
+use Algoritma\CodingStandards\Composer\CommandProvider;
+use Algoritma\CodingStandards\Composer\Installer;
+use Algoritma\CodingStandards\Composer\Plugin;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
@@ -63,13 +63,12 @@ class PluginTest extends TestCase
 
     public function testGetInstallerAfterSetter(): void
     {
-        $composer = $this->prophesize(Composer::class);
         $io = $this->prophesize(IOInterface::class);
         $installer = $this->prophesize(Installer::class);
 
         $plugin = new Plugin($installer->reveal());
 
-        $installerInstance = $plugin->getInstaller($composer->reveal(), $io->reveal());
+        $installerInstance = $plugin->getInstaller($io->reveal());
 
         self::assertInstanceOf(Installer::class, $installerInstance);
         self::assertSame($installer->reveal(), $installerInstance);
@@ -237,7 +236,7 @@ class PluginTest extends TestCase
 
         $capabilities = $plugin->getCapabilities();
 
-        self::assertArrayHasKey(\Composer\Plugin\Capability\CommandProvider::class, $capabilities);
-        self::assertSame(CommandProvider::class, $capabilities[\Composer\Plugin\Capability\CommandProvider::class]);
+        self::assertArrayHasKey(CommandProvider::class, $capabilities);
+        self::assertSame(CommandProvider::class, $capabilities[CommandProvider::class]);
     }
 }

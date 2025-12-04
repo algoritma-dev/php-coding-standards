@@ -1,14 +1,2 @@
 parameters:
-	ignoreErrors:
-
-		-
-			message: '#^Constructor of class Algoritma\\CodingStandards\\Installer\\Installer has an unused parameter \$composer\.$#'
-			identifier: constructor.unusedParameter
-			count: 1
-			path: src/Installer/Installer.php
-
-		-
-			message: '#^Method Algoritma\\CodingStandards\\Rules\\AbstractRuleProvider\:\:filterRules\(\) should return T of array\<string, mixed\> but returns array\<string, mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Rules/AbstractRuleProvider.php
+	ignoreErrors: []

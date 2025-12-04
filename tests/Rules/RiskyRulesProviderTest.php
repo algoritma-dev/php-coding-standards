@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Algoritma\CodingStandardsTest\Rules;
 
-
 use Algoritma\CodingStandards\PhpCsFixer\Rules\RiskyRulesProvider;
 use Algoritma\CodingStandards\Shared\Rules\RulesProviderInterface;
 

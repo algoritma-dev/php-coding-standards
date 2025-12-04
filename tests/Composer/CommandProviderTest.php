@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandardsTest\Installer;
+namespace Algoritma\CodingStandardsTest\Composer;
 
-use Algoritma\CodingStandards\Installer\Command\CreatePhpCsFixerConfigCommand;
-use Algoritma\CodingStandards\Installer\Command\CreatePhpstanConfigCommand;
-use Algoritma\CodingStandards\Installer\Command\CreateRectorConfigCommand;
-use Algoritma\CodingStandards\Installer\CommandProvider;
+use Algoritma\CodingStandards\Composer\CommandProvider;
+use Algoritma\CodingStandards\PhpCsFixer\Command\CreatePhpCsFixerConfigCommand;
+use Algoritma\CodingStandards\Phpstan\Command\CreatePhpstanConfigCommand;
+use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 

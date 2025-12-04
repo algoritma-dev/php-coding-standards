@@ -10,8 +10,8 @@ final class DefaultRulesProvider implements RulesProviderInterface
 {
     public function getRules(): array
     {
-        $rules = [
-            '@PER-CS2.0' => true,
+        return [
+            '@PER-CS2x0' => true,
             '@Symfony' => true,
             '@DoctrineAnnotation' => true,
             'align_multiline_comment' => true,
@@ -38,14 +38,15 @@ final class DefaultRulesProvider implements RulesProviderInterface
             'class_reference_name_casing' => true,
             'combine_consecutive_issets' => true,
             'combine_consecutive_unsets' => true,
-            'compact_nullable_typehint' => true,
+            'compact_nullable_type_declaration' => true,
             'concat_space' => [
                 'spacing' => 'one',
-            ], 'curly_braces_position' => true,
+            ],
+            'braces_position' => true,
             'declare_parentheses' => true,
             'empty_loop_body' => true,
             'explicit_string_variable' => true,
-            'function_typehint_space' => true,
+            'type_declaration_spaces' => true,
             'heredoc_indentation' => true,
             'heredoc_to_nowdoc' => true,
             'include' => true,
@@ -59,9 +60,8 @@ final class DefaultRulesProvider implements RulesProviderInterface
             'method_chaining_indentation' => true,
             'multiline_comment_opening_closing' => true,
             'native_function_casing' => true,
-            'native_function_type_declaration_casing' => true,
             'native_type_declaration_casing' => true,
-            'new_with_braces' => true,
+            'new_with_parentheses' => true,
             'no_alternative_syntax' => true,
             'no_blank_lines_after_phpdoc' => true,
             'no_empty_comment' => true,
@@ -84,10 +84,7 @@ final class DefaultRulesProvider implements RulesProviderInterface
                     'use',
                 ],
             ],
-            'no_trailing_comma_in_list_call' => true,
             'no_trailing_comma_in_singleline' => true,
-            'no_trailing_comma_in_singleline_array' => true,
-            'no_trailing_comma_in_singleline_function_call' => true,
             'no_unneeded_control_parentheses' => true,
             'no_unneeded_import_alias' => true,
             'no_unneeded_braces' => true,
@@ -136,7 +133,7 @@ final class DefaultRulesProvider implements RulesProviderInterface
             'return_to_yield_from' => true,
             'phpdoc_trim_consecutive_blank_line_separation' => true,
             'semicolon_after_instruction' => true,
-            'single_blank_line_before_namespace' => true,
+            'blank_lines_before_namespace' => true,
             'single_class_element_per_statement' => true,
             'single_line_comment_spacing' => true,
             'single_line_empty_body' => true,
@@ -150,7 +147,6 @@ final class DefaultRulesProvider implements RulesProviderInterface
                 'elements' => ['arrays'],
             ],
             'trim_array_spaces' => true,
-            'type_declaration_spaces' => true,
             'types_spaces' => true,
             'unary_operator_spaces' => true,
             'whitespace_after_comma_in_array' => true,
@@ -160,7 +156,5 @@ final class DefaultRulesProvider implements RulesProviderInterface
             'php_unit_attributes' => true,
             'string_implicit_backslashes' => true,
         ];
-
-        return $rules;
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Algoritma\CodingStandardsTest\Installer\Writer;
+namespace Algoritma\CodingStandardsTest\Phpstan\Writer;
 
-use Algoritma\CodingStandards\Installer\Writer\PhpstanAlgoritmaConfigWriter;
+use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandardsTest\Framework\TestCase;
 
 class PhpstanAlgoritmaConfigWriterTest extends TestCase
@@ -44,9 +44,9 @@ class PhpstanAlgoritmaConfigWriterTest extends TestCase
                 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider();
 
                 $additionalRules = [];
-                $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
-                    new Algoritma\CodingStandards\Rules\PhpstanRulesProvider(),
-                    new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
+                $rulesProvider = new Algoritma\CodingStandards\Shared\Rules\CompositeRulesProvider([
+                    new Algoritma\CodingStandards\Phpstan\Rules\PhpstanRulesProvider(),
+                    new Algoritma\CodingStandards\Shared\Rules\ArrayRulesProvider($additionalRules),
                 ]);
                 
                 /**
@@ -99,9 +99,9 @@ class PhpstanAlgoritmaConfigWriterTest extends TestCase
                 $autoloadPathProvider = new Algoritma\CodingStandards\AutoloadPathProvider(null, null, false);
                 
                 $additionalRules = [];
-                $rulesProvider = new Algoritma\CodingStandards\Rules\CompositeRulesProvider([
-                    new Algoritma\CodingStandards\Rules\PhpstanRulesProvider(),
-                    new Algoritma\CodingStandards\Rules\ArrayRulesProvider($additionalRules),
+                $rulesProvider = new Algoritma\CodingStandards\Shared\Rules\CompositeRulesProvider([
+                    new Algoritma\CodingStandards\Phpstan\Rules\PhpstanRulesProvider(),
+                    new Algoritma\CodingStandards\Shared\Rules\ArrayRulesProvider($additionalRules),
                 ]);
                 
                 /**
