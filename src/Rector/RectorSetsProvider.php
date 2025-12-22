@@ -7,7 +7,7 @@ namespace Algoritma\CodingStandards\Rector;
 use Algoritma\CodingStandards\Shared\SetsProviderInterface;
 use Composer\InstalledVersions;
 use Composer\Semver\VersionParser;
-use FriendsOfShopware\ShopwareRector\Set\ShopwareSetList;
+use Frosh\Rector\Set\ShopwareSetList;
 use Rector\Php\PhpVersionResolver\ComposerJsonPhpVersionResolver;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;

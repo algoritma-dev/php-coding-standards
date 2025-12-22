@@ -6,7 +6,7 @@ namespace Algoritma\CodingStandardsTest\Rector;
 
 use Algoritma\CodingStandards\Rector\RectorSetsProvider;
 use Composer\InstalledVersions;
-use FriendsOfShopware\ShopwareRector\Set\ShopwareSetList;
+use Frosh\Rector\Set\ShopwareSetList;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -97,7 +97,7 @@ class RectorSetsProviderTest extends TestCase
     }
 }
 
-namespace FriendsOfShopware\ShopwareRector\Set;
+namespace Frosh\Rector\Set;
 
 class ShopwareSetList
 {
