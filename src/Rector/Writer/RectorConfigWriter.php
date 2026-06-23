@@ -8,7 +8,9 @@ use Composer\InstalledVersions;
 
 final class RectorConfigWriter implements RectorConfigWriterInterface
 {
-    /** @var callable(string): bool */
+    /**
+     * @var callable(string): bool
+     */
     private $packageDetector;
 
     /**

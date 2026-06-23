@@ -18,7 +18,7 @@ class RectorSetsProviderTest extends TestCase
     public function testGetShopwareSets(string $version, array $expectedSets): void
     {
         $provider = new RectorSetsProvider(
-            static fn (string $package): ?string => 'shopware/core' === $package ? $version : null
+            static fn (string $package): ?string => $package === 'shopware/core' ? $version : null
         );
         $sets = $provider->getSets();
 

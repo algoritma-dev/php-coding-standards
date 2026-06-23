@@ -153,12 +153,12 @@ class PhpstanConfigWriterTest extends TestCase
 
     private function removeDirectory(string $directory): void
     {
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             return;
         }
 
         foreach (scandir($directory) as $entry) {
-            if ('.' === $entry || '..' === $entry) {
+            if ($entry === '.' || $entry === '..') {
                 continue;
             }
 

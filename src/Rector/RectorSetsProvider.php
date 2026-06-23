@@ -14,7 +14,9 @@ use Rector\Set\ValueObject\SetList;
 
 class RectorSetsProvider implements SetsProviderInterface
 {
-    /** @var callable(string): ?string */
+    /**
+     * @var callable(string): ?string
+     */
     private $versionResolver;
 
     /**
@@ -72,7 +74,7 @@ class RectorSetsProvider implements SetsProviderInterface
     private function getPhpUnitSets(): array
     {
         $version = ($this->versionResolver)('phpunit/phpunit');
-        if (null === $version) {
+        if ($version === null) {
             return [];
         }
 
@@ -104,7 +106,7 @@ class RectorSetsProvider implements SetsProviderInterface
     private function getShopwareSets(): array
     {
         $version = ($this->versionResolver)('shopware/core');
-        if (null === $version) {
+        if ($version === null) {
             return [];
         }
 

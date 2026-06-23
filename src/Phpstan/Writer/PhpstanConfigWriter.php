@@ -9,7 +9,9 @@ use Nette\Neon\Neon;
 
 final class PhpstanConfigWriter implements PhpstanConfigWriterInterface
 {
-    /** @var callable(string): bool */
+    /**
+     * @var callable(string): bool
+     */
     private $packageDetector;
 
     /**
@@ -80,7 +82,7 @@ final class PhpstanConfigWriter implements PhpstanConfigWriterInterface
         }
 
         $directory = \dirname($path);
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             mkdir($directory, 0o755, true);
         }
 
