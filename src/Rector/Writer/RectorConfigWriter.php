@@ -8,6 +8,17 @@ use Composer\InstalledVersions;
 
 final class RectorConfigWriter implements RectorConfigWriterInterface
 {
+    /** @var callable(string): bool */
+    private $packageDetector;
+
+    /**
+     * @param (callable(string): bool)|null $packageDetector resolves whether a Composer package is installed
+     */
+    public function __construct(?callable $packageDetector = null)
+    {
+        $this->packageDetector = $packageDetector ?? static fn (string $package): bool => class_exists(InstalledVersions::class) && InstalledVersions::isInstalled($package);
+    }
+
     public function writeConfigFile(?string $filename = null, bool $noDev = false): void
     {
         $filename = $filename ?: 'rector.php';
@@ -34,22 +45,22 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
         $rectorConfig .= "\n" . '    ->withSkip([\'**/vendor/*\', \'**/node_modules/*\'])';
         $rectorConfig .= "\n" . '    ->withPhpSets()';
 
-        if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('laravel/framework')) {
+        if ($this->isInstalled('laravel/framework')) {
             $rectorConfig .= "\n" . '    ->withSetProviders([Rector\Laravel\Set\LaravelSetProvider::class])';
         }
 
         $withComposerBased = [];
-        if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('doctrine/orm')) {
+        if ($this->isInstalled('doctrine/orm')) {
             $rectorConfig .= "\n" . '    ->withPreparedSets(doctrineCodeQuality: true)';
             $withComposerBased[] = 'doctrine: true';
         }
 
-        if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('symfony/framework-bundle')) {
+        if ($this->isInstalled('symfony/framework-bundle')) {
             $withComposerBased[] = 'symfony: true';
             $rectorConfig .= "\n" . '    ->withSymfonyContainerXml(__DIR__ . \'/var/cache/dev/AppKernelDevDebugContainer.xml\')';
         }
 
-        if (class_exists(InstalledVersions::class) && InstalledVersions::isInstalled('laravel/framework')) {
+        if ($this->isInstalled('laravel/framework')) {
             $withComposerBased[] = 'laravel: true';
         }
 
@@ -88,5 +99,10 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
             {$providersLine}
             ]);
             EOD;
+    }
+
+    private function isInstalled(string $package): bool
+    {
+        return ($this->packageDetector)($package);
     }
 }

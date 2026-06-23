@@ -5,24 +5,11 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandardsTest\Rector\Writer;
 
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
-use Composer\InstalledVersions;
 use PHPUnit\Framework\TestCase;
 
 class RectorConfigWriterTest extends TestCase
 {
     private string $testFile;
-
-    /**
-     * @var array{root: array<mixed>, versions: array<mixed>}
-     */
-    private static array $installedVersionsData;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-
-        self::$installedVersionsData = InstalledVersions::getAllRawData()[0];
-    }
 
     protected function setUp(): void
     {
@@ -36,14 +23,11 @@ class RectorConfigWriterTest extends TestCase
         if (file_exists($this->testFile)) {
             unlink($this->testFile);
         }
-        InstalledVersions::reload(self::$installedVersionsData);
     }
 
     public function testDoctrineConfigIsWrittenWhenDoctrineIsInstalled(): void
     {
-        $this->mockInstalledVersions('doctrine/orm', '3.0.0');
-
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith(['doctrine/orm']);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
@@ -54,7 +38,7 @@ class RectorConfigWriterTest extends TestCase
 
     public function testDoctrineConfigIsNotWrittenWhenDoctrineIsNotInstalled(): void
     {
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith([]);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
@@ -65,19 +49,18 @@ class RectorConfigWriterTest extends TestCase
 
     public function testSymfonyConfigIsWrittenWhenSymfonyIsInstalled(): void
     {
-        $this->mockInstalledVersions('symfony/framework-bundle', '6.0.0');
-
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith(['symfony/framework-bundle']);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
 
         $this->assertStringContainsString('->withComposerBased(symfony: true)', $configContent);
+        $this->assertStringContainsString('->withSymfonyContainerXml(', $configContent);
     }
 
     public function testSymfonyConfigIsNotWrittenWhenSymfonyIsNotInstalled(): void
     {
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith([]);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
@@ -87,9 +70,7 @@ class RectorConfigWriterTest extends TestCase
 
     public function testLaravelConfigIsWrittenWhenLaravelIsInstalled(): void
     {
-        $this->mockInstalledVersions('laravel/framework', '10.0.0');
-
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith(['laravel/framework']);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
@@ -100,7 +81,7 @@ class RectorConfigWriterTest extends TestCase
 
     public function testLaravelConfigIsNotWrittenWhenLaravelIsNotInstalled(): void
     {
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith([]);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
@@ -111,12 +92,7 @@ class RectorConfigWriterTest extends TestCase
 
     public function testDoctrineAndSymfonyConfigIsWrittenWhenBothAreInstalled(): void
     {
-        $this->mockInstalledVersions([
-            'doctrine/orm' => '3.0.0',
-            'symfony/framework-bundle' => '6.0.0',
-        ]);
-
-        $writer = new RectorConfigWriter();
+        $writer = $this->writerWith(['doctrine/orm', 'symfony/framework-bundle']);
         $writer->writeConfigFile($this->testFile);
 
         $configContent = file_get_contents($this->testFile);
@@ -126,39 +102,10 @@ class RectorConfigWriterTest extends TestCase
     }
 
     /**
-     * @param array<string, string|null>|string $packages
+     * @param list<string> $installed
      */
-    private function mockInstalledVersions(array|string $packages, ?string $version = null): void
+    private function writerWith(array $installed): RectorConfigWriter
     {
-        $versions = [];
-        if (is_string($packages)) {
-            $packages = [$packages => $version];
-        }
-
-        foreach ($packages as $package => $ver) {
-            $versions[$package] = [
-                'pretty_version' => $ver,
-                'version' => $ver,
-                'aliases' => [],
-                'reference' => 'mock',
-                'dev_requirement' => true,
-            ];
-        }
-
-        $data = [
-            'root' => [
-                'name' => 'algoritma/php-coding-standards',
-                'pretty_version' => '1.0.0',
-                'version' => '1.0.0',
-                'reference' => 'mock',
-                'type' => 'library',
-                'install_path' => __DIR__ . '/../../..',
-                'aliases' => [],
-                'dev' => true,
-            ],
-            'versions' => $versions,
-        ];
-
-        InstalledVersions::reload($data);
+        return new RectorConfigWriter(static fn (string $package): bool => \in_array($package, $installed, true));
     }
 }

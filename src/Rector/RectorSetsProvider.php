@@ -14,6 +14,23 @@ use Rector\Set\ValueObject\SetList;
 
 class RectorSetsProvider implements SetsProviderInterface
 {
+    /** @var callable(string): ?string */
+    private $versionResolver;
+
+    /**
+     * @param (callable(string): ?string)|null $versionResolver resolves the installed version of a Composer package, or null when absent
+     */
+    public function __construct(?callable $versionResolver = null)
+    {
+        $this->versionResolver = $versionResolver ?? static function (string $package): ?string {
+            if (! class_exists(InstalledVersions::class) || ! InstalledVersions::isInstalled($package)) {
+                return null;
+            }
+
+            return InstalledVersions::getVersion($package);
+        };
+    }
+
     /**
      * @return array<string>
      */
@@ -54,12 +71,13 @@ class RectorSetsProvider implements SetsProviderInterface
      */
     private function getPhpUnitSets(): array
     {
-        if (! class_exists(InstalledVersions::class) || ! InstalledVersions::isInstalled('phpunit/phpunit')) {
+        $version = ($this->versionResolver)('phpunit/phpunit');
+        if (null === $version) {
             return [];
         }
 
         $versionParser = new VersionParser();
-        $phpunitVersion = $versionParser->normalize((string) InstalledVersions::getVersion('phpunit/phpunit'));
+        $phpunitVersion = $versionParser->normalize($version);
 
         if (str_starts_with($phpunitVersion, '12.')) {
             return [PHPUnitSetList::PHPUNIT_120];
@@ -85,7 +103,8 @@ class RectorSetsProvider implements SetsProviderInterface
      */
     private function getShopwareSets(): array
     {
-        if (! class_exists(InstalledVersions::class) || ! InstalledVersions::isInstalled('shopware/core')) {
+        $version = ($this->versionResolver)('shopware/core');
+        if (null === $version) {
             return [];
         }
 
@@ -94,7 +113,7 @@ class RectorSetsProvider implements SetsProviderInterface
         }
 
         $versionParser = new VersionParser();
-        $shopwareVersion = $versionParser->normalize((string) InstalledVersions::getVersion('shopware/core'));
+        $shopwareVersion = $versionParser->normalize($version);
 
         if (str_starts_with($shopwareVersion, '6.8.')) {
             return [ShopwareSetList::SHOPWARE_6_8_0];
