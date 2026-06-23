@@ -53,6 +53,17 @@ final class PhpstanConfigWriter implements PhpstanConfigWriterInterface
                 'containerXmlPath' => 'var/cache/dev/App_KernelDevDebugContainer.xml',
                 'consoleApplicationLoader' => 'tests/console-application.php',
             ];
+
+            // If you're using PHP config files for Symfony 5.3+, you also need this for auto-loading of `Symfony\Config`:
+            $parameters['scanDirectories'] = [
+                'var/cache/dev/Symfony/Config',
+            ];
+
+            // If you're using PHP config files (including the ones under packages/*.php) for Symfony 5.3+,
+            // you need this to load the helper functions (i.e. service(), env()):
+            $parameters['scanFiles'] = [
+                'vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php',
+            ];
         }
 
         if ($this->isInstalled('doctrine/orm')) {
