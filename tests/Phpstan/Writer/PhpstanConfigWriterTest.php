@@ -90,6 +90,10 @@ class PhpstanConfigWriterTest extends TestCase
         self::assertStringContainsString('symfony:', $content);
         self::assertStringContainsString('containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml', $content);
         self::assertStringContainsString('consoleApplicationLoader: tests/console-application.php', $content);
+        self::assertStringContainsString('scanDirectories:', $content);
+        self::assertStringContainsString('var/cache/dev/Symfony/Config', $content);
+        self::assertStringContainsString('scanFiles:', $content);
+        self::assertStringContainsString('vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php', $content);
         self::assertStringNotContainsString('doctrine:', $content);
 
         $loader = $this->workDir . '/tests/console-application.php';
