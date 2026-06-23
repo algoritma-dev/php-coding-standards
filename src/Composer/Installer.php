@@ -78,6 +78,7 @@ class Installer
         $this->createPhpstanConfig();
         $this->createPhpstanAlgoritmaConfig();
         $this->createRectorConfig();
+        $this->suggestPhpstanExtensions();
         $this->requestAddComposerScripts();
         $this->composerJson->write($this->composerDefinition);
     }
@@ -177,6 +178,43 @@ class Installer
         }
 
         $this->rectorWriter->writeConfigFile($this->projectRoot . '/rector.php');
+    }
+
+    /**
+     * Suggest PHPStan extensions to install based on detected packages.
+     *
+     * Each entry maps a detected package to the recommended PHPStan extension.
+     * Extensions are not installed automatically — Composer cannot safely
+     * re-resolve dependencies inside an install event — so the user is asked
+     * to run the require command. The extension-installer plugin then registers
+     * the extension in phpstan.neon automatically once it lands in vendor.
+     */
+    public function suggestPhpstanExtensions(): void
+    {
+        if (! class_exists(InstalledVersions::class)) {
+            return;
+        }
+
+        $extensions = [
+            'symfony/framework-bundle' => 'phpstan/phpstan-symfony',
+            'doctrine/orm' => 'phpstan/phpstan-doctrine',
+            'phpunit/phpunit' => 'phpstan/phpstan-phpunit',
+        ];
+
+        $missing = [];
+        foreach ($extensions as $package => $extension) {
+            if (InstalledVersions::isInstalled($package) && ! InstalledVersions::isInstalled($extension)) {
+                $missing[] = $extension;
+            }
+        }
+
+        if ($missing === []) {
+            return;
+        }
+
+        $this->io->write("\n<info>Detected packages that have matching PHPStan extensions.</info>");
+        $this->io->write('<info>Install them with:</info>');
+        $this->io->write(sprintf('  <comment>composer require --dev %s</comment>', implode(' ', $missing)));
     }
 
     public function requestAddComposerScripts(): void
