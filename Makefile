@@ -1,7 +1,7 @@
 # Makefile for Insight Core Project
 setup: build composer-update
 
-PHP_V=8.1
+PHP_V=8.2
 
 DOCKER_COMPOSE_RUN=docker-compose run --rm php${PHP_V}
 

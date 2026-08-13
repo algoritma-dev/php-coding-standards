@@ -304,7 +304,7 @@ class Installer
             $constraint = '^' . $constraint;
         }
 
-        return ! ($targetPackage->getVersion() && Semver::satisfies($targetPackage->getVersion(), $constraint));
+        return ! $targetPackage->getVersion() || ! Semver::satisfies($targetPackage->getVersion(), $constraint);
     }
 
     /**

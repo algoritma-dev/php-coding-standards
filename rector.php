@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector;
 
 return RectorConfig::configure()
@@ -21,11 +20,8 @@ return RectorConfig::configure()
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
-        typeDeclarations: true,  
+        typeDeclarations: true,
     )
-    ->withSets([
-        PHPUnitSetList::PHPUNIT_100,
-    ])
     ->withSkip([
         ReturnNeverTypeRector::class,
     ]);
