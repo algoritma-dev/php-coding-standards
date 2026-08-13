@@ -51,22 +51,32 @@ final class PhpstanAlgoritmaConfigWriter implements PhpstanConfigWriterInterface
                 }, \$autoloadPathProvider->getPaths());
 
             \$paths = array_values(array_unique(\$paths));
-            
+
+            /**
+             * The type_perfect parameters come from rector/type-perfect (abandoned) or from
+             * tomasvotruba/type-coverage >= 2.3, which absorbed it. type-coverage 2.3 requires
+             * PHP 8.4, so on older runtimes Composer resolves 2.2 instead and neither package
+             * declares the parameter; emitting it unconditionally makes PHPStan abort with
+             * "Unexpected item 'parameters > type_perfect'".
+             */
+            \$typePerfect = class_exists('Rector\\\\TypePerfect\\\\Rules\\\\NoIssetOnObjectRule') ? [
+                'type_perfect' => [
+                    'no_mixed_property' => true,
+                    'no_mixed_caller' => true,
+                    'null_over_false' => true,
+                    'narrow_param' => true,
+                    'narrow_return' => true,
+                ],
+            ] : [];
+
             return [
                 'parameters' => [
                     'paths' => \$paths,
                     'treatPhpDocTypesAsCertain' => false,
                     'inferPrivatePropertyTypeFromConstructor' => true,
-                    'type_perfect' => [
-                        'no_mixed_property' => true,
-                        'no_mixed_caller' => true,
-                        'null_over_false' => true,
-                        'narrow_param' => true,
-                        'narrow_return' => true,
-                    ],
                     'errorFormat' => 'ticketswap',
                     'editorUrl' => 'phpstorm://open?file=%%file%%&line=%%line%%',
-                ],
+                ] + \$typePerfect,
                 'rules' => \$rulesProvider->getRules()
             ];
 
