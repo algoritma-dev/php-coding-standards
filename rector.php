@@ -22,6 +22,7 @@ return RectorConfig::configure()
         codeQuality: true,
         typeDeclarations: true,
     )
+    ->withComposerBased(phpunit: true)
     ->withSkip([
         ReturnNeverTypeRector::class,
     ]);

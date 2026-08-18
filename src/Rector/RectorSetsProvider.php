@@ -73,31 +73,15 @@ class RectorSetsProvider implements SetsProviderInterface
      */
     private function getPhpUnitSets(): array
     {
-        $version = ($this->versionResolver)('phpunit/phpunit');
-        if ($version === null) {
+        if (($this->versionResolver)('phpunit/phpunit') === null) {
             return [];
         }
 
-        $versionParser = new VersionParser();
-        $phpunitVersion = $versionParser->normalize($version);
-
-        if (str_starts_with($phpunitVersion, '12.')) {
-            return [PHPUnitSetList::PHPUNIT_120];
-        }
-
-        if (str_starts_with($phpunitVersion, '11.')) {
-            return [PHPUnitSetList::PHPUNIT_110];
-        }
-
-        if (str_starts_with($phpunitVersion, '10.')) {
-            return [PHPUnitSetList::PHPUNIT_100];
-        }
-
-        if (str_starts_with($phpunitVersion, '9.')) {
-            return [PHPUnitSetList::PHPUNIT_90];
-        }
-
-        return [];
+        /*
+         * Single set: every rule inside is bound to the installed PHPUnit version on its own,
+         * so there is no need to pick a version specific set list.
+         */
+        return [PHPUnitSetList::COMPOSER_BASED];
     }
 
     /**
