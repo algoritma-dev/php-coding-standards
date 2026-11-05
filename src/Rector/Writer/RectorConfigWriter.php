@@ -24,10 +24,10 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
     public function writeConfigFile(?string $filename = null, bool $noDev = false): void
     {
         $filename = $filename ?: 'rector.php';
-        file_put_contents($filename, $this->createConfigSource($noDev));
+        file_put_contents($filename, $this->createConfigSource($noDev, \dirname($filename)));
     }
 
-    private function createConfigSource(bool $noDev = false): string
+    private function createConfigSource(bool $noDev = false, string $projectRoot = '.'): string
     {
         $rulesProviderConfig = $this->createRulesProviderConfig();
 
@@ -45,7 +45,7 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
         $rectorConfig .= "\n" . '    ->withParallel()';
         $rectorConfig .= "\n" . '    ->withPaths($autoloadPathProvider->getPaths())';
         $rectorConfig .= "\n" . '    ->withSkip([\'**/vendor/*\', \'**/node_modules/*\'])';
-        $rectorConfig .= "\n" . '    ->withPhpSets()';
+        $rectorConfig .= "\n" . '    ->' . $this->createPhpSets($projectRoot);
 
         if ($this->isInstalled('laravel/framework')) {
             $rectorConfig .= "\n" . '    ->withSetProviders([Rector\Laravel\Set\LaravelSetProvider::class])';
@@ -87,6 +87,24 @@ final class RectorConfigWriter implements RectorConfigWriterInterface
             {$rectorConfig}
 
             EOD;
+    }
+
+    /**
+     * withPhpSets() reads the PHP version from the "php" requirement of composer.json and stops without it. The
+     * Magento project template has none, so the version of the PHP that runs composer is used.
+     */
+    private function createPhpSets(string $projectRoot): string
+    {
+        if (! is_file($projectRoot . '/bin/magento')) {
+            return 'withPhpSets()';
+        }
+
+        $composer = json_decode((string) @file_get_contents($projectRoot . '/composer.json'), true);
+        if (\is_array($composer) && isset($composer['require']['php'])) {
+            return 'withPhpSets()';
+        }
+
+        return \sprintf('withPhpSets(php%d%d: true)', \PHP_MAJOR_VERSION, \PHP_MINOR_VERSION);
     }
 
     private function createRulesProviderConfig(): string

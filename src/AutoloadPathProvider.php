@@ -52,6 +52,11 @@ class AutoloadPathProvider
             $paths = array_merge($paths, $this->getAutoloadPaths($autoloadDev));
         }
 
+        // Magento lists generated/code/ in psr-0: the framework writes it at runtime (proxies, factories) and it is not ours.
+        if (is_file($this->projectRoot . '/bin/magento')) {
+            return array_values(array_filter($paths, static fn (string $path): bool => ! str_starts_with($path, 'generated/')));
+        }
+
         return $paths;
     }
 

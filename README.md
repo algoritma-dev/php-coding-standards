@@ -18,6 +18,8 @@ The installer will add the `.php-cs-fixer.dist.php`, `rector.php`, and `phpstan.
 
 The CS config will be configured to find your project files using composer autoload sources. Only `psr-0`, `psr-4` and `classmap` autoloads are supported.
 
+In a Magento project (a `bin/magento` file in the project root) the `generated/` directory is left out, because Magento writes it at runtime. If its `composer.json` has no `php` requirement, `rector.php` sets the PHP version explicitly to the one running composer, as `withPhpSets()` would stop without it.
+
 The installer will also add five scripts in your `composer.json`;
 
 ```json

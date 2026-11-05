@@ -11,6 +11,11 @@ class RectorConfigWriterTest extends TestCase
 {
     private string $testFile;
 
+    /**
+     * @var list<string>
+     */
+    private array $magentoDirs = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -23,6 +28,8 @@ class RectorConfigWriterTest extends TestCase
         if (file_exists($this->testFile)) {
             unlink($this->testFile);
         }
+
+        (new \Symfony\Component\Filesystem\Filesystem())->remove($this->magentoDirs);
     }
 
     public function testDoctrineConfigIsWrittenWhenDoctrineIsInstalled(): void
@@ -99,6 +106,46 @@ class RectorConfigWriterTest extends TestCase
 
         $this->assertStringContainsString('->withPreparedSets(doctrineCodeQuality: true)', $configContent);
         $this->assertStringContainsString('->withComposerBased(doctrine: true, symfony: true)', $configContent);
+    }
+
+    public function testMagentoWithoutPhpRequirementGetsExplicitPhpSets(): void
+    {
+        $dir = $this->magentoDir('{"require":{"magento/framework":"*"}}');
+        $file = $dir . '/rector.php';
+
+        $this->writerWith([])->writeConfigFile($file);
+
+        $configContent = file_get_contents($file);
+        $this->assertStringContainsString(\sprintf('->withPhpSets(php%d%d: true)', \PHP_MAJOR_VERSION, \PHP_MINOR_VERSION), $configContent);
+        $this->assertStringNotContainsString('->withPhpSets()', $configContent);
+    }
+
+    public function testMagentoWithPhpRequirementKeepsComposerBasedPhpSets(): void
+    {
+        $dir = $this->magentoDir('{"require":{"php":"~8.3.0"}}');
+        $file = $dir . '/rector.php';
+
+        $this->writerWith([])->writeConfigFile($file);
+
+        $this->assertStringContainsString('->withPhpSets()', file_get_contents($file));
+    }
+
+    public function testNonMagentoKeepsComposerBasedPhpSets(): void
+    {
+        $this->writerWith([])->writeConfigFile($this->testFile);
+
+        $this->assertStringContainsString('->withPhpSets()', file_get_contents($this->testFile));
+    }
+
+    private function magentoDir(string $composerJson): string
+    {
+        $dir = sys_get_temp_dir() . '/' . uniqid('rector-magento', true);
+        mkdir($dir . '/bin', 0o755, true);
+        touch($dir . '/bin/magento');
+        file_put_contents($dir . '/composer.json', $composerJson);
+        $this->magentoDirs[] = $dir;
+
+        return $dir;
     }
 
     /**
