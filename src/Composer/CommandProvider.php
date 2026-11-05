@@ -7,7 +7,6 @@ namespace Algoritma\CodingStandards\Composer;
 use Algoritma\CodingStandards\PhpCsFixer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Phpstan\Command\CreatePhpstanConfigCommand;
 use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
-use Composer\Command\BaseCommand;
 use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 
 class CommandProvider implements ComposerCommandProvider
@@ -15,7 +14,7 @@ class CommandProvider implements ComposerCommandProvider
     /**
      * Retrieves an array of commands.
      *
-     * @return BaseCommand[]
+     * @return array{CreatePhpCsFixerConfigCommand, CreatePhpstanConfigCommand, CreateRectorConfigCommand}
      */
     public function getCommands(): array
     {

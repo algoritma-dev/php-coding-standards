@@ -6,6 +6,7 @@ namespace Algoritma\CodingStandardsTest\Rector\Writer;
 
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Filesystem\Filesystem;
 
 class RectorConfigWriterTest extends TestCase
 {
@@ -29,7 +30,7 @@ class RectorConfigWriterTest extends TestCase
             unlink($this->testFile);
         }
 
-        (new \Symfony\Component\Filesystem\Filesystem())->remove($this->magentoDirs);
+        (new Filesystem())->remove($this->magentoDirs);
     }
 
     public function testDoctrineConfigIsWrittenWhenDoctrineIsInstalled(): void

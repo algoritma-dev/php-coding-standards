@@ -30,14 +30,6 @@ class Installer
 
     private JsonFile $composerJson;
 
-    private readonly PhpCsConfigWriterInterface $phpCsWriter;
-
-    private readonly PhpstanConfigWriterInterface $phpstanWriter;
-
-    private readonly PhpstanConfigWriterInterface $phpstanAlgoritmaWriter;
-
-    private readonly RectorConfigWriterInterface $rectorWriter;
-
     /**
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
@@ -46,10 +38,10 @@ class Installer
         private readonly IOInterface $io,
         ?string $projectRoot = null,
         ?string $composerPath = null,
-        ?PhpCsConfigWriterInterface $phpCsWriter = null,
-        ?PhpstanConfigWriterInterface $phpstanWriter = null,
-        ?PhpstanConfigWriterInterface $phpstanAlgoritmaWriter = null,
-        ?RectorConfigWriterInterface $rectorWriter = null
+        private readonly PhpCsConfigWriterInterface $phpCsWriter = new PhpCsConfigFixerWriter(),
+        private readonly PhpstanConfigWriterInterface $phpstanWriter = new PhpstanConfigWriter(),
+        private readonly PhpstanConfigWriterInterface $phpstanAlgoritmaWriter = new PhpstanAlgoritmaConfigWriter(),
+        private readonly RectorConfigWriterInterface $rectorWriter = new RectorConfigWriter()
     ) {
         $composerFile = $composerPath ?? Factory::getComposerFile();
         $projectRootPath = $projectRoot ?: realpath(\dirname($composerFile));
@@ -62,10 +54,6 @@ class Installer
 
         // Parse the composer.json
         $this->parseComposerDefinition($composerFile);
-        $this->phpCsWriter = $phpCsWriter ?: new PhpCsConfigFixerWriter();
-        $this->phpstanWriter = $phpstanWriter ?: new PhpstanConfigWriter();
-        $this->phpstanAlgoritmaWriter = $phpstanAlgoritmaWriter ?: new PhpstanAlgoritmaConfigWriter();
-        $this->rectorWriter = $rectorWriter ?: new RectorConfigWriter();
     }
 
     /**

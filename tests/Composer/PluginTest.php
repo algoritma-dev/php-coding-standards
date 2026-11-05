@@ -7,7 +7,7 @@ namespace Algoritma\CodingStandardsTest\Composer;
 use Algoritma\CodingStandards\Composer\CommandProvider;
 use Algoritma\CodingStandards\Composer\Installer;
 use Algoritma\CodingStandards\Composer\Plugin;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\OperationInterface;
@@ -21,7 +21,7 @@ use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 use Prophecy\Argument;
 
-class PluginTest extends TestCase
+class PluginTest extends AbstractTestCase
 {
     private const PACKAGE_NAME = 'algoritma/php-coding-standards';
 
@@ -43,8 +43,10 @@ class PluginTest extends TestCase
         self::assertArrayHasKey(PackageEvents::POST_PACKAGE_INSTALL, $events);
         self::assertArrayHasKey(PackageEvents::POST_PACKAGE_UPDATE, $events);
 
-        self::assertTrue(method_exists($plugin, $events[PackageEvents::POST_PACKAGE_INSTALL]));
-        self::assertTrue(method_exists($plugin, $events[PackageEvents::POST_PACKAGE_UPDATE]));
+        $reflection = new \ReflectionClass($plugin);
+
+        self::assertTrue($reflection->hasMethod($events[PackageEvents::POST_PACKAGE_INSTALL]));
+        self::assertTrue($reflection->hasMethod($events[PackageEvents::POST_PACKAGE_UPDATE]));
     }
 
     public function testActive(): void

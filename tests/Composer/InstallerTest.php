@@ -8,7 +8,7 @@ use Algoritma\CodingStandards\Composer\Installer;
 use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigWriterInterface;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 use Algoritma\CodingStandardsTest\Util;
 use Composer\IO\IOInterface;
 use Composer\Package\Package;
@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Prophecy\Argument;
 use Symfony\Component\Filesystem\Filesystem;
 
-class InstallerTest extends TestCase
+class InstallerTest extends AbstractTestCase
 {
     private string $composerFilePath;
 
@@ -299,8 +299,7 @@ class InstallerTest extends TestCase
             $io->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            null,
-            $writer->reveal(),
+            phpstanWriter: $writer->reveal(),
         );
         $installer->createPhpstanConfig();
     }
@@ -321,9 +320,7 @@ class InstallerTest extends TestCase
             $io->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            null,
-            null,
-            $writer->reveal(),
+            phpstanAlgoritmaWriter: $writer->reveal(),
         );
         $installer->createPhpstanAlgoritmaConfig();
     }
@@ -346,10 +343,7 @@ class InstallerTest extends TestCase
             $io->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            null,
-            null,
-            null,
-            $writer->reveal(),
+            rectorWriter: $writer->reveal(),
         );
         $installer->createRectorConfig();
     }
@@ -390,8 +384,7 @@ class InstallerTest extends TestCase
             $io->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            null,
-            $writer->reveal(),
+            phpstanWriter: $writer->reveal(),
         );
 
         $installer->createPhpstanConfig();
@@ -411,9 +404,7 @@ class InstallerTest extends TestCase
             $io->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            null,
-            null,
-            $writer->reveal(),
+            phpstanAlgoritmaWriter: $writer->reveal(),
         );
 
         $installer->createPhpstanAlgoritmaConfig();
@@ -434,10 +425,7 @@ class InstallerTest extends TestCase
             $io->reveal(),
             $this->projectRoot,
             $this->composerFilePath,
-            null,
-            null,
-            null,
-            $writer->reveal(),
+            rectorWriter: $writer->reveal(),
         );
 
         $installer->createRectorConfig();

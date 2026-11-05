@@ -1,2 +1,10 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		# The interfaces live next to their implementations: moving them to a "Contract" namespace
+		# would break every consumer that type-hints the current names.
+		-
+			identifier: symplify.requiredInterfaceContractNamespace
+		# Composer instantiates the plugin without arguments, the installer is built in activate().
+		-
+			identifier: symplify.noNullableServiceInConstructor
+			path: src/Composer/Plugin.php

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandardsTest;
 
 use Algoritma\CodingStandards\AutoloadPathProvider;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
+use Symfony\Component\Filesystem\Filesystem;
 
-class AutoloadPathProviderTest extends TestCase
+class AutoloadPathProviderTest extends AbstractTestCase
 {
     private string $composerFilePath;
 
@@ -40,7 +41,7 @@ class AutoloadPathProviderTest extends TestCase
         rmdir($this->projectRoot . '/src');
         rmdir($this->projectRoot . '/tests');
 
-        (new \Symfony\Component\Filesystem\Filesystem())->remove($this->magentoRoots);
+        (new Filesystem())->remove($this->magentoRoots);
     }
 
     public function testGetPathsWithDevOn(): void

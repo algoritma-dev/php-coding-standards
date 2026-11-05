@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Shared\Rules\ArrayRulesProvider;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 
-class ArrayRulesProviderTest extends TestCase
+class ArrayRulesProviderTest extends AbstractTestCase
 {
     public function testGetRules(): void
     {

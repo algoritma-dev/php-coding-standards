@@ -8,10 +8,12 @@ use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
 use Composer\Command\BaseCommand;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'algoritma-phpstan-create-config', description: 'Write the configuration for phpstan')]
 class CreatePhpstanConfigCommand extends BaseCommand
 {
     private PhpstanConfigWriterInterface $configWriter;

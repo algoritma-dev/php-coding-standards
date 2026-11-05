@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandardsTest\Sets;
 
 use Algoritma\CodingStandards\Shared\SetsProviderInterface;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 
-abstract class AbstractSetsProviderTestCase extends TestCase
+abstract class AbstractSetsProviderTestCase extends AbstractTestCase
 {
     public function testRulesAreAlphabeticallySorted(): void
     {

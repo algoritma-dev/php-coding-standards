@@ -6,9 +6,9 @@ namespace Algoritma\CodingStandardsTest\Rules;
 
 use Algoritma\CodingStandards\Shared\Rules\CompositeRulesProvider;
 use Algoritma\CodingStandards\Shared\Rules\RulesProviderInterface;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 
-class CompositeRulesProviderTest extends TestCase
+class CompositeRulesProviderTest extends AbstractTestCase
 {
     public function testGetRules(): void
     {

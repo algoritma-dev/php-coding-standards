@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Algoritma\CodingStandardsTest\Phpstan\Writer;
 
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 
-class PhpstanConfigWriterTest extends TestCase
+class PhpstanConfigWriterTest extends AbstractTestCase
 {
     private string $workDir;
 

@@ -1,20 +1,20 @@
 # Makefile for Insight Core Project
-setup: build composer-update
+setup: composer-update
 
 PHP_V=8.2
 
-DOCKER_COMPOSE_RUN=docker-compose run --rm php${PHP_V}
+DOCKER_COMPOSE_RUN=docker compose run --rm php${PHP_V}
 
 shell:
 	${DOCKER_COMPOSE_RUN} sh
 
 start:
-	docker-compose up -d php${PHP_V}
+	docker compose up -d php${PHP_V}
 
 composer-update:
 	${DOCKER_COMPOSE_RUN} php composer.phar update
 
-pre-commit-check: rector cs-fix phpstan tests
+pre-commit-check: rector cs-fix phpstan test
 
 rector:
 	${DOCKER_COMPOSE_RUN} vendor/bin/rector --ansi

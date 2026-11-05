@@ -7,7 +7,7 @@ namespace Algoritma\CodingStandardsTest\Framework;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class TestCase extends PHPUnitTestCase
+abstract class AbstractTestCase extends PHPUnitTestCase
 {
     use ProphecyTrait;
 }

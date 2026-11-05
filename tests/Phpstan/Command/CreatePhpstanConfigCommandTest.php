@@ -8,12 +8,12 @@ use Algoritma\CodingStandards\Phpstan\Command\CreatePhpstanConfigCommand;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanAlgoritmaConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriter;
 use Algoritma\CodingStandards\Phpstan\Writer\PhpstanConfigWriterInterface;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreatePhpstanConfigCommandTest extends TestCase
+class CreatePhpstanConfigCommandTest extends AbstractTestCase
 {
     protected function setUp(): void
     {

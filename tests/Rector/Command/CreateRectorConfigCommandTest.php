@@ -6,12 +6,12 @@ namespace Algoritma\CodingStandardsTest\Rector\Command;
 
 use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateRectorConfigCommandTest extends TestCase
+class CreateRectorConfigCommandTest extends AbstractTestCase
 {
     protected function setUp(): void
     {

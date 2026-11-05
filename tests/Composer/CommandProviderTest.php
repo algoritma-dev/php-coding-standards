@@ -8,10 +8,10 @@ use Algoritma\CodingStandards\Composer\CommandProvider;
 use Algoritma\CodingStandards\PhpCsFixer\Command\CreatePhpCsFixerConfigCommand;
 use Algoritma\CodingStandards\Phpstan\Command\CreatePhpstanConfigCommand;
 use Algoritma\CodingStandards\Rector\Command\CreateRectorConfigCommand;
-use Algoritma\CodingStandardsTest\Framework\TestCase;
+use Algoritma\CodingStandardsTest\Framework\AbstractTestCase;
 use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 
-class CommandProviderTest extends TestCase
+class CommandProviderTest extends AbstractTestCase
 {
     public function testGetCommands(): void
     {

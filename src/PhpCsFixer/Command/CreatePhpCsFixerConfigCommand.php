@@ -7,10 +7,12 @@ namespace Algoritma\CodingStandards\PhpCsFixer\Command;
 use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigFixerWriter;
 use Algoritma\CodingStandards\PhpCsFixer\Writer\PhpCsConfigWriterInterface;
 use Composer\Command\BaseCommand;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'algoritma-cs-create-config', description: 'Write the algoritma-coding-standard configuration for php-cs-fixer')]
 class CreatePhpCsFixerConfigCommand extends BaseCommand
 {
     private PhpCsConfigWriterInterface $configWriter;

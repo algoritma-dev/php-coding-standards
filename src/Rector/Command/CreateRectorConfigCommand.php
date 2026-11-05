@@ -7,10 +7,12 @@ namespace Algoritma\CodingStandards\Rector\Command;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriter;
 use Algoritma\CodingStandards\Rector\Writer\RectorConfigWriterInterface;
 use Composer\Command\BaseCommand;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'algoritma-rector-create-config', description: 'Write the configuration for rector')]
 class CreateRectorConfigCommand extends BaseCommand
 {
     private RectorConfigWriterInterface $configWriter;
