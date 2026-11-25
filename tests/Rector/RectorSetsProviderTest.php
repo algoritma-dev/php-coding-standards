@@ -12,6 +12,24 @@ use PHPUnit\Framework\TestCase;
 class RectorSetsProviderTest extends TestCase
 {
     /**
+     * Guards against Rector dropping a set constant (2.9 removed EARLY_RETURN, INSTANCEOF and PHP_8x), which
+     * breaks every project resolving the newest rector/rector allowed by composer.json.
+     */
+    public function testEverySetIsAnExistingRectorConfigWithTheInstalledRector(): void
+    {
+        $provider = new RectorSetsProvider(
+            static fn (string $package): ?string => $package === 'phpunit/phpunit' ? '12.0.0' : null
+        );
+
+        $sets = $provider->getSets();
+
+        $this->assertNotEmpty($sets);
+        foreach ($sets as $set) {
+            $this->assertFileExists($set);
+        }
+    }
+
+    /**
      * @param array<string> $expectedSets
      */
     #[DataProvider('shopwareVersionProvider')]
